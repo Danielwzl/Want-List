@@ -63,12 +63,20 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        Ajax ajax = new Ajax();
+//        Ajax ajax = new Ajax();
         TreeMap<String, String> params = new TreeMap<>();
         params.put("abc", "1");
         params.put("name", "daniel");
         params.put("age", "123");
-//        ajax.get("http://localhost:3002/", params);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Ajax http = new Ajax();
+                System.out.println("Testing 1 - Send Http GET request");
+                http.sendGet();
+            }
+        }).start();
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         // Set up the login form.
