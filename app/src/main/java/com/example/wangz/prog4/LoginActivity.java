@@ -27,6 +27,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeMap;
@@ -63,19 +64,14 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-//        Ajax ajax = new Ajax();
-        TreeMap<String, String> params = new TreeMap<>();
-        params.put("abc", "1");
+        final TreeMap<String, String> params = new TreeMap<>();
+        params.put("id", "1");
         params.put("name", "daniel");
-        params.put("age", "123");
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                Ajax http = new Ajax();
-                System.out.println("Testing 1 - Send Http GET request");
-                http.sendGet();
-            }
-        }).start();
+
+        Ajax http = new Ajax();
+        http.get("/get");
+//        System.out.println(http.response);
+
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
