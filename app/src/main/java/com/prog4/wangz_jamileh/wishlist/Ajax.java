@@ -1,4 +1,4 @@
-package com.example.wangz.prog4;
+package com.prog4.wangz_jamileh.wishlist;
 
 import android.os.Bundle;
 import android.os.Handler;
@@ -14,8 +14,6 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Map;
 import java.util.TreeMap;
-
-import javax.net.ssl.HttpsURLConnection;
 
 public class Ajax {
 

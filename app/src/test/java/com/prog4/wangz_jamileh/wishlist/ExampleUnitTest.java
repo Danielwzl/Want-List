@@ -1,4 +1,4 @@
-package com.example.wangz.prog4;
+package com.prog4.wangz_jamileh.wishlist;
 
 import org.junit.Test;
 

@@ -1,4 +1,4 @@
-package com.example.wangz.prog4;
+package com.prog4.wangz_jamileh.wishlist;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -21,6 +21,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("com.example.wangz.prog4", appContext.getPackageName());
+        assertEquals("com.prog4.wangz_jamileh.prog4", appContext.getPackageName());
     }
 }

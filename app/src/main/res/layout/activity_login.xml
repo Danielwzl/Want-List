@@ -8,7 +8,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.wangz.prog4.LoginActivity">
+    tools:context="com.prog4.wangz_jamileh.wishlist.LoginActivity">
 
     <!-- Login progress -->
     <ProgressBar

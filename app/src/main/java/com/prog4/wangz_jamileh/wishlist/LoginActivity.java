@@ -1,4 +1,4 @@
-package com.example.wangz.prog4;
+package com.prog4.wangz_jamileh.wishlist;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -17,7 +17,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -49,7 +48,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
      * TODO: remove after connecting to a real authentication system.
      */
     private static final String[] DUMMY_CREDENTIALS = new String[]{
-            "foo@example.com:hello", "bar@example.com:world"
+            "foo@prog4.com:hello", "bar@prog4.com:world"
     };
     /**
      * Keep track of the login task to ensure we can cancel it if requested.
@@ -69,7 +68,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         params.put("name", "daniel");
 
         Ajax http = new Ajax();
-        http.get("/get");
+        http.get("/");
 //        System.out.println(http.response);
 
 
