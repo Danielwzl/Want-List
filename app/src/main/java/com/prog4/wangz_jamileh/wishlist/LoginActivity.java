@@ -30,6 +30,8 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeMap;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.ThreadFactory;
 
 import static android.Manifest.permission.READ_CONTACTS;
 
@@ -66,10 +68,15 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         final TreeMap<String, String> params = new TreeMap<>();
         params.put("id", "1");
         params.put("name", "daniel");
-
-        Ajax http = new Ajax();
+        CountDownLatch latch = new CountDownLatch(1);
+        Ajax http = new Ajax(latch);
         http.get("/");
-//        System.out.println(http.response);
+        try{
+            latch.await();
+        }
+        catch(Exception e){}
+
+     System.out.println(http.response);
 
 
         super.onCreate(savedInstanceState);

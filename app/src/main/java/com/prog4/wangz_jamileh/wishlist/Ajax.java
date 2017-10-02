@@ -14,11 +14,13 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Map;
 import java.util.TreeMap;
+import java.util.concurrent.CountDownLatch;
 
 public class Ajax {
 
     private final String USER_AGENT = "Mozilla/5.0";
     private final String DEFAULT_URL = "http://10.0.2.2:3002";
+    private CountDownLatch latch;
     public String response;
 
     public Handler handler = new Handler() {
@@ -32,6 +34,9 @@ public class Ajax {
         }
     };
 
+    public Ajax(CountDownLatch latch){
+        this.latch = latch;
+    }
 
     public void post(final String link, final TreeMap<String, String> params) {
         new Thread(new Runnable() {
@@ -53,7 +58,8 @@ public class Ajax {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                sendGet(link, "");
+                response = sendGet(link, "");
+                latch.countDown();
             }
         }).start();
     }
