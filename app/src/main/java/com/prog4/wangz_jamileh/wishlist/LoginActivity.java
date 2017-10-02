@@ -68,20 +68,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         final TreeMap<String, String> params = new TreeMap<>();
         params.put("id", "1");
         params.put("name", "daniel");
-//        CountDownLatch latch = new CountDownLatch(1);
-//        HttpRequest http = new HttpRequest(latch);
-//        http.get("/");
-//        try{
-//            latch.await();
-//        }
-//        catch(Exception e){}
-//
-//     System.out.println(http.response);
-
         Ajax ajax = new Ajax();
-        ajax.get("/");;
-        Log.i("test", ajax.response());
-
+        ajax.post("/test", params);;
+        Log.i("pass", ajax.response());
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         // Set up the login form.
