@@ -17,6 +17,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -31,7 +32,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeMap;
 import java.util.concurrent.CountDownLatch;
-import java.util.concurrent.ThreadFactory;
 
 import static android.Manifest.permission.READ_CONTACTS;
 
@@ -68,16 +68,19 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         final TreeMap<String, String> params = new TreeMap<>();
         params.put("id", "1");
         params.put("name", "daniel");
-        CountDownLatch latch = new CountDownLatch(1);
-        Ajax http = new Ajax(latch);
-        http.get("/");
-        try{
-            latch.await();
-        }
-        catch(Exception e){}
+//        CountDownLatch latch = new CountDownLatch(1);
+//        HttpRequest http = new HttpRequest(latch);
+//        http.get("/");
+//        try{
+//            latch.await();
+//        }
+//        catch(Exception e){}
+//
+//     System.out.println(http.response);
 
-     System.out.println(http.response);
-
+        Ajax ajax = new Ajax();
+        ajax.get("/");;
+        Log.i("test", ajax.response());
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
