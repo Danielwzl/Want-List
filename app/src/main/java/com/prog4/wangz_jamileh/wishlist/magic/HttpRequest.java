@@ -1,10 +1,11 @@
 package com.prog4.wangz_jamileh.wishlist.magic;
 
-import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
+//import android.os.Bundle;
+//import android.os.Handler;
+//import android.os.Message;
 import android.util.Log;
 
+import com.google.gson.Gson;
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -21,7 +22,7 @@ public class HttpRequest {
     private final String USER_AGENT = "Mozilla/5.0";
     private final String DEFAULT_URL = "http://10.0.2.2:3002";
     private CountDownLatch latch;
-    public String response;
+    public Map<String, Object> response;
 
 //    public Handler handler = new Handler() {
 //        @Override
@@ -79,7 +80,7 @@ public class HttpRequest {
     }
 
     // HTTP GET request
-    private String sendGet(String link, String querystring) {
+    private Map<String, Object> sendGet(String link, String querystring) {
             try {
                 String url = DEFAULT_URL + link + "?" + querystring;
 
@@ -113,7 +114,7 @@ public class HttpRequest {
     }
 
     // HTTP POST request
-    private String sendPost(String link, String body) {
+    private Map<String, Object> sendPost(String link, String body) {
             try {
                 String url = DEFAULT_URL + link;
                 URL obj = new URL(url);
@@ -171,7 +172,7 @@ public class HttpRequest {
         return paramString.substring(0, paramString.length() - 1);
     }
 
-    private String getResponse(HttpURLConnection con) throws IOException {
+    private Map<String, Object> getResponse(HttpURLConnection con) throws IOException {
         BufferedReader in = new BufferedReader(
                 new InputStreamReader(con.getInputStream()));
         String inputLine;
@@ -183,6 +184,10 @@ public class HttpRequest {
         }
         in.close();
 
-        return response.toString();
+        Gson gson = new Gson();
+        Map<String,Object> map = new TreeMap<>();
+        map = (Map<String,Object>) gson.fromJson(response.toString(), map.getClass());
+
+        return map;
     }
 }

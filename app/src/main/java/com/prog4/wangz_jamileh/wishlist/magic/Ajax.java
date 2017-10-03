@@ -1,5 +1,6 @@
 package com.prog4.wangz_jamileh.wishlist.magic;
 
+import java.util.Map;
 import java.util.TreeMap;
 import java.util.concurrent.CountDownLatch;
 
@@ -36,7 +37,7 @@ public class Ajax {
         catch(InterruptedException e){}
     }
 
-    public String response(){
+    public Map<String, Object> response(){
         return http.response;
     }
 }
