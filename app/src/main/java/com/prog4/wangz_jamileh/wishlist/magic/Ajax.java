@@ -1,4 +1,4 @@
-package com.prog4.wangz_jamileh.wishlist;
+package com.prog4.wangz_jamileh.wishlist.magic;
 
 import java.util.TreeMap;
 import java.util.concurrent.CountDownLatch;

@@ -1,4 +1,4 @@
-package com.prog4.wangz_jamileh.wishlist;
+package com.prog4.wangz_jamileh.wishlist.magic;
 
 import android.os.Bundle;
 import android.os.Handler;

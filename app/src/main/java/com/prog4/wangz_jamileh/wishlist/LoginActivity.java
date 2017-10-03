@@ -28,10 +28,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.prog4.wangz_jamileh.wishlist.magic.Ajax;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.TreeMap;
-import java.util.concurrent.CountDownLatch;
 
 import static android.Manifest.permission.READ_CONTACTS;
 
