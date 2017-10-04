@@ -52,15 +52,17 @@ public class SignupActivity extends AppCompatActivity {
                 lname = lnameView.getText().toString(),
                 phone = phoneView.getText().toString();
 
-        if(!InputCheck.empty(email)){
-            if(InputCheck.isEmailValid(email)){
-                focusView = InputCheck.error(emailView, "Please enter valid email...");
-                cancel = false;
-            }
-        }
-        else focusView = InputCheck.error(emailView, getString(R.string.error_field_required));
+//        if(!InputCheck.empty(email)){
+//            if(InputCheck.isEmailValid(email)){
+//                focusView = InputCheck.error(emailView, "Please enter valid email...");
+//                cancel = false;
+//            }
+//        }
+//        else focusView = InputCheck.error(emailView, getString(R.string.error_field_required));
 
-        if (cancel) {
+        focusView = checkSignup(email, focusView);
+
+        if (focusView != null) {
             // There was an error; don't attempt login and focus the first
             // form field with an error.
             focusView.requestFocus();
@@ -97,6 +99,16 @@ public class SignupActivity extends AppCompatActivity {
         fnameView.setError(null);
         lnameView.setError(null);
         phoneView.setError(null);
+    }
+
+    private View checkSignup(String input, View focusView){
+        if(!InputCheck.empty(input)){
+            if(!InputCheck.isEmailValid(input)){
+                focusView = InputCheck.error(emailView, "Please enter valid email...");
+            }
+        }
+        else focusView = InputCheck.error(emailView, getString(R.string.error_field_required));
+        return focusView;
     }
 
 }
