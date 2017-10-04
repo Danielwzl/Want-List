@@ -1,6 +1,9 @@
 package com.prog4.wangz_jamileh.wishlist.error;
 
 
+import android.view.View;
+import android.widget.TextView;
+
 public class InputCheck {
 
     private static final String PHONE_PATTERN = "^(?:(?:\\+?1\\s*(?:[.-]\\s*)?)?(?:\\(\\s*([2-9]1[02-9]|[2-9][02-8]1|[2-9][02-8][02-9])\\s*\\)|([2-9]1[02-9]|[2-9][02-8]1|[2-9][02-8][02-9]))\\s*(?:[.-]\\s*)?)?([2-9]1[02-9]|[2-9][02-9]1|[2-9][02-9]{2})\\s*(?:[.-]\\s*)?([0-9]{4})(?:\\s*(?:#|x\\.?|ext\\.?|extension)\\s*(\\d+))?$";
@@ -25,5 +28,10 @@ public class InputCheck {
 
     public static boolean empty(String input){
         return input == null || input.length() == 0;
+    }
+
+    public static View error(TextView v, String errMsg){
+        v.setError(errMsg);
+        return v;
     }
 }
