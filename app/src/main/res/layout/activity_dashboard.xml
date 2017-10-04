@@ -6,4 +6,11 @@
     android:layout_height="match_parent"
     tools:context="com.prog4.wangz_jamileh.wishlist.DashboardActivity">
 
+    <TextView
+        android:id="@+id/session"
+        android:layout_width="279dp"
+        android:layout_height="64dp"
+        android:text="TextView"
+        tools:layout_editor_absoluteX="29dp"
+        tools:layout_editor_absoluteY="42dp" />
 </android.support.constraint.ConstraintLayout>
