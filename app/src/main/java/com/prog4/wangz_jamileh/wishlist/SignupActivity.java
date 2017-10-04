@@ -43,7 +43,6 @@ public class SignupActivity extends AppCompatActivity {
     private boolean signup() {
         cleanError();
         boolean pass = false, cancel = true;
-        View focusView = null;
         String email = emailView.getText().toString(),
                 pw_1 = pwView_1.getText().toString(),
                 pw_2 = pwView_2.getText().toString(),
@@ -60,7 +59,7 @@ public class SignupActivity extends AppCompatActivity {
 //        }
 //        else focusView = InputCheck.error(emailView, getString(R.string.error_field_required));
 
-        focusView = checkSignup(email, focusView);
+        View focusView = checkSignup(email, "please enter valid email");
 
         if (focusView != null) {
             // There was an error; don't attempt login and focus the first
@@ -101,10 +100,11 @@ public class SignupActivity extends AppCompatActivity {
         phoneView.setError(null);
     }
 
-    private View checkSignup(String input, View focusView){
+    private View checkSignup(String input, String msg){
+        View focusView = null;
         if(!InputCheck.empty(input)){
             if(!InputCheck.isEmailValid(input)){
-                focusView = InputCheck.error(emailView, "Please enter valid email...");
+                focusView = InputCheck.error(emailView, msg);
             }
         }
         else focusView = InputCheck.error(emailView, getString(R.string.error_field_required));
