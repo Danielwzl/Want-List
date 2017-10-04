@@ -70,7 +70,7 @@ public class SignupActivity extends AppCompatActivity {
 //            params.put("nick_name", email);
 //            params.put("password", password);
             Ajax ajax = new Ajax();
-            ajax.post("/serverLogin", params);
+            ajax.post("/newUser", params);
             Map<String, Object> res = ajax.response();
             if (res.containsKey("token")) {
 //                showProgress(true);

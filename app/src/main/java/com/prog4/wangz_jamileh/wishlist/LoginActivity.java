@@ -165,7 +165,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         }
 
         // Check for a valid email address.
-        if (TextUtils.isEmpty(email)) {
+        if (InputCheck.empty(email)) {
             focusView = InputCheck.error(mEmailView, getString(R.string.error_field_required));
             cancel = true;
         } else if (!InputCheck.isEmailValid(email)) {
