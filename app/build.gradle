@@ -17,6 +17,9 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    configurations.all {
+        resolutionStrategy.force 'com.google.code.findbugs:jsr305:2.0.1'
+    }
 }
 
 dependencies {
@@ -29,6 +32,19 @@ dependencies {
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'com.google.code.gson:gson:2.8.2'
     testCompile 'junit:junit:4.12'
+
+    // Litho
+    compile 'com.facebook.litho:litho-core:0.6.1'
+    compile 'com.facebook.litho:litho-widget:0.6.1'
+    provided 'com.facebook.litho:litho-annotations:0.6.1'
+
+    annotationProcessor 'com.facebook.litho:litho-processor:0.6.1'
+    // SoLoader
+    compile 'com.facebook.soloader:soloader:0.2.0'
+
+    // For integration with Fresco
+    compile 'com.facebook.litho:litho-fresco:0.6.1'
+
 }
 
 android {
