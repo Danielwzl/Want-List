@@ -1,12 +1,14 @@
 package com.prog4.wangz_jamileh.wishlist;
 
 import android.content.Intent;
+import android.renderscript.ScriptGroup;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.prog4.wangz_jamileh.wishlist.R;
 import com.prog4.wangz_jamileh.wishlist.error.InputCheck;
@@ -40,9 +42,8 @@ public class SignupActivity extends AppCompatActivity {
         });
     }
 
-    private boolean signup() {
+    private void signup() {
         cleanError();
-        boolean pass = false, cancel = true;
         String email = emailView.getText().toString(),
                 pw_1 = pwView_1.getText().toString(),
                 pw_2 = pwView_2.getText().toString(),
@@ -51,15 +52,17 @@ public class SignupActivity extends AppCompatActivity {
                 lname = lnameView.getText().toString(),
                 phone = phoneView.getText().toString();
 
-//        if(!InputCheck.empty(email)){
-//            if(InputCheck.isEmailValid(email)){
-//                focusView = InputCheck.error(emailView, "Please enter valid email...");
-//                cancel = false;
-//            }
-//        }
-//        else focusView = InputCheck.error(emailView, getString(R.string.error_field_required));
-
-        View focusView = checkSignup(email, "please enter valid email");
+        InputCheck check = new InputCheck();
+        checkSignup(check, phone, "please enter valid phone. eg. 403XXXXXXX", "phone", phoneView);
+        if(check.empty(fname))check.error(fnameView, getString(R.string.error_field_required));
+        if(check.empty(lname))check.error(lnameView, getString(R.string.error_field_required));
+        if(check.empty(uname))check.error(unameView, getString(R.string.error_field_required));
+        if(!check.passwordMatch(pw_1, pw_2)){
+            check.error(pwView_1, "password does not match!");
+        }
+        else checkSignup(check, pw_1, "password must be at least 6 characters", "password", pwView_1);
+        checkSignup(check, email, "please enter valid email", "email", emailView);
+        View focusView = check.showErr();
 
         if (focusView != null) {
             // There was an error; don't attempt login and focus the first
@@ -68,8 +71,13 @@ public class SignupActivity extends AppCompatActivity {
         } else {
             //AJAX CALL
             TreeMap<String, String> params = new TreeMap<>();
-//            params.put("nick_name", email);
-//            params.put("password", password);
+            params.put("email", email);
+            params.put("nick_name", uname);
+            params.put("password", pw_1);
+            params.put("lName", lname);
+            params.put("fName", fname);
+            params.put("phone", phone);
+
             Ajax ajax = new Ajax();
             ajax.post("/newUser", params);
             Map<String, Object> res = ajax.response();
@@ -82,12 +90,10 @@ public class SignupActivity extends AppCompatActivity {
                 startActivity(i);
                 finish();
             } else {
-                focusView = InputCheck.error(emailView, "Email exists...");
-                focusView.requestFocus();
+                check.error(emailView, "Email exists...");
+                check.showErr().requestFocus();
             }
         }
-
-        return pass;
     }
 
     private void cleanError(){
@@ -100,15 +106,24 @@ public class SignupActivity extends AppCompatActivity {
         phoneView.setError(null);
     }
 
-    private View checkSignup(String input, String msg){
-        View focusView = null;
-        if(!InputCheck.empty(input)){
-            if(!InputCheck.isEmailValid(input)){
-                focusView = InputCheck.error(emailView, msg);
+    private void checkSignup(InputCheck check, String input, String msg, String type, TextView target){
+        if(!check.empty(input)){
+            switch(type){
+                case "email":   if(!check.isEmailValid(input)){
+                    check.error(emailView, msg);
+                }
+                break;
+                case "phone" :  if(!check.isPhoneValid(input)){
+                    check.error(phoneView, msg);
+                }
+                    break;
+                case "password" :  if(!check.isPasswordValid(input)){
+                    check.error(pwView_1, msg);
+                }
+                break;
             }
         }
-        else focusView = InputCheck.error(emailView, getString(R.string.error_field_required));
-        return focusView;
+        else check.error(target, getString(R.string.error_field_required));
     }
 
 }

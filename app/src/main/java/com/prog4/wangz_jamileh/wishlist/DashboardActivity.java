@@ -13,10 +13,14 @@ public class DashboardActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
         Bundle extra = getIntent().getExtras();
-        TextView textView = (TextView) findViewById(R.id.session);
+//        TextView textView = (TextView) findViewById(R.id.session);
         if(extra != null){
             session = (String) extra.get("session");
-            textView.setText(session);
+//            textView.setText(session);
         }
+    }
+
+    private void loadPosting(){
+
     }
 }

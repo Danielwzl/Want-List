@@ -28,6 +28,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.facebook.soloader.SoLoader;
 import com.prog4.wangz_jamileh.wishlist.magic.Ajax;
 import com.prog4.wangz_jamileh.wishlist.error.InputCheck;
 import java.util.ArrayList;
@@ -58,6 +59,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        SoLoader.init(this, false);
         // Set up the login form.
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
         populateAutoComplete();
@@ -154,28 +156,26 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         // Store values at the time of the login attempt.
         String email = mEmailView.getText().toString();
         String password = mPasswordView.getText().toString();
-
+        InputCheck check = new InputCheck();
         boolean cancel = false;
-        View focusView = null;
-
         // Check for a valid password, if the user entered one.
-        if (!InputCheck.isPasswordValid(password)) {
-            focusView = InputCheck.error(mPasswordView, getString(R.string.error_field_required));
-            cancel = true;
-        }
+            if (!check.isPasswordValid(password)) {
+                check.error(mPasswordView, "password must be at least 6 characters");
+                cancel = true;
+            }
 
         // Check for a valid email address.
-        if (InputCheck.empty(email)) {
-            focusView = InputCheck.error(mEmailView, getString(R.string.error_field_required));
+        if (check.empty(email)) {
+            check.error(mEmailView, getString(R.string.error_field_required));
             cancel = true;
-        } else if (!InputCheck.isEmailValid(email)) {
-            focusView = InputCheck.error(mEmailView, getString(R.string.error_field_required));
+        } else if (!check.isEmailValid(email)) {
+            check.error(mEmailView, "please enter valid email");
             cancel = true;
         }
         if (cancel) {
             // There was an error; don't attempt login and focus the first
             // form field with an error.
-            focusView.requestFocus();
+            check.showErr().requestFocus();
         } else {
             //AJAX CALL
             TreeMap<String, String> params = new TreeMap<>();
@@ -193,9 +193,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 startActivity(i);
                 finish();
             } else {
-                mEmailView.setError("Email or Password is not correct...");
-                focusView = mEmailView;
-                focusView.requestFocus();
+                check.error(mEmailView, "Email or Password is not correct...");
+                check.showErr().requestFocus();
             }
         }
     }
