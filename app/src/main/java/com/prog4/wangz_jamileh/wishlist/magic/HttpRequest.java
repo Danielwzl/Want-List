@@ -3,9 +3,11 @@ package com.prog4.wangz_jamileh.wishlist.magic;
 //import android.os.Bundle;
 //import android.os.Handler;
 //import android.os.Message;
+
 import android.util.Log;
 
 import com.google.gson.Gson;
+
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -35,7 +37,7 @@ public class HttpRequest {
 //        }
 //    };
 
-    public HttpRequest(CountDownLatch latch){
+    public HttpRequest(CountDownLatch latch) {
         this.latch = latch;
     }
 
@@ -81,75 +83,75 @@ public class HttpRequest {
 
     // HTTP GET request
     private Map<String, Object> sendGet(String link, String querystring) {
-            try {
-                String url = DEFAULT_URL + link + "?" + querystring;
+        try {
+            String url = DEFAULT_URL + link + "?" + querystring;
 
-                URL obj = new URL(url);
-                HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+            URL obj = new URL(url);
+            HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 
-                // optional default is GET
-                con.setRequestMethod("GET");
+            // optional default is GET
+            con.setRequestMethod("GET");
 
-                //add request header
-                con.setRequestProperty("User-Agent", USER_AGENT);
+            //add request header
+            con.setRequestProperty("User-Agent", USER_AGENT);
 
-                int responseCode = con.getResponseCode();
+            int responseCode = con.getResponseCode();
 
-                System.out.println("\nSending 'GET' request to URL : " + url);
-                System.out.println("Response Code : " + responseCode);
+            System.out.println("\nSending 'GET' request to URL : " + url);
+            System.out.println("Response Code : " + responseCode);
 
-                if (responseCode == 200) {
-                    return this.response = getResponse(con);
-                } else {
-                    Log.i("err", "request failed due to 301, 404 or 500");
-                    return this.response = null;
-                }
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
+            if (responseCode == 200) {
+                return this.response = getResponse(con);
+            } else {
+                Log.i("err", "request failed due to 301, 404 or 500");
+                return this.response = null;
             }
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
-            return this.response = null;
+        return this.response = null;
     }
 
     // HTTP POST request
     private Map<String, Object> sendPost(String link, String body) {
-            try {
-                String url = DEFAULT_URL + link;
-                URL obj = new URL(url);
-                HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+        try {
+            String url = DEFAULT_URL + link;
+            URL obj = new URL(url);
+            HttpURLConnection con = (HttpURLConnection) obj.openConnection();
 
-                //add reuqest header
-                con.setRequestMethod("POST");
-                con.setRequestProperty("User-Agent", USER_AGENT);
-                con.setRequestProperty("Accept-Language", "en-US,en;q=0.5");
+            //add reuqest header
+            con.setRequestMethod("POST");
+            con.setRequestProperty("User-Agent", USER_AGENT);
+            con.setRequestProperty("Accept-Language", "en-US,en;q=0.5");
 
-                // Send post request
-                con.setDoOutput(true);
-                DataOutputStream wr = new DataOutputStream(con.getOutputStream());
-                wr.writeBytes(body);
-                wr.flush();
-                wr.close();
+            // Send post request
+            con.setDoOutput(true);
+            DataOutputStream wr = new DataOutputStream(con.getOutputStream());
+            wr.writeBytes(body);
+            wr.flush();
+            wr.close();
 
-                int responseCode = con.getResponseCode();
-                System.out.println("\nSending 'POST' request to URL : " + url);
-                System.out.println("Post parameters : " + body);
-                System.out.println("Response Code : " + responseCode);
-                if (responseCode == 200) {
-                    return this.response = getResponse(con);
-                } else {
-                    Log.i("err", "request failed due to 301, 404 or 500");
-                    return this.response = null;
-                }
-
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
+            int responseCode = con.getResponseCode();
+            System.out.println("\nSending 'POST' request to URL : " + url);
+            System.out.println("Post parameters : " + body);
+            System.out.println("Response Code : " + responseCode);
+            if (responseCode == 200) {
+                return this.response = getResponse(con);
+            } else {
+                Log.i("err", "request failed due to 301, 404 or 500");
+                return this.response = null;
             }
 
-            return this.response = null;
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return this.response = null;
     }
 
     /**
@@ -185,9 +187,10 @@ public class HttpRequest {
         in.close();
 
         Gson gson = new Gson();
-        Map<String,Object> map = new TreeMap<>();
-        map = (Map<String,Object>) gson.fromJson(response.toString(), map.getClass());
-
+        Map<String, Object> map = new TreeMap<>();
+        String jsonString = response.toString();
+        if (!jsonString.equals("null"))
+            map = (Map<String, Object>) gson.fromJson(jsonString, map.getClass());
         return map;
     }
 }

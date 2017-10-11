@@ -2,6 +2,8 @@ package com.prog4.wangz_jamileh.wishlist.error;
 
 
 import android.view.View;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 
 public class InputCheck {
@@ -35,6 +37,11 @@ public class InputCheck {
     }
 
     public void error(TextView v, String errMsg){
+        v.setError(errMsg);
+        popup = v;
+    }
+
+    public void error(RadioButton v, String errMsg){
         v.setError(errMsg);
         popup = v;
     }

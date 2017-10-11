@@ -6,4 +6,34 @@
     android:layout_height="match_parent"
     tools:context="com.prog4.wangz_jamileh.wishlist.DashboardActivity">
 
+    <GridLayout
+        android:layout_width="349dp"
+        android:layout_height="29dp"
+        android:background="@color/colorPrimary"
+        tools:layout_editor_absoluteX="6dp"
+        android:id="@+id/gridLayout"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="481dp">
+
+    </GridLayout>
+
+    <ImageView
+        android:id="@+id/likeBtn"
+        android:layout_width="28dp"
+        android:layout_height="29dp"
+        app:srcCompat="@android:drawable/btn_star"
+        tools:layout_editor_absoluteY="481dp"
+        android:layout_marginRight="29dp"
+        app:layout_constraintRight_toRightOf="@+id/gridLayout" />
+
+    <ImageView
+        android:id="@+id/postBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@android:drawable/stat_notify_more"
+        app:layout_constraintTop_toTopOf="@+id/likeBtn"
+        android:layout_marginTop="0dp"
+        android:layout_marginLeft="10dp"
+        app:layout_constraintLeft_toLeftOf="@+id/gridLayout" />
+
 </android.support.constraint.ConstraintLayout>
