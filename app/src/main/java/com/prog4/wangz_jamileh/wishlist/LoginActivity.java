@@ -187,7 +187,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 showProgress(true);
                 String token = res.get("token").toString();
                 Log.i("token", token);
-                Intent i = new Intent(getBaseContext(), DashboardActivity.class);
+                Intent i = new Intent(getBaseContext(), MenuActivity.class);
                 i.putExtra("session", token);
                 startActivity(i);
                 finish();
