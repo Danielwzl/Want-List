@@ -29,8 +29,16 @@ public class Ajax {
         catch(InterruptedException e){}
     }
 
+    public void post(String link, TreeMap<String,String> params, String filepath, String filefield, String fileMimeType){
+        http.multipartPostRequest(link, params, filepath, filefield, fileMimeType);
+        try{
+            latch.await();
+        }
+        catch(InterruptedException e){}
+    }
+
     public void post(String link, TreeMap<String, String> params){
-        http.post(link, params, false);
+        http.post(link, params);
         try{
             latch.await();
         }
