@@ -41,12 +41,12 @@ public class HttpRequest {
         this.latch = latch;
     }
 
-    public void post(final String link, final TreeMap<String, String> params) {
+    public void post(final String link, final TreeMap<String, String> params, final boolean form_data) {
         new Thread(new Runnable() {
             @Override
             public void run() {
                 String body = generateParams(params);
-                response = sendPost(link, body);
+                response = sendPost(link, body, form_data);
 //                Message msg = new Message();
 //                Bundle data = new Bundle();
 //                data.putString("response", response);
@@ -116,7 +116,7 @@ public class HttpRequest {
     }
 
     // HTTP POST request
-    private Map<String, Object> sendPost(String link, String body) {
+    private Map<String, Object> sendPost(String link, String body, boolean from_data) {
         try {
             String url = DEFAULT_URL + link;
             URL obj = new URL(url);
@@ -126,7 +126,8 @@ public class HttpRequest {
             con.setRequestMethod("POST");
             con.setRequestProperty("User-Agent", USER_AGENT);
             con.setRequestProperty("Accept-Language", "en-US,en;q=0.5");
-
+            if(from_data) con.setRequestProperty("Content-Type",
+                    "multipart/form-data; boundary=" + "===" + System.currentTimeMillis() + "===");
             // Send post request
             con.setDoOutput(true);
             DataOutputStream wr = new DataOutputStream(con.getOutputStream());

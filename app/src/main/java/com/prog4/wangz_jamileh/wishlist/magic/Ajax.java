@@ -30,7 +30,7 @@ public class Ajax {
     }
 
     public void post(String link, TreeMap<String, String> params){
-        http.post(link, params);
+        http.post(link, params, false);
         try{
             latch.await();
         }

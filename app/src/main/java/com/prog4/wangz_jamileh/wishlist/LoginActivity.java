@@ -183,7 +183,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             Ajax ajax = new Ajax();
             ajax.post("/serverLogin", params);
             Map<String, Object> res = ajax.response();
-            if (res != null && res.containsKey("token")) {
+            if (res != null && res.containsKey("token") && res.get("token") != null) {
                 showProgress(true);
                 String token = res.get("token").toString();
                 Log.i("token", token);
