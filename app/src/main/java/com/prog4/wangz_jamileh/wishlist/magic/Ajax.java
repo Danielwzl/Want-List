@@ -1,5 +1,7 @@
 package com.prog4.wangz_jamileh.wishlist.magic;
 
+import java.io.FileInputStream;
+import java.io.InputStream;
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.concurrent.CountDownLatch;
@@ -29,8 +31,8 @@ public class Ajax {
         catch(InterruptedException e){}
     }
 
-    public void post(String link, TreeMap<String,String> params, String filepath, String filefield, String fileMimeType){
-        http.multipartPostRequest(link, params, filepath, filefield, fileMimeType);
+    public void post(String link, TreeMap<String,String> params, InputStream filepath, String filefield, String fileMimeType){
+        http.post(link, params, filepath, filefield, fileMimeType);
         try{
             latch.await();
         }

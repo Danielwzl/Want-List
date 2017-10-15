@@ -11,6 +11,7 @@ import com.google.gson.Gson;
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
@@ -42,7 +43,7 @@ public class HttpRequest {
     }
 
 
-    public void post(final String link, final TreeMap<String,String> params, final String filepath, final String filefield, final String fileMimeType){
+    public void post(final String link, final TreeMap<String, String> params, final InputStream filepath, final String filefield, final String fileMimeType) {
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -165,47 +166,40 @@ public class HttpRequest {
         return this.response = null;
     }
 
-    private Map<String, Object> multipartPostRequest(String urlTo, TreeMap<String, String> params, String filepath, String filefield, String fileMimeType){
-        HttpURLConnection connection = null;
-        DataOutputStream outputStream = null;
-        InputStream inputStream = null;
-
+    private Map<String, Object> multipartPostRequest
+            (String urlTo, TreeMap<String, String> params, InputStream filepath, String filefield, String fileMimeType) {
         String twoHyphens = "--";
         String boundary = "*****" + Long.toString(System.currentTimeMillis()) + "*****";
         String lineEnd = "\r\n";
 
-        String result = "";
-
         int bytesRead, bytesAvailable, bufferSize;
         byte[] buffer;
-        int maxBufferSize = 1 * 1024 * 1024;
+        int maxBufferSize = 1024 * 1024;
 
-        String[] q = filepath.split("/");
-        int idx = q.length - 1;
+//        String[] path = filepath.split("/");
+//        int last = path.length - 1;
 
         try {
-            File file = new File(filepath);
-            FileInputStream fileInputStream = new FileInputStream(file);
-
-            URL url = new URL(urlTo);
-            connection = (HttpURLConnection) url.openConnection();
-
+            //File file = new File(filepath);
+            //FileInputStream fileInputStream = new FileInputStream(file);
+            InputStream fileInputStream = filepath;
+            URL url = new URL(DEFAULT_URL + urlTo);
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setDoInput(true);
             connection.setDoOutput(true);
             connection.setUseCaches(false);
-
             connection.setRequestMethod("POST");
             connection.setRequestProperty("Connection", "Keep-Alive");
             connection.setRequestProperty("User-Agent", "Android Multipart HTTP Client 1.0");
             connection.setRequestProperty("Content-Type", "multipart/form-data; boundary=" + boundary);
-            //Send file
-            outputStream = new DataOutputStream(connection.getOutputStream());
+            //upload file
+            DataOutputStream outputStream = new DataOutputStream(connection.getOutputStream());
             outputStream.writeBytes(twoHyphens + boundary + lineEnd);
-            outputStream.writeBytes("Content-Disposition: form-data; name=\"" + filefield + "\"; filename=\"" + q[idx] + "\"" + lineEnd);
+            outputStream.writeBytes("Content-Disposition: form-data; name=\"" + filefield + "\"; filename=\"" + /*path[last]*/"test.JPG" + "\"" + lineEnd);
             outputStream.writeBytes("Content-Type: " + fileMimeType + lineEnd);
             outputStream.writeBytes("Content-Transfer-Encoding: binary" + lineEnd);
-
             outputStream.writeBytes(lineEnd);
+
 
             bytesAvailable = fileInputStream.available();
             bufferSize = Math.min(bytesAvailable, maxBufferSize);
@@ -218,15 +212,15 @@ public class HttpRequest {
                 bufferSize = Math.min(bytesAvailable, maxBufferSize);
                 bytesRead = fileInputStream.read(buffer, 0, bufferSize);
             }
+            fileInputStream.close();
 
             outputStream.writeBytes(lineEnd);
 
             // Upload POST Data
-            Iterator<String> keys = params.keySet().iterator();
-            while (keys.hasNext()) {
-                String key = keys.next();
-                String value = params.get(key);
-
+            String key = null, value = null;
+            for (Map.Entry<String, String> entry : params.entrySet()) {
+                key = entry.getKey();
+                value = entry.getValue();
                 outputStream.writeBytes(twoHyphens + boundary + lineEnd);
                 outputStream.writeBytes("Content-Disposition: form-data; name=\"" + key + "\"" + lineEnd);
                 outputStream.writeBytes("Content-Type: text/plain" + lineEnd);
@@ -236,49 +230,24 @@ public class HttpRequest {
             }
 
             outputStream.writeBytes(twoHyphens + boundary + twoHyphens + lineEnd);
-
-
-            if (200 != connection.getResponseCode()) {
-                throw new CustomException("Failed to upload code:" + connection.getResponseCode() + " " + connection.getResponseMessage());
-            }
-
-            inputStream = connection.getInputStream();
-
-            result = this.convertStreamToString(inputStream);
-
-            fileInputStream.close();
-            inputStream.close();
             outputStream.flush();
             outputStream.close();
 
-            return null;
+            int responseCode = connection.getResponseCode();
+            if (responseCode == 200) {
+                return this.response = getResponse(connection);
+            } else {
+                Log.i("err", "request failed due to 301, 404 or 500");
+                return this.response = null;
+            }
+
+
         } catch (MalformedURLException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return null;
-    }
-
-    private String convertStreamToString(InputStream is) {
-        BufferedReader reader = new BufferedReader(new InputStreamReader(is));
-        StringBuilder sb = new StringBuilder();
-
-        String line = null;
-        try {
-            while ((line = reader.readLine()) != null) {
-                sb.append(line);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                is.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-        return sb.toString();
+        return this.response = null;
     }
 
     /**
@@ -320,4 +289,13 @@ public class HttpRequest {
             map = (Map<String, Object>) gson.fromJson(jsonString, map.getClass());
         return map;
     }
+
+    private String getMimeType(){
+        return "";
+    }
+
+    private String getFilefield(){
+        return "";
+    }
+
 }

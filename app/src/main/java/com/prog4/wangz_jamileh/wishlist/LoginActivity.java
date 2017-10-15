@@ -16,7 +16,6 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -27,10 +26,12 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-
-import com.facebook.soloader.SoLoader;
 import com.prog4.wangz_jamileh.wishlist.magic.Ajax;
 import com.prog4.wangz_jamileh.wishlist.error.InputCheck;
+
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -285,6 +286,25 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         int ADDRESS = 0;
         int IS_PRIMARY = 1;
+    }
+
+    public void exampleOfUsingFormData(){
+        //TODO remove it
+        Ajax a = new Ajax();
+        TreeMap<String, String> params = new TreeMap<>();
+        params.put("id", "123");
+
+        InputStream filePath = null;
+        try {
+            filePath = getAssets().open("dispute.JPG");
+        }catch (IOException e){}
+
+        String fileField = "image",
+                mimeType = "image/jpeg";
+        a.post("/file", params, filePath, fileField, mimeType);
+//        a.post("/post", params);
+        Map<String, Object> res = a.response();
+        System.out.println(res.get("status"));
     }
 }
 
