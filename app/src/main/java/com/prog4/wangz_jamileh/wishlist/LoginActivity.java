@@ -301,7 +301,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         String fileField = "image",
                 mimeType = "image/jpeg";
-        a.post("/file", params, filePath, fileField, mimeType);
+        a.post("/file", params, filePath, fileField, mimeType, "none");
 //        a.post("/post", params);
         Map<String, Object> res = a.response();
         System.out.println(res.get("status"));

@@ -43,12 +43,12 @@ public class HttpRequest {
     }
 
 
-    public void post(final String link, final TreeMap<String, String> params, final InputStream filepath, final String filefield, final String fileMimeType) {
+    public void post(final String link, final TreeMap<String, String> params, final InputStream filepath, final String filefield, final String fileMimeType, final String fileName) {
         new Thread(new Runnable() {
             @Override
             public void run() {
 //                String body = generateParams(params);
-                response = multipartPostRequest(link, params, filepath, filefield, fileMimeType);
+                response = multipartPostRequest(link, params, filepath, filefield, fileMimeType, fileName);
                 latch.countDown();
             }
         }).start();
@@ -167,7 +167,7 @@ public class HttpRequest {
     }
 
     private Map<String, Object> multipartPostRequest
-            (String urlTo, TreeMap<String, String> params, InputStream filepath, String filefield, String fileMimeType) {
+            (String urlTo, TreeMap<String, String> params, InputStream file, String filefield, String fileMimeType, String fileName) {
         String twoHyphens = "--";
         String boundary = "*****" + Long.toString(System.currentTimeMillis()) + "*****";
         String lineEnd = "\r\n";
@@ -182,7 +182,6 @@ public class HttpRequest {
         try {
             //File file = new File(filepath);
             //FileInputStream fileInputStream = new FileInputStream(file);
-            InputStream fileInputStream = filepath;
             URL url = new URL(DEFAULT_URL + urlTo);
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
             connection.setDoInput(true);
@@ -195,24 +194,24 @@ public class HttpRequest {
             //upload file
             DataOutputStream outputStream = new DataOutputStream(connection.getOutputStream());
             outputStream.writeBytes(twoHyphens + boundary + lineEnd);
-            outputStream.writeBytes("Content-Disposition: form-data; name=\"" + filefield + "\"; filename=\"" + /*path[last]*/"test.JPG" + "\"" + lineEnd);
+            outputStream.writeBytes("Content-Disposition: form-data; name=\"" + filefield + "\"; filename=\"" + fileName + "\"" + lineEnd);
             outputStream.writeBytes("Content-Type: " + fileMimeType + lineEnd);
             outputStream.writeBytes("Content-Transfer-Encoding: binary" + lineEnd);
             outputStream.writeBytes(lineEnd);
 
 
-            bytesAvailable = fileInputStream.available();
+            bytesAvailable = file.available();
             bufferSize = Math.min(bytesAvailable, maxBufferSize);
             buffer = new byte[bufferSize];
 
-            bytesRead = fileInputStream.read(buffer, 0, bufferSize);
+            bytesRead = file.read(buffer, 0, bufferSize);
             while (bytesRead > 0) {
                 outputStream.write(buffer, 0, bufferSize);
-                bytesAvailable = fileInputStream.available();
+                bytesAvailable = file.available();
                 bufferSize = Math.min(bytesAvailable, maxBufferSize);
-                bytesRead = fileInputStream.read(buffer, 0, bufferSize);
+                bytesRead = file.read(buffer, 0, bufferSize);
             }
-            fileInputStream.close();
+            file.close();
 
             outputStream.writeBytes(lineEnd);
 
@@ -257,6 +256,7 @@ public class HttpRequest {
      * @return
      */
     private String generateParams(TreeMap<String, String> params) {
+        if(params.isEmpty()) return "";
         String paramString = "",
                 key = "",
                 value = "";
@@ -289,13 +289,4 @@ public class HttpRequest {
             map = (Map<String, Object>) gson.fromJson(jsonString, map.getClass());
         return map;
     }
-
-    private String getMimeType(){
-        return "";
-    }
-
-    private String getFilefield(){
-        return "";
-    }
-
 }

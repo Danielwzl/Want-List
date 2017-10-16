@@ -31,8 +31,8 @@ public class Ajax {
         catch(InterruptedException e){}
     }
 
-    public void post(String link, TreeMap<String,String> params, InputStream filepath, String filefield, String fileMimeType){
-        http.post(link, params, filepath, filefield, fileMimeType);
+    public void post(String link, TreeMap<String,String> params, InputStream filepath, String filefield, String fileMimeType, String fileName){
+        http.post(link, params, filepath, filefield, fileMimeType, fileName);
         try{
             latch.await();
         }
