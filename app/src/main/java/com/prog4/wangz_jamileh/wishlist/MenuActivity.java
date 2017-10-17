@@ -9,15 +9,14 @@ import android.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
 
 public class MenuActivity extends AppCompatActivity
         implements Profile.OnFragmentInteractionListener, Post.OnFragmentInteractionListener, Explore.OnFragmentInteractionListener{
 
-    private FragmentManager m = getFragmentManager();
-
+    private final FragmentManager m = getFragmentManager();
+    private final Profile profile = new Profile();
+    private final Post post = new Post();
+    private final Explore explore = new Explore();
     public void onFragmentInteraction(Uri uri) {
         //TODO code the action here
             Log.i("run", "run");
@@ -30,18 +29,15 @@ public class MenuActivity extends AppCompatActivity
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-                    Explore e = new Explore();
 //                    e.setFragmentInteractionListener(eListener);
-                    startFragment(e);
+                    startFragment(explore);
                     return true;
                 case R.id.navigation_dashboard:
-                    Post p = new Post();
 //                    p.setFragmentInteractionListener(pListener);
-                    startFragment(p);
+                    startFragment(post);
                     return true;
                 case R.id.navigation_notifications:
-                    Profile u = new Profile();
-                    startFragment(u);
+                    startFragment(profile);
                     return true;
             }
             return false;
@@ -55,8 +51,7 @@ public class MenuActivity extends AppCompatActivity
         setContentView(R.layout.activity_menu);
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-        Explore e = new Explore();
-        startFragment(e);
+        startFragment(explore);
     }
 
     private void startFragment(Fragment f){

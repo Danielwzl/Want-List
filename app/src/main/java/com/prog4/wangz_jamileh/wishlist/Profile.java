@@ -19,6 +19,8 @@ import com.google.gson.internal.LinkedTreeMap;
 import com.prog4.wangz_jamileh.wishlist.R;
 import com.prog4.wangz_jamileh.wishlist.magic.Ajax;
 import com.prog4.wangz_jamileh.wishlist.utility_manager.ImageManager;
+
+import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Map;
@@ -44,6 +46,7 @@ public class Profile extends Fragment {
     // TODO: Rename and change types of parameters
     private Button gallaryBut;
     private ImageView imageView;
+    private View profileView;
     public String mParam1, mParam2;
 
 
@@ -78,27 +81,26 @@ public class Profile extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-
-
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View profileView = inflater.inflate(R.layout.fragment_profile, container, false);
-        gallaryBut = (Button) profileView.findViewById(R.id.galleryBut);
+        if(profileView!=null) return profileView;
+
+        profileView = inflater.inflate(R.layout.fragment_profile, container, false);
         imageView = (ImageView) profileView.findViewById(R.id.selectedImage);
-        Bitmap image = downloadImage();
-        if(image != null){
-            imageView.setImageBitmap(image);
-        }
-        gallaryBut.setOnClickListener(new View.OnClickListener() {
+        imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 pickImage();
             }
         });
+//        Bitmap image = downloadImage();
+//        if(image != null){
+//            imageView.setImageBitmap(new ImageManager().compressImage(image));
+//        }
         return profileView;
     }
 
@@ -114,7 +116,7 @@ public class Profile extends Fragment {
         params.put("id", "123");
         String fileField = "image",
                 mimeType = "image/jpeg",
-                fileName = "test";
+                fileName = "avatar";
         a.post("/file", params, fileInputStream, fileField, mimeType, fileName);
         Map<String, Object> res = a.response();
         System.out.println(res.get("status"));
@@ -125,10 +127,14 @@ public class Profile extends Fragment {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == RESULT_LOAD_IMAGE && resultCode == getActivity().RESULT_OK && data != null) {
             Uri selectedImage = data.getData();
-            imageView.setImageURI(selectedImage);
-            InputStream image = new ImageManager().uriToFile(selectedImage, getActivity());
+
+            ImageManager im = new ImageManager();
+            InputStream image = im.uriToFile(selectedImage, getActivity());
+            Bitmap compressedImg = im.compressImage(image);
+            imageView.setImageDrawable(null);
+            imageView.setImageBitmap(compressedImg);
             if(image != null){
-                uploadImage(image);
+//                uploadImage(image);
             }
         }
     }
