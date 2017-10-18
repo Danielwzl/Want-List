@@ -29,7 +29,7 @@ public class ImageManager {
     public Bitmap compressImage(Bitmap image) {
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         image.compress(Bitmap.CompressFormat.JPEG, 0, stream);
-        Bitmap resized = Bitmap.createScaledBitmap(image, 256, 256, false);
+        Bitmap resized = Bitmap.createScaledBitmap(image, 125, 125, false);
 //        byte[] byteArray = stream.toByteArray();
 //        System.out.println("a: " + byteArray.length);
         try {
@@ -46,7 +46,7 @@ public class ImageManager {
         Bitmap bmp = BitmapFactory.decodeStream(imageStream);
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         bmp.compress(Bitmap.CompressFormat.JPEG, 0, stream);
-        Bitmap resized = Bitmap.createScaledBitmap(bmp, 256, 256, false);
+        Bitmap resized = Bitmap.createScaledBitmap(bmp, 125, 125, false);
 //        byte[] byteArray = stream.toByteArray();
 //        System.out.println("a: " + byteArray.length);
         try {
