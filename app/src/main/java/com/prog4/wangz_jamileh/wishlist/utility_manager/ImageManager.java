@@ -16,6 +16,7 @@ import java.util.ArrayList;
 public class ImageManager {
 
 
+    //TODO calculate the weight and height, to generate the smaller pic with original ratio
     public InputStream uriToFile(@NonNull Uri uri, Activity a) {
         InputStream inp = null;
         try {
@@ -24,6 +25,41 @@ public class ImageManager {
             e.printStackTrace();
         }
         return inp;
+    }
+
+
+    public Bitmap compressImage(InputStream imageStream, int h, int w) {
+        Bitmap bmp = BitmapFactory.decodeStream(imageStream);
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        bmp.compress(Bitmap.CompressFormat.JPEG, 0, stream);
+        Bitmap resized = Bitmap.createScaledBitmap(bmp, h, w, false);
+//        byte[] byteArray = stream.toByteArray();
+//        System.out.println("a: " + byteArray.length);
+        try {
+            stream.close();
+            stream = null;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return resized;
+    }
+
+
+    public Bitmap compressImage(Bitmap image, int h, int w) {
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        image.compress(Bitmap.CompressFormat.JPEG, 0, stream);
+        Bitmap resized = Bitmap.createScaledBitmap(image, h, w, false);
+//        byte[] byteArray = stream.toByteArray();
+//        System.out.println("a: " + byteArray.length);
+        try {
+            stream.close();
+            stream = null;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return resized;
     }
 
     public Bitmap compressImage(Bitmap image) {
