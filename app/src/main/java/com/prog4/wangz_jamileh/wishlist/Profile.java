@@ -2,21 +2,25 @@ package com.prog4.wangz_jamileh.wishlist;
 
 import android.content.Context;
 import android.content.Intent;
+import android.databinding.DataBindingUtil;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.provider.MediaStore;
+import android.text.Layout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.gson.internal.LinkedTreeMap;
 import com.prog4.wangz_jamileh.wishlist.R;
+import com.prog4.wangz_jamileh.wishlist.databinding.ActivityChangeProfileBinding;
 import com.prog4.wangz_jamileh.wishlist.magic.Ajax;
 import com.prog4.wangz_jamileh.wishlist.utility_manager.ImageManager;
 
@@ -46,8 +50,10 @@ public class Profile extends Fragment {
     // TODO: Rename and change types of parameters
     private Button gallaryBut;
     private ImageView imageView;
+    private LinearLayout personalInfo;
     private View profileView;
     public String mParam1, mParam2;
+    public String username = "daniel";
 
 
     private OnFragmentInteractionListener mListener;
@@ -88,19 +94,32 @@ public class Profile extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         if(profileView!=null) return profileView;
+//        profileView = inflater.inflate(R.layout.fragment_profile, container, false);
 
-        profileView = inflater.inflate(R.layout.fragment_profile, container, false);
-        imageView = (ImageView) profileView.findViewById(R.id.selectedImage);
+        ActivityChangeProfileBinding binding = DataBindingUtil.inflate(
+                inflater, R.layout.fragment_profile, container, false);
+        profileView = binding.getRoot();
+        imageView = (ImageView) profileView.findViewById(R.id.profile_selectedImage);
+//        binding.setMarsdata(data);
+        personalInfo = (LinearLayout) profileView.findViewById(R.id.profile_personalInfo);
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 pickImage();
             }
         });
+        personalInfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getActivity(), ChangeProfileActivity.class);
+                startActivity(i);
+            }
+        });
 //        Bitmap image = downloadImage();
 //        if(image != null){
 //            imageView.setImageBitmap(new ImageManager().compressImage(image));
 //        }
+
         return profileView;
     }
 

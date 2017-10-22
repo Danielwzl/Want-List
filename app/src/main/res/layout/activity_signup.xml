@@ -10,7 +10,7 @@
 
 
     <EditText
-        android:id="@+id/dob"
+        android:id="@+id/signup_dob"
         android:layout_width="311dp"
         android:layout_height="wrap_content"
         android:hint="Birthday"
@@ -73,7 +73,7 @@
         android:hint="Phone"
         tools:layout_editor_absoluteX="8dp"
         android:layout_marginTop="8dp"
-        app:layout_constraintTop_toBottomOf="@+id/dob" />
+        app:layout_constraintTop_toBottomOf="@+id/signup_dob" />
 
     <EditText
         android:id="@+id/sign_pw"

@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <import type="android.support.v4.app.Fragment" />
+        <import type="android.view.View" />
+        <variable
+            name="profile"
+            type="com.prog4.wangz_jamileh.wishlist.Profile" />
+    </data>
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="com.prog4.wangz_jamileh.wishlist.ChangeProfileActivity"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="25dp">
+
+        <EditText
+            android:id="@+id/changeProfile_dob"
+            android:layout_width="311dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="9dp"
+            android:editable="false"
+            android:hint="Birthday"
+            app:layout_constraintHorizontal_bias="0.515"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/changeProfile_fname" />
+
+        <EditText
+            android:id="@+id/changeProfile_fname"
+            android:layout_width="144dp"
+            android:layout_height="43dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="8dp"
+            android:hint="First name"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@+id/changeProfile_lname"
+            app:layout_constraintTop_toBottomOf="@+id/changeProfile_uname" />
+
+        <EditText
+            android:id="@+id/changeProfile_lname"
+            android:layout_width="160dp"
+            android:layout_height="43dp"
+            android:layout_marginLeft="6dp"
+            android:layout_marginTop="8dp"
+            android:hint="Last name"
+            app:layout_constraintTop_toBottomOf="@+id/changeProfile_uname"
+            tools:layout_editor_absoluteX="176dp" />
+
+        <EditText
+            android:id="@+id/changeProfile_uname"
+            android:layout_width="311dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="150dp"
+            android:hint="@{profile.username}"
+            android:text="@{profile.username}"
+            app:layout_constraintHorizontal_bias="0.515"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <Button
+            android:id="@+id/changeProfile_update"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="224dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="8dp"
+            android:text="update"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/changeProfile_gender"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <RadioGroup
+            android:id="@+id/changeProfile_gender"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toBottomOf="@+id/changeProfile_dob"
+            tools:layout_editor_absoluteX="0dp">
+
+            <RadioButton
+                android:id="@+id/changeProfile_male"
+                android:layout_width="91dp"
+                android:layout_height="31dp"
+                android:layout_marginLeft="61dp"
+                android:onClick="onRadioButtonClicked"
+                android:text="male"
+                app:layout_constraintLeft_toLeftOf="parent"
+                tools:layout_editor_absoluteY="369dp" />
+
+            <RadioButton
+                android:id="@+id/changeProfile_female"
+                android:layout_width="97dp"
+                android:layout_height="31dp"
+                android:layout_marginLeft="42dp"
+                android:onClick="onRadioButtonClicked"
+                android:text="female"
+                app:layout_constraintLeft_toRightOf="@+id/male"
+                tools:layout_editor_absoluteY="369dp" />
+        </RadioGroup>
+
+    </android.support.constraint.ConstraintLayout>
+</layout>

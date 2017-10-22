@@ -9,6 +9,7 @@ import android.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 
 public class MenuActivity extends AppCompatActivity
         implements Profile.OnFragmentInteractionListener, Post.OnFragmentInteractionListener, Explore.OnFragmentInteractionListener{
@@ -57,5 +58,4 @@ public class MenuActivity extends AppCompatActivity
     private void startFragment(Fragment f){
         m.beginTransaction().replace(R.id.mainMenu, f, f.getTag()).commit();
     }
-
 }

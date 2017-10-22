@@ -39,7 +39,7 @@ public class SignupActivity extends AppCompatActivity {
         lnameView = (EditText) findViewById(R.id.sign_lname);
         phoneView = (EditText) findViewById(R.id.sign_phone);
         genderView = (RadioGroup) findViewById(R.id.gender);
-        dobView = (EditText) findViewById(R.id.dob);
+        dobView = (EditText) findViewById(R.id.signup_dob);
         Button signup = (Button) findViewById(R.id.signup);
 
         dobView.setOnClickListener(new View.OnClickListener() {
