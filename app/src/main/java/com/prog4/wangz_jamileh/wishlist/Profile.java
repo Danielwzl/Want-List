@@ -19,8 +19,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.gson.internal.LinkedTreeMap;
+import com.prog4.wangz_jamileh.wishlist.Model.User;
 import com.prog4.wangz_jamileh.wishlist.R;
-import com.prog4.wangz_jamileh.wishlist.databinding.ActivityChangeProfileBinding;
+import com.prog4.wangz_jamileh.wishlist.databinding.FragmentProfileBinding;
 import com.prog4.wangz_jamileh.wishlist.magic.Ajax;
 import com.prog4.wangz_jamileh.wishlist.utility_manager.ImageManager;
 
@@ -53,8 +54,7 @@ public class Profile extends Fragment {
     private LinearLayout personalInfo;
     private View profileView;
     public String mParam1, mParam2;
-    public String username = "daniel";
-
+    private User user;
 
     private OnFragmentInteractionListener mListener;
 
@@ -95,12 +95,11 @@ public class Profile extends Fragment {
         // Inflate the layout for this fragment
         if(profileView!=null) return profileView;
 //        profileView = inflater.inflate(R.layout.fragment_profile, container, false);
-
-        ActivityChangeProfileBinding binding = DataBindingUtil.inflate(
-                inflater, R.layout.fragment_profile, container, false);
-        profileView = binding.getRoot();
+        user = User.getInstance();
+        FragmentProfileBinding bind =  DataBindingUtil.inflate(
+                   inflater, R.layout.fragment_profile, container, false);
+        profileView = bind.getRoot();
         imageView = (ImageView) profileView.findViewById(R.id.profile_selectedImage);
-//        binding.setMarsdata(data);
         personalInfo = (LinearLayout) profileView.findViewById(R.id.profile_personalInfo);
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -115,6 +114,7 @@ public class Profile extends Fragment {
                 startActivity(i);
             }
         });
+        bind.setUser(user);
 //        Bitmap image = downloadImage();
 //        if(image != null){
 //            imageView.setImageBitmap(new ImageManager().compressImage(image));
