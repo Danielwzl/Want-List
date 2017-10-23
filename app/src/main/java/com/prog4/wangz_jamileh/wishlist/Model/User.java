@@ -3,21 +3,55 @@ package com.prog4.wangz_jamileh.wishlist.Model;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 
+import com.google.gson.internal.LinkedTreeMap;
 import com.prog4.wangz_jamileh.wishlist.BR;
-import com.prog4.wangz_jamileh.wishlist.magic.Ajax;
+
+import java.util.Map;
 
 public class User extends BaseObservable {
-    public static User user = new User();
+    public static User user;
 
-    public String username = "daniel", fname = "Daniel", lname = "Wang", dob = "1988/12/02", phone, email, session, gender = "female", fullName = "Daniel Wang";
+    public String username, fname, lname, dob, phone, email, session, gender, fullName;
 
     public User() {
 
     }
 
+    public User(String username, String fname, String lname, String dob, String phone, String email, String session, String gender) {
+        this.username = username;
+        this.fname = fname;
+        this.lname = lname;
+        this.dob = dob;
+        this.phone = phone;
+        this.email = email;
+        this.gender = gender;
+        this.session = session;
+        this.fullName = fname + " " + lname;
+    }
+
     public static User getInstance() {
         if (user != null) return user;
         else return user = new User();
+    }
+
+    public static void setUser(String username, String fname, String lname, String dob, String phone, String email, String session, String gender) {
+        if (User.user == null)
+            User.user = new User(username, fname, lname, dob, phone, email, session, gender);
+    }
+
+    @SuppressWarnings("unchecked")
+    public static void generateUser(Map<String, Object> data) {
+        String session = data.get("token").toString();
+        LinkedTreeMap<String, Object> user = (LinkedTreeMap<String, Object>) data.get("user");
+        String email = user.get("email").toString();
+        String username = user.get("nick_name").toString();
+        String dob = user.get("dob").toString();
+        String gender = user.get("gender").toString();
+        String phone = user.get("phone").toString();
+        LinkedTreeMap<String, Object> realname = (LinkedTreeMap<String, Object>) user.get("full_name");
+        String fname = realname.get("fName").toString();
+        String lname = realname.get("lName").toString();
+        setUser(username, fname, lname, dob, phone, email, session, gender);
     }
 
     @Bindable
@@ -95,14 +129,5 @@ public class User extends BaseObservable {
             fields[2] = Integer.parseInt(dobAry[2]);
         }
         return fields;
-    }
-
-    public boolean isMale(){
-        return gender.equals("male");
-    }
-
-    private void getData() {
-        Ajax a = new Ajax();
-
     }
 }

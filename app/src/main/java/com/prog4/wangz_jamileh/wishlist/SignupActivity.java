@@ -15,6 +15,7 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.prog4.wangz_jamileh.wishlist.Model.User;
 import com.prog4.wangz_jamileh.wishlist.error.InputCheck;
 import com.prog4.wangz_jamileh.wishlist.magic.Ajax;
 
@@ -107,9 +108,10 @@ public class SignupActivity extends AppCompatActivity {
             Ajax ajax = new Ajax();
             ajax.post("/newUser", params);
             Map<String, Object> res = ajax.response();
-            if (res != null && res.containsKey("token")) {//                showProgress(true);
+            if (res != null && res.containsKey("token")) {
+//                showProgress(true);
                 String token = res.get("token").toString();
-                Log.i("token", token);
+                User.generateUser(res);
                 Intent i = new Intent(SignupActivity.this, MenuActivity.class);
                 i.putExtra("session", token);
                 startActivity(i);

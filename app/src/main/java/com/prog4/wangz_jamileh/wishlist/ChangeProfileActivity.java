@@ -2,7 +2,6 @@ package com.prog4.wangz_jamileh.wishlist;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
-import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -56,4 +55,9 @@ public class ChangeProfileActivity extends AppCompatActivity {
             dobView.setText(dob);
         }
     };
+
+    public void goback(View v){
+        onBackPressed();
+        finish();
+    }
 }

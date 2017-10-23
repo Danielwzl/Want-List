@@ -26,6 +26,9 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import com.google.gson.internal.LinkedTreeMap;
+import com.prog4.wangz_jamileh.wishlist.Model.User;
 import com.prog4.wangz_jamileh.wishlist.magic.Ajax;
 import com.prog4.wangz_jamileh.wishlist.error.InputCheck;
 
@@ -76,27 +79,20 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             }
         });
 
-        Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
+        TextView mEmailSignInButton = (TextView) findViewById(R.id.email_sign_in_button);
         mEmailSignInButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
                 attemptLogin();
             }
         });
-        signup();
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
     }
 
-    private void signup() {
-        Button signup = (Button) findViewById(R.id.signup);
-        signup.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(LoginActivity.this, SignupActivity.class);
-                startActivity(i);
-            }
-        });
+    public void signup(View v) {
+        Intent i = new Intent(LoginActivity.this, SignupActivity.class);
+        startActivity(i);
     }
 
     private void populateAutoComplete() {
@@ -187,7 +183,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             if (res != null && res.containsKey("token") && res.get("token") != null) {
                 showProgress(true);
                 String token = res.get("token").toString();
-                Log.i("token", token);
+                User.generateUser(res);
                 Intent i = new Intent(getBaseContext(), MenuActivity.class);
                 i.putExtra("session", token);
                 startActivity(i);
