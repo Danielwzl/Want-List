@@ -194,4 +194,9 @@ public class SignupActivity extends AppCompatActivity {
         }
     };
 
+    public void goback(View v){
+        onBackPressed();
+        finish();
+    }
+
 }

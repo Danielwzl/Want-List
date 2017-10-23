@@ -28,7 +28,6 @@ public class ChangeProfileActivity extends AppCompatActivity {
         user = User.getInstance();
         ActivityChangeProfileBinding bind = DataBindingUtil.setContentView(this, R.layout.activity_change_profile);
         bind.setUser(user);
-
         dobView = (EditText) findViewById(R.id.changeProfile_dob);
         dobView.setOnClickListener(new View.OnClickListener() {
             @Override
