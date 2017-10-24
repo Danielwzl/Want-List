@@ -11,7 +11,7 @@ import java.util.Map;
 public class User extends BaseObservable {
     public static User user;
 
-    public String username, fname, lname, dob, phone, email, session, gender, fullName;
+    public String username, fname, lname, dob, phone, email, session = "test", gender, fullName;
 
     public User() {
 

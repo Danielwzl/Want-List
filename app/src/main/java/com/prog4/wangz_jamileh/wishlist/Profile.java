@@ -26,6 +26,7 @@ import com.prog4.wangz_jamileh.wishlist.magic.Ajax;
 import com.prog4.wangz_jamileh.wishlist.utility_manager.ImageManager;
 
 import java.io.ByteArrayInputStream;
+import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Map;
@@ -146,14 +147,13 @@ public class Profile extends Fragment {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == RESULT_LOAD_IMAGE && resultCode == getActivity().RESULT_OK && data != null) {
             Uri selectedImage = data.getData();
-
-            ImageManager im = new ImageManager();
-            InputStream image = im.uriToFile(selectedImage, getActivity());
-            Bitmap compressedImg = im.compressImage(image);
+            ImageManager im = new ImageManager(getActivity());
+            Bitmap compressedImg = im.compressImage(selectedImage);
             imageView.setImageDrawable(null);
             imageView.setImageBitmap(compressedImg);
+            InputStream image = im.uriToFile(selectedImage);
             if(image != null){
-//                uploadImage(image);
+                uploadImage(image);
             }
         }
     }
@@ -167,7 +167,7 @@ public class Profile extends Fragment {
         if(res != null && res.containsKey("status") && res.get("status").equals("ok")){
             Map<String, Object> data = (LinkedTreeMap<String, Object>) res.get("data");
             Map<String, Object> image = (LinkedTreeMap<String, Object>) res.get("image");
-            return new ImageManager().listToBitmap((ArrayList<Double>) image.get("data"));
+            return new ImageManager(getActivity()).listToBitmap((ArrayList<Double>) image.get("data"));
         }
        return null;
     }

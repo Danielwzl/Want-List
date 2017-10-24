@@ -107,7 +107,7 @@ public class HttpRequest {
 
             //add request header
             con.setRequestProperty("User-Agent", USER_AGENT);
-
+            con.setConnectTimeout(3000);
             int responseCode = con.getResponseCode();
 
             System.out.println("\nSending 'GET' request to URL : " + url);
@@ -139,6 +139,7 @@ public class HttpRequest {
             con.setRequestMethod("POST");
             con.setRequestProperty("User-Agent", USER_AGENT);
             con.setRequestProperty("Accept-Language", "en-US,en;q=0.5");
+            con.setConnectTimeout(5000);
             // Send post request
             con.setDoOutput(true);
             DataOutputStream wr = new DataOutputStream(con.getOutputStream());
@@ -191,6 +192,7 @@ public class HttpRequest {
             connection.setRequestProperty("Connection", "Keep-Alive");
             connection.setRequestProperty("User-Agent", "Android Multipart HTTP Client 1.0");
             connection.setRequestProperty("Content-Type", "multipart/form-data; boundary=" + boundary);
+            connection.setConnectTimeout(10000);
             //upload file
             DataOutputStream outputStream = new DataOutputStream(connection.getOutputStream());
             outputStream.writeBytes(twoHyphens + boundary + lineEnd);
@@ -199,20 +201,20 @@ public class HttpRequest {
             outputStream.writeBytes("Content-Transfer-Encoding: binary" + lineEnd);
             outputStream.writeBytes(lineEnd);
 
-
-            bytesAvailable = file.available();
-            bufferSize = Math.min(bytesAvailable, maxBufferSize);
-            buffer = new byte[bufferSize];
-
-            bytesRead = file.read(buffer, 0, bufferSize);
-            while (bytesRead > 0) {
-                outputStream.write(buffer, 0, bufferSize);
+            if(file != null) {
                 bytesAvailable = file.available();
                 bufferSize = Math.min(bytesAvailable, maxBufferSize);
-                bytesRead = file.read(buffer, 0, bufferSize);
-            }
-            file.close();
+                buffer = new byte[bufferSize];
 
+                bytesRead = file.read(buffer, 0, bufferSize);
+                while (bytesRead > 0) {
+                    outputStream.write(buffer, 0, bufferSize);
+                    bytesAvailable = file.available();
+                    bufferSize = Math.min(bytesAvailable, maxBufferSize);
+                    bytesRead = file.read(buffer, 0, bufferSize);
+                }
+                file.close();
+            }
             outputStream.writeBytes(lineEnd);
 
             // Upload POST Data

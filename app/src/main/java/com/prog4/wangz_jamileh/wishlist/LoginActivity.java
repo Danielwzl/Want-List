@@ -26,6 +26,7 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.internal.LinkedTreeMap;
 import com.prog4.wangz_jamileh.wishlist.Model.User;
@@ -66,12 +67,12 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         // Set up the login form.
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
         populateAutoComplete();
-
         mPasswordView = (EditText) findViewById(R.id.password);
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
                 if (id == R.id.login || id == EditorInfo.IME_NULL) {
+
                     attemptLogin();
                     return true;
                 }
@@ -83,6 +84,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         mEmailSignInButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
+//                showProgress(true);
                 attemptLogin();
             }
         });
@@ -146,6 +148,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
      */
     private void attemptLogin() {
         // Reset errors.
+
         mEmailView.setError(null);
         mPasswordView.setError(null);
 
@@ -181,14 +184,16 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             ajax.post("/serverLogin", params);
             Map<String, Object> res = ajax.response();
             if (res != null && res.containsKey("token") && res.get("token") != null) {
-                showProgress(true);
                 String token = res.get("token").toString();
                 User.generateUser(res);
                 Intent i = new Intent(getBaseContext(), MenuActivity.class);
                 i.putExtra("session", token);
                 startActivity(i);
                 finish();
-            } else {
+            } else if(res == null){
+                Toast.makeText(this, "server down", Toast.LENGTH_SHORT).show();
+            }
+            else{
                 check.error(mEmailView, "Email or Password is not correct...");
                 check.showErr().requestFocus();
             }
