@@ -7,8 +7,14 @@ import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 import com.prog4.wangz_jamileh.wishlist.R;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -29,6 +35,9 @@ public class Explore extends Fragment {
     private String mParam2;
     private View exploreView;
     private OnFragmentInteractionListener mListener;
+
+    private ListView list;
+    private List<String> List_file;
 
     public Explore() {
         // Required empty public constructor
@@ -69,7 +78,11 @@ public class Explore extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         if(exploreView != null) return  exploreView;
-        return exploreView = inflater.inflate(R.layout.fragment_explore, container, false);
+        exploreView = inflater.inflate(R.layout.fragment_explore, container, false);
+        List_file =new ArrayList<>();
+        list = (ListView) exploreView.findViewById(R.id.explore_list);
+        createListView();
+        return exploreView;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -109,5 +122,40 @@ public class Explore extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+    }
+
+
+    private void createListView()
+    {
+        List_file.add("Coderzheaven");
+        List_file.add("Google");
+        List_file.add("Android");
+        List_file.add("iPhone");
+        List_file.add("Apple");
+        List_file.add("Coderzheaven");
+        List_file.add("Google");
+        List_file.add("Android");
+        List_file.add("iPhone");
+        List_file.add("Apple");
+        List_file.add("Coderzheaven");
+        List_file.add("Google");
+        List_file.add("Android");
+        List_file.add("iPhone");
+        List_file.add("Apple");
+        List_file.add("Coderzheaven");
+        List_file.add("Google");
+        List_file.add("Android");
+        List_file.add("iPhone");
+        List_file.add("Apple");
+        //Create an adapter for the listView and add the ArrayList to the adapter.
+        list.setAdapter(new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1,List_file));
+        list.setOnItemClickListener(new AdapterView.OnItemClickListener()
+        {
+            @Override
+            public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,long arg3)
+            {
+                //args2 is the listViews Selected index
+            }
+        });
     }
 }
