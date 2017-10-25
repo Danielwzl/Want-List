@@ -31,10 +31,7 @@ public class SecurityActivity extends AppCompatActivity {
                 pw_2 = pwView_2.getText().toString();
         boolean cancel = false;
         InputCheck check = new InputCheck();
-        if(check.passwordMatch(pw_1, pw_2)){
-            check.error(pwView_1, "password not match");
-            cancel = true;
-        }
+
 
         if(check.isPasswordValid(pw_2)){
             check.error(pwView_2, "password must be at 6 length");
@@ -43,6 +40,11 @@ public class SecurityActivity extends AppCompatActivity {
 
         if(check.isPasswordValid(pw_1)){
             check.error(pwView_1, "password must be at 6 length");
+            cancel = true;
+        }
+
+        if(check.passwordMatch(pw_1, pw_2)){
+            check.error(pwView_1, "password not match");
             cancel = true;
         }
 

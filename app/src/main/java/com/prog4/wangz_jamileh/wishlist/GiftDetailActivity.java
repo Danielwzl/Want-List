@@ -3,7 +3,7 @@ package com.prog4.wangz_jamileh.wishlist;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-import com.prog4.wangz_jamileh.prog4.R;
+import com.prog4.wangz_jamileh.wishlist.R;
 
 public class GiftDetailActivity extends AppCompatActivity {
 

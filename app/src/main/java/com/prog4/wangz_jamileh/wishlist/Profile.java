@@ -20,7 +20,6 @@ import android.widget.TextView;
 
 import com.google.gson.internal.LinkedTreeMap;
 import com.prog4.wangz_jamileh.wishlist.Model.User;
-import com.prog4.wangz_jamileh.wishlist.R;
 import com.prog4.wangz_jamileh.wishlist.databinding.FragmentProfileBinding;
 import com.prog4.wangz_jamileh.wishlist.magic.Ajax;
 import com.prog4.wangz_jamileh.wishlist.utility_manager.ImageManager;
