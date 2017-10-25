@@ -4,14 +4,14 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-
-import com.prog4.wangz_jamileh.wishlist.R;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +24,7 @@ import java.util.List;
  * Use the {@link Explore#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class Explore extends Fragment {
+public class Explore extends Fragment{
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -38,6 +38,7 @@ public class Explore extends Fragment {
 
     private ListView list;
     private List<String> List_file;
+    private SwipeRefreshLayout swipeLayout;
 
     public Explore() {
         // Required empty public constructor
@@ -79,6 +80,35 @@ public class Explore extends Fragment {
         // Inflate the layout for this fragment
         if(exploreView != null) return  exploreView;
         exploreView = inflater.inflate(R.layout.fragment_explore, container, false);
+        swipeLayout = (SwipeRefreshLayout) exploreView.findViewById(R.id.explore_swiperefresh);
+        swipeLayout.setRefreshing( false );
+        swipeLayout.setEnabled( false );
+        list.setOnScrollListener(new AbsListView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+
+            }
+
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+                if (firstVisibleItem == 0) {
+                    // check if we reached the top or bottom of the list
+                    View v = list.getChildAt(0);
+                    int offset = (v == null) ? 0 : v.getTop();
+                    if (offset == 0) {
+                        // TODO refresh the view when reach the top
+                        return;
+                    }
+                } else if (totalItemCount - visibleItemCount == firstVisibleItem){
+                    View v =  list.getChildAt(totalItemCount-1);
+                    int offset = (v == null) ? 0 : v.getTop();
+                    if (offset == 0) {
+                        //TODO load more data when reach the bottom
+                        return;
+                    }
+                }
+            }
+        });
         List_file =new ArrayList<>();
         list = (ListView) exploreView.findViewById(R.id.explore_list);
         createListView();
