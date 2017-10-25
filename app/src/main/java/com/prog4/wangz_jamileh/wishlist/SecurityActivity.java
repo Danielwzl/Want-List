@@ -52,6 +52,7 @@ public class SecurityActivity extends AppCompatActivity {
         else{
             TreeMap<String, String> params = new TreeMap<>();
             params.put("type", "resetPass");
+            params.put("id", User.getInstance().session);
             params.put("newPass", pw_1);
             Ajax ajax = new Ajax();
             ajax.post("/serverUpdate", params);

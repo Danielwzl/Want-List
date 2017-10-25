@@ -54,6 +54,7 @@ public class Profile extends Fragment {
     private ImageView imageView;
     private LinearLayout personalInfo;
     private View profileView;
+    private View securityView;
     public String mParam1, mParam2;
     private User user;
 
@@ -101,6 +102,7 @@ public class Profile extends Fragment {
                    inflater, R.layout.fragment_profile, container, false);
         profileView = bind.getRoot();
         imageView = (ImageView) profileView.findViewById(R.id.profile_selectedImage);
+        securityView = (LinearLayout) profileView.findViewById(R.id.profile_security);
         personalInfo = (LinearLayout) profileView.findViewById(R.id.profile_personalInfo);
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -112,6 +114,14 @@ public class Profile extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(getActivity(), ChangeProfileActivity.class);
+                startActivity(i);
+            }
+        });
+
+        securityView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getActivity(), SecurityActivity.class);
                 startActivity(i);
             }
         });
