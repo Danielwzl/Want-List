@@ -2,6 +2,7 @@ package com.prog4.wangz_jamileh.wishlist.Model;
 
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
+import android.graphics.Bitmap;
 
 import com.google.gson.internal.LinkedTreeMap;
 import com.prog4.wangz_jamileh.wishlist.BR;
@@ -12,6 +13,7 @@ public class User extends BaseObservable {
     public static User user;
 
     public String username, fname, lname, dob, phone, email, session = "test", gender, fullName;
+    public Bitmap avartar;
 
     public User() {
 
@@ -52,6 +54,16 @@ public class User extends BaseObservable {
         String fname = realname.get("fName").toString();
         String lname = realname.get("lName").toString();
         setUser(username, fname, lname, dob, phone, email, session, gender);
+    }
+
+    @Bindable
+    public Bitmap getAvartar(){
+        return avartar;
+    }
+
+    public void setAvartar(Bitmap avartar){
+        this.avartar = avartar;
+        notifyPropertyChanged(BR.avartar);
     }
 
     @Bindable
