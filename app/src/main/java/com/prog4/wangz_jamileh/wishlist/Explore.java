@@ -37,7 +37,7 @@ public class Explore extends Fragment{
     private OnFragmentInteractionListener mListener;
 
     private ListView list;
-    private List<String> List_file;
+    private List<Post> List_file;
     private SwipeRefreshLayout swipeLayout;
 
     public Explore() {
@@ -81,12 +81,12 @@ public class Explore extends Fragment{
         if(exploreView != null) return  exploreView;
         exploreView = inflater.inflate(R.layout.fragment_explore, container, false);
         swipeLayout = (SwipeRefreshLayout) exploreView.findViewById(R.id.explore_swiperefresh);
-        swipeLayout.setRefreshing( false );
-        swipeLayout.setEnabled( false );
+        toggleRefresh(false);
+        list = (ListView) exploreView.findViewById(R.id.explore_list);
+
         list.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(AbsListView view, int scrollState) {
-
             }
 
             @Override
@@ -96,7 +96,7 @@ public class Explore extends Fragment{
                     View v = list.getChildAt(0);
                     int offset = (v == null) ? 0 : v.getTop();
                     if (offset == 0) {
-                        // TODO refresh the view when reach the top
+//                        toggleRefresh(true);
                         return;
                     }
                 } else if (totalItemCount - visibleItemCount == firstVisibleItem){
@@ -110,7 +110,6 @@ public class Explore extends Fragment{
             }
         });
         List_file =new ArrayList<>();
-        list = (ListView) exploreView.findViewById(R.id.explore_list);
         createListView();
         return exploreView;
     }
@@ -157,26 +156,8 @@ public class Explore extends Fragment{
 
     private void createListView()
     {
-        List_file.add("Coderzheaven");
-        List_file.add("Google");
-        List_file.add("Android");
-        List_file.add("iPhone");
-        List_file.add("Apple");
-        List_file.add("Coderzheaven");
-        List_file.add("Google");
-        List_file.add("Android");
-        List_file.add("iPhone");
-        List_file.add("Apple");
-        List_file.add("Coderzheaven");
-        List_file.add("Google");
-        List_file.add("Android");
-        List_file.add("iPhone");
-        List_file.add("Apple");
-        List_file.add("Coderzheaven");
-        List_file.add("Google");
-        List_file.add("Android");
-        List_file.add("iPhone");
-        List_file.add("Apple");
+        List_file.add(new Post());
+
         //Create an adapter for the listView and add the ArrayList to the adapter.
         list.setAdapter(new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1,List_file));
         list.setOnItemClickListener(new AdapterView.OnItemClickListener()
@@ -187,5 +168,10 @@ public class Explore extends Fragment{
                 //args2 is the listViews Selected index
             }
         });
+    }
+
+    private void toggleRefresh(boolean flag){
+        swipeLayout.setRefreshing( flag );
+        swipeLayout.setEnabled( flag );
     }
 }
