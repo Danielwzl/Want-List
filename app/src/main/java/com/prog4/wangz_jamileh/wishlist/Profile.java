@@ -8,6 +8,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.provider.MediaStore;
+import android.support.annotation.Nullable;
 import android.text.Layout;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -56,6 +57,7 @@ public class Profile extends Fragment {
     private View securityView;
     public String mParam1, mParam2;
     private User user;
+    private ImageManager im;
 
     private OnFragmentInteractionListener mListener;
 
@@ -94,11 +96,11 @@ public class Profile extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        if(profileView!=null) return profileView;
+        if (profileView != null) return profileView;
 //        profileView = inflater.inflate(R.layout.fragment_profile, container, false);
         user = User.getInstance();
-        FragmentProfileBinding bind =  DataBindingUtil.inflate(
-                   inflater, R.layout.fragment_profile, container, false);
+        FragmentProfileBinding bind = DataBindingUtil.inflate(
+                inflater, R.layout.fragment_profile, container, false);
         profileView = bind.getRoot();
         imageView = (ImageView) profileView.findViewById(R.id.profile_selectedImage);
         securityView = (LinearLayout) profileView.findViewById(R.id.profile_security);
@@ -125,12 +127,25 @@ public class Profile extends Fragment {
             }
         });
         bind.setUser(user);
-//        Bitmap image = downloadImage();
-//        if(image != null){
-//            imageView.setImageBitmap(new ImageManager().compressImage(image));
+        if (im == null) im = new ImageManager(getActivity());
+//        if (user.avartar == null) {
+//            Bitmap image = downloadImage(user, im);
+//            if (image != null) {
+//                imageView.setImageBitmap(im.compressImage(image));
+//            }
 //        }
-
         return profileView;
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        if (user.avartar == null) {
+            Bitmap image = downloadImage(user, im);
+            if (image != null) {
+                imageView.setImageBitmap(im.compressImage(image));
+            }
+        }
     }
 
     private void pickImage() {
@@ -139,46 +154,58 @@ public class Profile extends Fragment {
         startActivityForResult(pickIntent, RESULT_LOAD_IMAGE);
     }
 
-    public void uploadImage(InputStream fileInputStream) {
+    public boolean uploadImage(InputStream fileInputStream) {
+        boolean done = false;
         Ajax a = new Ajax();
         TreeMap<String, String> params = new TreeMap<>();
-        params.put("id", "123");
+        params.put("id", User.getInstance().session);
         String fileField = "image",
                 mimeType = "image/jpeg",
                 fileName = "avatar";
-        a.post("/file", params, fileInputStream, fileField, mimeType, fileName);
+        a.post("/updateAvatar", params, fileInputStream, fileField, mimeType, fileName);
         Map<String, Object> res = a.response();
-        System.out.println(res.get("status"));
+        if (res.get("status").toString().equals("ok")) {
+            done = true;
+        }
+        return done;
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == RESULT_LOAD_IMAGE && resultCode == getActivity().RESULT_OK && data != null) {
+            boolean done = false;
             Uri selectedImage = data.getData();
-            ImageManager im = new ImageManager(getActivity());
-            Bitmap compressedImg = im.compressImage(selectedImage);
-            imageView.setImageDrawable(null);
-            imageView.setImageBitmap(compressedImg);
+
             InputStream image = im.uriToFile(selectedImage);
-            if(image != null){
-                uploadImage(image);
+            if (image != null) {
+                done = uploadImage(image);
+            }
+            if(done){
+                Bitmap compressedImg = im.compressImage(selectedImage);
+                imageView.setImageDrawable(null);
+                imageView.setImageBitmap(compressedImg);
+                user.setAvartar(compressedImg);
             }
         }
     }
 
     @SuppressWarnings("unchecked")
-    public Bitmap downloadImage(){
+    public Bitmap downloadImage(User user, ImageManager im) {
         Ajax a = new Ajax();
         TreeMap<String, String> params = new TreeMap<>();
-        a.post("/getImage", params);
+        params.put("id", user.session);
+        a.post("/getAvatar", params);
         Map<String, Object> res = a.response();
-        if(res != null && res.containsKey("status") && res.get("status").equals("ok")){
-            Map<String, Object> data = (LinkedTreeMap<String, Object>) res.get("data");
+        if (res != null && res.containsKey("status") && res.get("status").equals("ok")) {
             Map<String, Object> image = (LinkedTreeMap<String, Object>) res.get("image");
-            return new ImageManager(getActivity()).listToBitmap((ArrayList<Double>) image.get("data"));
+            Bitmap avatar = im.listToBitmap((ArrayList<Double>) image.get("data"));
+            user.setAvartar(avatar);
+            return avatar;
         }
-       return null;
+//TODO finish it
+//        user.setAvartar(new Bitmap.createBitmap(getResources().getDrawable(R.drawable.ic_face_black_24dp)));
+        return null;
     }
 
     // TODO: Rename method, update argument and hook method into UI event

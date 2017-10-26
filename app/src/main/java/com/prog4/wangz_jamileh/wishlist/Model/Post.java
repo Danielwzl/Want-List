@@ -1,8 +1,12 @@
 package com.prog4.wangz_jamileh.wishlist.Model;
 
-/**
- * Created by ZILONG on 2017-10-21.
- */
 
 public class Post {
+    public String name;
+    public String hometown;
+
+    public Post(String name, String hometown) {
+        this.name = name;
+        this.hometown = hometown;
+    }
 }

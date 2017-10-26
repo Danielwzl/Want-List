@@ -3,16 +3,15 @@ package com.prog4.wangz_jamileh.wishlist.Model;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import android.graphics.Bitmap;
-
-import com.google.gson.internal.LinkedTreeMap;
 import com.prog4.wangz_jamileh.wishlist.BR;
+import com.google.gson.internal.LinkedTreeMap;
 
 import java.util.Map;
 
 public class User extends BaseObservable {
     public static User user;
 
-    public String username, fname, lname, dob, phone, email, session = "test", gender, fullName;
+    public String username, fname, lname, dob, phone, email, session, gender, fullName;
     public Bitmap avartar;
 
     public User() {
@@ -83,7 +82,9 @@ public class User extends BaseObservable {
 
     public void setFname(String fname) {
         this.fname = fname;
+        this.fullName = lname + " "  + fname;
         notifyPropertyChanged(BR.fname);
+        notifyPropertyChanged(BR.fullName);
     }
 
     @Bindable
@@ -93,7 +94,9 @@ public class User extends BaseObservable {
 
     public void setLname(String lname) {
         this.lname = lname;
+        this.fullName = lname + " "  + fname;
         notifyPropertyChanged(BR.lname);
+        notifyPropertyChanged(BR.fullName);
     }
 
     @Bindable
@@ -125,10 +128,8 @@ public class User extends BaseObservable {
         return fullName;
     }
 
-    public void setFullName(String lname, String fname) {
-        this.fullName = fullName;
-        this.lname = lname;
-        this.fname = fname;
+    public void setFullName(String fullName) {
+
         notifyPropertyChanged(BR.fullName);
     }
 

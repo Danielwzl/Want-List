@@ -48,7 +48,7 @@
                         android:layout_gravity="center"
                         android:layout_marginTop="20dp"
                         android:gravity="center"
-                        android:text="@{user.username}"
+                        android:text="@={user.username}"
                         android:textColor="@color/border_color"
                         android:textSize="18sp" />
 
@@ -69,7 +69,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:layout_marginTop="10dp"
-                        android:text="@{user.fullName}"
+                        android:text="@={user.fullName}"
                         android:textColor="@color/border_color"
                         android:textSize="20sp" />
 

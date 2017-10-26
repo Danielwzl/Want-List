@@ -10,11 +10,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import com.prog4.wangz_jamileh.wishlist.Model.Post;
+import com.prog4.wangz_jamileh.wishlist.adpater.PostAdapter;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -37,7 +37,7 @@ public class Explore extends Fragment{
     private OnFragmentInteractionListener mListener;
 
     private ListView list;
-    private List<Post> List_file;
+    private ArrayList<Post> List_file;
     private SwipeRefreshLayout swipeLayout;
 
     public Explore() {
@@ -156,10 +156,23 @@ public class Explore extends Fragment{
 
     private void createListView()
     {
-        List_file.add(new Post());
-
+        List_file.add( new Post("Nathan", "San Diego"));
+        List_file.add( new Post("Nathan", "San Diego"));
+        List_file.add( new Post("Nathan", "San Diego"));
+        List_file.add( new Post("Nathan", "San Diego"));
+        List_file.add( new Post("Nathan", "San Diego"));
+        List_file.add( new Post("Nathan", "San Diego"));
+        List_file.add( new Post("Nathan", "San Diego"));
+        List_file.add( new Post("Nathan", "San Diego"));
+        List_file.add( new Post("Nathan", "San Diego"));
+        List_file.add( new Post("Nathan", "San Diego"));
+        List_file.add( new Post("Nathan", "San Diego"));
+        List_file.add( new Post("Nathan", "San Diego"));
+        List_file.add( new Post("Nathan", "San Diego"));
+        List_file.add( new Post("Nathan", "San Diego"));
+        List_file.add( new Post("Nathan", "San Diego"));
         //Create an adapter for the listView and add the ArrayList to the adapter.
-        list.setAdapter(new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_1,List_file));
+        list.setAdapter(new PostAdapter(getContext(), android.R.layout.simple_gallery_item, List_file));
         list.setOnItemClickListener(new AdapterView.OnItemClickListener()
         {
             @Override

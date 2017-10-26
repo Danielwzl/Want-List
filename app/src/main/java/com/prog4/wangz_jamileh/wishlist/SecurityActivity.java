@@ -24,7 +24,6 @@ public class SecurityActivity extends AppCompatActivity {
     }
 
     public void update(View v){
-        Ajax a = new Ajax();
         EditText pwView_1 = (EditText) findViewById(R.id.sec_pw1),
                 pwView_2 = (EditText) findViewById(R.id.sec_pw2);
         String pw_1 = pwView_1.getText().toString(),
@@ -33,17 +32,17 @@ public class SecurityActivity extends AppCompatActivity {
         InputCheck check = new InputCheck();
 
 
-        if(check.isPasswordValid(pw_2)){
+        if(!check.isPasswordValid(pw_2)){
             check.error(pwView_2, "password must be at 6 length");
             cancel = true;
         }
 
-        if(check.isPasswordValid(pw_1)){
+        if(!check.isPasswordValid(pw_1)){
             check.error(pwView_1, "password must be at 6 length");
             cancel = true;
         }
 
-        if(check.passwordMatch(pw_1, pw_2)){
+        if(!check.passwordMatch(pw_1, pw_2)){
             check.error(pwView_1, "password not match");
             cancel = true;
         }
