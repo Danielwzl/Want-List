@@ -10,14 +10,18 @@ public class Post implements Serializable {
             desc, updateAt;
 
     private int desire, cost;
+
+
     private boolean marked;
     private Bitmap image;
+    private String id;
 
-    public Post(){
+    public Post() {
 
     }
 
-    public Post(String name, String desc, int desire, int cost, boolean marked, Bitmap image, String updateAt) {
+    public Post(String id, String name, String desc, int desire, int cost, boolean marked, Bitmap image, String updateAt) {
+        this.id = id;
         this.name = name;
         this.desc = desc;
         this.desire = desire;
@@ -27,6 +31,13 @@ public class Post implements Serializable {
         this.updateAt = updateAt;
     }
 
+    public java.lang.String getId() {
+        return id;
+    }
+
+    public void setId(java.lang.String id) {
+        this.id = id;
+    }
 
     public java.lang.String getName() {
         return name;
