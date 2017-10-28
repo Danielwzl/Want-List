@@ -1,6 +1,7 @@
 package com.prog4.wangz_jamileh.wishlist;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
@@ -14,6 +15,7 @@ import android.widget.ListView;
 import com.prog4.wangz_jamileh.wishlist.Model.Post;
 import com.prog4.wangz_jamileh.wishlist.adpater.PostAdapter;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
@@ -37,7 +39,7 @@ public class Explore extends Fragment{
     private OnFragmentInteractionListener mListener;
 
     private ListView list;
-    private ArrayList<Post> List_file;
+    private ArrayList<Post> posts;
     private SwipeRefreshLayout swipeLayout;
 
     public Explore() {
@@ -83,33 +85,7 @@ public class Explore extends Fragment{
         swipeLayout = (SwipeRefreshLayout) exploreView.findViewById(R.id.explore_swiperefresh);
         toggleRefresh(false);
         list = (ListView) exploreView.findViewById(R.id.explore_list);
-
-        list.setOnScrollListener(new AbsListView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(AbsListView view, int scrollState) {
-            }
-
-            @Override
-            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-                if (firstVisibleItem == 0) {
-                    // check if we reached the top or bottom of the list
-                    View v = list.getChildAt(0);
-                    int offset = (v == null) ? 0 : v.getTop();
-                    if (offset == 0) {
-//                        toggleRefresh(true);
-                        return;
-                    }
-                } else if (totalItemCount - visibleItemCount == firstVisibleItem){
-                    View v =  list.getChildAt(totalItemCount-1);
-                    int offset = (v == null) ? 0 : v.getTop();
-                    if (offset == 0) {
-                        //TODO load more data when reach the bottom
-                        return;
-                    }
-                }
-            }
-        });
-        List_file =new ArrayList<>();
+        posts =new ArrayList<>();
         createListView();
         return exploreView;
     }
@@ -144,7 +120,7 @@ public class Explore extends Fragment{
      * to the activity and potentially other fragments contained in that
      * activity.
      * <p>
-     * See the Android Training lesson <a href=
+     * See the Android Training lesson <a href
      * "http://developer.android.com/training/basics/fragments/communicating.html"
      * >Communicating with Other Fragments</a> for more information.
      */
@@ -156,35 +132,60 @@ public class Explore extends Fragment{
 
     private void createListView()
     {
-        List_file.add( new Post("Nathan", "San Diego"));
-        List_file.add( new Post("Nathan", "San Diego"));
-        List_file.add( new Post("Nathan", "San Diego"));
-        List_file.add( new Post("Nathan", "San Diego"));
-        List_file.add( new Post("Nathan", "San Diego"));
-        List_file.add( new Post("Nathan", "San Diego"));
-        List_file.add( new Post("Nathan", "San Diego"));
-        List_file.add( new Post("Nathan", "San Diego"));
-        List_file.add( new Post("Nathan", "San Diego"));
-        List_file.add( new Post("Nathan", "San Diego"));
-        List_file.add( new Post("Nathan", "San Diego"));
-        List_file.add( new Post("Nathan", "San Diego"));
-        List_file.add( new Post("Nathan", "San Diego"));
-        List_file.add( new Post("Nathan", "San Diego"));
-        List_file.add( new Post("Nathan", "San Diego"));
+        posts.add( new Post("test", "test", 2, 1, true, null, "2015/01/01"));
+
+        posts.add( new Post("test2", "test", 2, 1, true, null, "2015/01/01"));
+
         //Create an adapter for the listView and add the ArrayList to the adapter.
-        list.setAdapter(new PostAdapter(getContext(), android.R.layout.simple_gallery_item, List_file));
+        list.setAdapter(new PostAdapter(getContext(), android.R.layout.simple_gallery_item, posts));
         list.setOnItemClickListener(new AdapterView.OnItemClickListener()
         {
             @Override
-            public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,long arg3)
+            public void onItemClick(AdapterView<?> parent, View view, int position ,long id)
             {
-                //args2 is the listViews Selected index
+                if(posts != null){
+                    Intent i = new Intent(getActivity(), GiftDetailActivity.class);
+                    i.putExtra("post",  posts.get(position));
+                    startActivity(i);
+                }
             }
         });
+
+        list.setOnScrollListener(new AbsListView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+            }
+
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+                if (firstVisibleItem == 0) {
+                    // check if we reached the top or bottom of the list
+                    View v = list.getChildAt(0);
+                    int offset = (v == null) ? 0 : v.getTop();
+                    if (offset == 0) {
+//                        toggleRefresh(true);
+                        return;
+                    }
+                } else if (totalItemCount - visibleItemCount == firstVisibleItem){
+                    View v =  list.getChildAt(totalItemCount-1);
+                    int offset = (v == null) ? 0 : v.getTop();
+                    if (offset == 0) {
+                        //TODO load more data when reach the bottom
+                        return;
+                    }
+                }
+            }
+        });
+
     }
+
+
 
     private void toggleRefresh(boolean flag){
         swipeLayout.setRefreshing( flag );
         swipeLayout.setEnabled( flag );
     }
+
+
+
 }

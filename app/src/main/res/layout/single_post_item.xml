@@ -4,27 +4,28 @@
     android:orientation="horizontal">
 
     <ImageView
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:src="@mipmap/ic_launcher" />
+        android:id="@+id/exp_img"
+        android:layout_width="120dp"
+        android:layout_height="120dp" />
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:layout_marginLeft="20dp">
+        android:layout_marginLeft="30dp">
 
         <TextView
-            android:id="@+id/tvName"
+            android:id="@+id/exp_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="0dp"
             android:text="Gift Name" />
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:layout_marginTop="20dp">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -32,7 +33,10 @@
                 android:layout_gravity="center_vertical"
                 android:text="Desire: " />
 
+
+
             <RatingBar
+                android:id="@+id/exp_desire"
                 style="@android:style/Widget.DeviceDefault.RatingBar.Small"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -46,12 +50,14 @@
             android:orientation="horizontal">
 
             <TextView
+
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:text="Cost:    " />
 
             <RatingBar
+                 android:id="@+id/exp_cost"                 
                 style="@android:style/Widget.DeviceDefault.RatingBar.Small"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -61,10 +67,12 @@
     </LinearLayout>
 
     <ImageView
+        android:id="@+id/exp_star"
         android:layout_width="20dp"
         android:layout_height="20dp"
-        android:layout_marginLeft="100dp"
-        android:layout_marginTop="45dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="100dp"
         android:src="@drawable/ic_favorite_black_24dp"
-        android:tint="#e9dc0f3f" />
+        android:tint="#e9dc0f3f"
+        android:visibility="invisible"/>
 </LinearLayout>
