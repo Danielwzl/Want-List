@@ -1,197 +1,212 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context="com.prog4.wangz_jamileh.wishlist.GiftDetailActivity">
-    <ImageView
-        android:layout_alignParentTop="true"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:background="@drawable/ic_keyboard_arrow_left_black_24dp"
-        android:layout_marginLeft="8dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="8dp"
-        android:layout_marginRight="8dp"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginBottom="8dp"
-        app:layout_constraintVertical_bias="0.0"
-        android:onClick="goback"/>
-    <LinearLayout
+<layout>
+
+    <data>
+
+        <variable
+            name="post"
+            type="com.prog4.wangz_jamileh.wishlist.Model.Post" />
+    </data>
+
+    <android.support.v7.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context="com.prog4.wangz_jamileh.wishlist.GiftDetailActivity">
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-
-            <ImageView
-                android:layout_width="200dp"
-                android:layout_height="200dp"
-                android:src="@drawable/ic_face_black_24dp" />
-
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="25dp"
-            android:orientation="vertical">
-
-            <EditText
-                android:id="@+id/detail_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="0dp"
-                android:backgroundTint="@android:color/transparent"
-                android:enabled="false"
-                android:text="Gift Name"
-                android:textColor="@color/border_color"
-                android:textSize="12sp" />
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:text="Desire: " />
-
-
-                <RatingBar
-                    android:id="@+id/detail_desire"
-                    style="@android:style/Widget.DeviceDefault.RatingBar.Small"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:numStars="5"
-                    android:isIndicator="true"
-                    android:rating="2" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:text="Cost:    " />
-
-                <RatingBar
-                    android:id="@+id/detail_cost"
-                    style="@android:style/Widget.DeviceDefault.RatingBar.Small"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:numStars="5"
-                    android:rating="3" />
-
-            </LinearLayout>
-
-            <Button
-                android:id="@+id/detail_mark"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:layout_marginTop="10dp"
-                android:isIndicator="true"
-                android:text="Brought" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0.4dp"
-                android:background="#99A1AC" />
-        </LinearLayout>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="2dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:text="Description"
-        android:textAlignment="viewStart"
-        android:textAllCaps="false"
-        android:textSize="16sp"
-        android:textStyle="bold" />
-    </LinearLayout>
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="255dp"
-        android:layout_marginBottom="0dp">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <EditText
-                android:id="@+id/detail_desc"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginBottom="50dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:enabled="false"
-                android:text="fasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdas"
-                android:textColor="@color/cardview_dark_background" />
-        </LinearLayout>
-    </ScrollView>
-
-    <android.support.constraint.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        >
-
-        <ImageButton
+        <ImageView
             android:layout_width="20dp"
             android:layout_height="20dp"
-            android:layout_alignEnd="@+id/detail_lastUpdate"
             android:layout_alignParentTop="true"
             android:layout_marginBottom="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
             android:layout_marginTop="8dp"
-            android:backgroundTint="@color/white"
-            android:src="@drawable/ic_edit_black_24dp"
+            android:background="@drawable/ic_keyboard_arrow_left_black_24dp"
+            android:onClick="goback"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/detail_lastUpdate"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:onClick="enableEdit"
             app:layout_constraintVertical_bias="0.0" />
 
-        <TextView
-            android:id="@+id/detail_lastUpdate"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:layout_width="200dp"
+                    android:layout_height="200dp"
+                    android:src="@drawable/ic_face_black_24dp" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:orientation="vertical">
+
+                <EditText
+                    android:id="@+id/detail_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="0dp"
+                    android:backgroundTint="@android:color/transparent"
+                    android:enabled="false"
+                    android:text="@={post.name}"
+                    android:textColor="@color/border_color"
+                    android:textSize="12sp" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:text="Desire: " />
+
+
+                    <RatingBar
+                        android:id="@+id/detail_desire"
+                        style="@android:style/Widget.DeviceDefault.RatingBar.Small"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:isIndicator="true"
+                        android:numStars="5"
+                        android:rating="@={post.desire}" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:text="Cost:    " />
+
+                    <RatingBar
+                        android:id="@+id/detail_cost"
+                        style="@android:style/Widget.DeviceDefault.RatingBar.Small"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:numStars="5"
+                        android:rating="@={post.cost}" />
+
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/detail_mark"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="10dp"
+                    android:isIndicator="true"
+                    android:text="Brought" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.4dp"
+                    android:background="#99A1AC" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="2dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:text="Description"
+                android:textAlignment="viewStart"
+                android:textAllCaps="false"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="255dp"
+            android:layout_marginBottom="0dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <EditText
+                    android:id="@+id/detail_desc"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="50dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:backgroundTint="@android:color/transparent"
+                    android:enabled="false"
+                    android:text="@={post.desc}"
+                    android:textColor="@color/cardview_dark_background" />
+            </LinearLayout>
+        </ScrollView>
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_gravity="center_vertical"
-            android:layout_marginBottom="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginTop="8dp"
-            android:text="last edit 2015/01/01"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-    </android.support.constraint.ConstraintLayout>
+            android:layout_marginTop="5dp">
+
+            <ImageButton
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_alignEnd="@+id/detail_lastUpdate"
+                android:layout_alignParentTop="true"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:backgroundTint="@color/white"
+                android:onClick="enableEdit"
+                android:src="@drawable/ic_edit_black_24dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/detail_lastUpdate"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <TextView
+                android:id="@+id/detail_lastUpdate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center_vertical"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginTop="8dp"
+                android:text="@={post.updateAt}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </android.support.constraint.ConstraintLayout>
 
 
-</android.support.v7.widget.LinearLayoutCompat>
+    </android.support.v7.widget.LinearLayoutCompat>
+</layout>

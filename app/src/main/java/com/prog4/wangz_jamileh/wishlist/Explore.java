@@ -134,7 +134,7 @@ public class Explore extends Fragment{
     {
         posts.add( new Post("1", "test", "test", 2, 1, true, null, "2015/01/01"));
 
-        posts.add( new Post("2", "test2", "test", 2, 1, true, null, "2015/01/01"));
+        posts.add( new Post("2", "test2", "test", 5, 5, true, null, "2015/01/01"));
 
         //Create an adapter for the listView and add the ArrayList to the adapter.
         list.setAdapter(new PostAdapter(getContext(), android.R.layout.simple_gallery_item, posts));

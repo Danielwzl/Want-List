@@ -1,5 +1,6 @@
 package com.prog4.wangz_jamileh.wishlist;
 
+import android.databinding.DataBindingUtil;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -9,6 +10,7 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.prog4.wangz_jamileh.wishlist.Model.Post;
+import com.prog4.wangz_jamileh.wishlist.databinding.ActivityGiftDetailBinding;
 
 public class GiftDetailActivity extends AppCompatActivity {
 
@@ -35,6 +37,8 @@ public class GiftDetailActivity extends AppCompatActivity {
 
     private void initialPage() {
         Post post = (Post) (getIntent().getSerializableExtra("post"));
+        ActivityGiftDetailBinding bind = DataBindingUtil.setContentView(this, R.layout.activity_gift_detail);
+        bind.setPost(post);
         giftNameView.setText(post.getName());
         giftDescView.setText(post.getDesc());
         desire.setRating((float) (post.getDesire()));
