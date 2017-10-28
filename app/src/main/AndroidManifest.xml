@@ -46,7 +46,9 @@
             android:name=".ViewGiftActivity"
             android:label="@string/title_activity_view_gift"
             android:theme="@style/AppTheme" />
-        <activity android:name=".GiftDetailActivity" />
+        <activity
+            android:name=".GiftDetailActivity"
+            android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".TestActivity"
             android:label="@string/title_activity_test"

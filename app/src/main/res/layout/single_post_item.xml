@@ -11,8 +11,9 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:layout_marginLeft="30dp">
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="10dp"
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/exp_name"
@@ -24,15 +25,14 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginTop="20dp">
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:text="Desire: " />
-
 
 
             <RatingBar
@@ -57,7 +57,7 @@
                 android:text="Cost:    " />
 
             <RatingBar
-                 android:id="@+id/exp_cost"                 
+                android:id="@+id/exp_cost"
                 style="@android:style/Widget.DeviceDefault.RatingBar.Small"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -66,13 +66,17 @@
         </LinearLayout>
     </LinearLayout>
 
-    <ImageView
-        android:id="@+id/exp_star"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:layout_marginLeft="50dp"
-        android:layout_marginTop="100dp"
-        android:src="@drawable/ic_favorite_black_24dp"
-        android:tint="#e9dc0f3f"
-        android:visibility="invisible"/>
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/exp_star"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:src="@drawable/ic_favorite_black_24dp"
+            android:tint="#e9dc0f3f" />
+    </RelativeLayout>
 </LinearLayout>
