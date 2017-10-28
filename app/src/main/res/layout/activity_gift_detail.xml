@@ -6,7 +6,22 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context="com.prog4.wangz_jamileh.wishlist.GiftDetailActivity">
-
+    <ImageView
+        android:layout_alignParentTop="true"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:background="@drawable/ic_keyboard_arrow_left_black_24dp"
+        android:layout_marginLeft="8dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="8dp"
+        android:layout_marginRight="8dp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintVertical_bias="0.0"
+        android:onClick="goback"/>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -26,8 +41,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="0dp"
-            android:layout_marginTop="35dp"
+            android:layout_marginTop="25dp"
             android:orientation="vertical">
 
             <EditText
@@ -35,10 +49,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="0dp"
-                android:textSize="12sp"
-                android:enabled="false"
                 android:backgroundTint="@android:color/transparent"
-                android:text="Gift Name" />
+                android:enabled="false"
+                android:text="Gift Name"
+                android:textColor="@color/border_color"
+                android:textSize="12sp" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -86,6 +101,7 @@
             </LinearLayout>
 
             <Button
+                android:id="@+id/detail_mark"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
@@ -116,34 +132,37 @@
     </LinearLayout>
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="300dp"
+        android:layout_height="255dp"
         android:layout_marginBottom="0dp">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <TextView
+            <EditText
+                android:id="@+id/detail_desc"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginBottom="50dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                android:text="fasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdas" />
+                android:enabled="false"
+                android:text="fasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdasfasjflksajflkjsalkfjlaskjfklasjflkajsasdasdas"
+                android:textColor="@color/cardview_dark_background" />
         </LinearLayout>
     </ScrollView>
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
         >
 
         <ImageButton
-            android:id="@+id/imageButton"
             android:layout_width="20dp"
             android:layout_height="20dp"
-            android:layout_alignEnd="@+id/textView"
+            android:layout_alignEnd="@+id/detail_lastUpdate"
             android:layout_alignParentTop="true"
             android:layout_marginBottom="8dp"
             android:layout_marginEnd="8dp"
@@ -152,14 +171,15 @@
             android:backgroundTint="@color/white"
             android:src="@drawable/ic_edit_black_24dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/textView"
+            app:layout_constraintEnd_toStartOf="@+id/detail_lastUpdate"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            android:onClick="enableEdit"
             app:layout_constraintVertical_bias="0.0" />
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/detail_lastUpdate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
