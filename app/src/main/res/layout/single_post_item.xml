@@ -1,6 +1,7 @@
 <layout>
 
     <data>
+        <import type="android.view.View"/>
         <variable
             name="post"
             type="com.prog4.wangz_jamileh.wishlist.Model.Post" />
@@ -14,7 +15,8 @@
             android:id="@+id/exp_img"
             android:layout_width="120dp"
             android:layout_height="120dp"
-            android:src="@={post.image}"/>
+            android:src="@drawable/ic_card_giftcard_black_24dp"
+            />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -40,7 +42,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:text="Desire: " />
+                    android:text="Desire: "
+                    />
 
 
                 <RatingBar
@@ -76,16 +79,18 @@
 
         <RelativeLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent">
 
             <ImageView
                 android:id="@+id/exp_star"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:layout_alignParentBottom="true"
-                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginRight="2dp"
                 android:src="@drawable/ic_favorite_black_24dp"
-                android:tint="#e9dc0f3f" />
+                android:tint="#e9dc0f3f"
+                android:visibility="@{post.marked ? View.VISIBLE : View.INVISIBLE}" />
         </RelativeLayout>
     </LinearLayout>
 </layout>

@@ -2,7 +2,7 @@
 <layout>
 
     <data>
-
+        <import type="android.R" />
         <variable
             name="post"
             type="com.prog4.wangz_jamileh.wishlist.Model.Post" />
@@ -61,7 +61,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="0dp"
                     android:backgroundTint="@android:color/transparent"
-                    android:enabled="false"
+                    android:focusable="true"
                     android:text="@={post.name}"
                     android:textColor="@color/border_color"
                     android:textSize="12sp" />
@@ -118,7 +118,9 @@
                     android:layout_marginBottom="10dp"
                     android:layout_marginTop="10dp"
                     android:isIndicator="true"
-                    android:text="Brought" />
+                    android:background="@{post.marked ? @color/colorAccent : @color/grey}"
+                    android:text="@{post.marked ? @string/brought : @string/bring}"
+                    android:textColor="@{post.marked ? @color/white : @color/black}" />
 
                 <View
                     android:layout_width="match_parent"
@@ -162,7 +164,7 @@
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
                     android:backgroundTint="@android:color/transparent"
-                    android:enabled="false"
+                    android:enabled="true"
                     android:text="@={post.desc}"
                     android:textColor="@color/cardview_dark_background" />
             </LinearLayout>

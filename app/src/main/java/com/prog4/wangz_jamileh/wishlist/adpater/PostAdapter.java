@@ -16,7 +16,6 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import com.prog4.wangz_jamileh.wishlist.Model.Post;
 import com.prog4.wangz_jamileh.wishlist.R;
-import com.prog4.wangz_jamileh.wishlist.databinding.FragmentProfileBinding;
 import com.prog4.wangz_jamileh.wishlist.databinding.SinglePostItemBinding;
 
 import java.util.ArrayList;
@@ -40,12 +39,8 @@ public class PostAdapter extends ArrayAdapter<Post> {
         if (inflater == null) {
             inflater = ((Activity) parent.getContext()).getLayoutInflater();
         }
-        // Check if an existing view is being reused, otherwise inflate the view
-//        if (convertView == null) {
-//            convertView = LayoutInflater.from(getContext()).inflate(R.layout.single_post_item, parent, false);
-//        }
 
-            SinglePostItemBinding bind = DataBindingUtil.getBinding(convertView);
+        SinglePostItemBinding bind = DataBindingUtil.getBinding(convertView);
 
         if (bind == null) {
             bind = DataBindingUtil.inflate(inflater, R.layout.single_post_item, parent, false);
@@ -53,28 +48,8 @@ public class PostAdapter extends ArrayAdapter<Post> {
         bind.setPost(post);
         bind.executePendingBindings();
 
-//                    DataBindingUtil.inflate(
-//                    inflater, R.layout.activity_gift_detail, parent, false);
 
         convertView = bind.getRoot();
-//        bind.setPost(post);
-//        TextView giftNameView = (TextView) convertView.findViewById(R.id.exp_name);
-//        RatingBar desireView = (RatingBar) convertView.findViewById(R.id.exp_desire);
-//        RatingBar costView = (RatingBar) convertView.findViewById(R.id.exp_cost);
-//        ImageView star = (ImageView) convertView.findViewById(R.id.exp_star);
-//        ImageView imageView = (ImageView) convertView.findViewById(R.id.exp_img);
-//
-//        giftNameView.setText(post.getName());
-//        desireView.setRating(post.getDesire());
-//        costView.setRating(post.getCost());
-//        star.setVisibility(post.isMarked() ? View.VISIBLE : View.INVISIBLE);
-//        if(post.getImage() != null) {
-//            imageView.setImageBitmap(post.getImage());
-//        }else {
-//            imageView.setBackground(convertView.getResources().getDrawable(R.drawable.ic_card_giftcard_black_24dp));
-//        }
-
-
         return convertView;
     }
 }

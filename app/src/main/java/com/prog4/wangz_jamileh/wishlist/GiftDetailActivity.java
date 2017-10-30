@@ -1,8 +1,10 @@
 package com.prog4.wangz_jamileh.wishlist;
 
 import android.databinding.DataBindingUtil;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -23,8 +25,6 @@ public class GiftDetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gift_detail);
-
-
         giftNameView = (EditText) findViewById(R.id.detail_name);
         giftDescView = (EditText) findViewById(R.id.detail_desc);
         desire = (RatingBar) findViewById(R.id.detail_desire);
@@ -32,30 +32,20 @@ public class GiftDetailActivity extends AppCompatActivity {
         lastUpdateView = (TextView) findViewById(R.id.detail_lastUpdate);
         markView = (Button) findViewById(R.id.detail_mark);
         initialPage();
-
     }
 
     private void initialPage() {
-        Post post = (Post) (getIntent().getSerializableExtra("post"));
+        int pos = getIntent().getIntExtra("pos", 0);
         ActivityGiftDetailBinding bind = DataBindingUtil.setContentView(this, R.layout.activity_gift_detail);
+        Post post = Explore.posts.get(pos);
         bind.setPost(post);
-        giftNameView.setText(post.getName());
-        giftDescView.setText(post.getDesc());
-        desire.setRating((float) (post.getDesire()));
-        cost.setRating((float) (post.getCost()));
-        lastUpdateView.setText("last edit " + post.getUpdateAt());
-        if (post.isMarked()) {
-            markView.setBackgroundColor(getResources().getColor(R.color.colorAccent));
-            markView.setText("Brought");
-        } else {
-            markView.setText("Bring");
-        }
     }
 
     public void enableEdit(View view) {
-        boolean enabled = giftNameView.isEnabled();
-        giftNameView.setEnabled(!enabled);
-        giftDescView.setEnabled(!enabled);
+        boolean enabled = !giftNameView.isFocusable();
+        Log.i("good", enabled + "");
+        giftNameView.setFocusableInTouchMode(enabled);
+        giftDescView.setFocusableInTouchMode(enabled);
     }
 
     public void goback(View view) {

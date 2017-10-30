@@ -12,11 +12,18 @@ import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ListView;
+
+import com.google.gson.internal.LinkedTreeMap;
 import com.prog4.wangz_jamileh.wishlist.Model.Post;
+import com.prog4.wangz_jamileh.wishlist.Model.User;
 import com.prog4.wangz_jamileh.wishlist.adpater.PostAdapter;
+import com.prog4.wangz_jamileh.wishlist.magic.Ajax;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -39,7 +46,7 @@ public class Explore extends Fragment{
     private OnFragmentInteractionListener mListener;
 
     private ListView list;
-    private ArrayList<Post> posts;
+    public static ArrayList<Post> posts;
     private SwipeRefreshLayout swipeLayout;
 
     public Explore() {
@@ -85,8 +92,8 @@ public class Explore extends Fragment{
         swipeLayout = (SwipeRefreshLayout) exploreView.findViewById(R.id.explore_swiperefresh);
         toggleRefresh(false);
         list = (ListView) exploreView.findViewById(R.id.explore_list);
-        posts =new ArrayList<>();
-        createListView();
+        posts = loading();
+         createListView();
         return exploreView;
     }
 
@@ -132,10 +139,6 @@ public class Explore extends Fragment{
 
     private void createListView()
     {
-        posts.add( new Post("1", "test", "test", 2, 1, true, null, "2015/01/01"));
-
-        posts.add( new Post("2", "test2", "test", 5, 5, true, null, "2015/01/01"));
-
         //Create an adapter for the listView and add the ArrayList to the adapter.
         list.setAdapter(new PostAdapter(getContext(), android.R.layout.simple_gallery_item, posts));
         list.setOnItemClickListener(new AdapterView.OnItemClickListener()
@@ -145,7 +148,7 @@ public class Explore extends Fragment{
             {
                 if(posts != null){
                     Intent i = new Intent(getActivity(), GiftDetailActivity.class);
-                    i.putExtra("post",  posts.get(position));
+                    i.putExtra("pos",  position);
                     startActivity(i);
                 }
             }
@@ -184,6 +187,38 @@ public class Explore extends Fragment{
     private void toggleRefresh(boolean flag){
         swipeLayout.setRefreshing( flag );
         swipeLayout.setEnabled( flag );
+    }
+
+    @SuppressWarnings("unchecked")
+    private ArrayList<Post> loading(){
+        String id = User.getInstance().session;
+        TreeMap<String, String> params = new TreeMap<>();
+        params.put("id", id);
+        params.put("view_id", id);
+        Ajax a = new Ajax();
+        a.get("/showUserGift", params);
+        Map<String, Object> res = a.response();
+        if(res != null  && res.containsKey("status") && res.get("status").equals("ok")){
+            LinkedTreeMap<String, Object> data = (LinkedTreeMap<String, Object>) res.get("data");
+            if(data != null && data.containsKey("post")){
+                convertPosts((ArrayList<LinkedTreeMap>) data.get("post"));
+            }
+        }
+
+        return posts;
+    }
+
+    private void convertPosts(ArrayList<LinkedTreeMap> data){
+        posts = new ArrayList<Post>();
+        String[] update = null;
+        String date = null;
+        LinkedTreeMap<String, Object> one = null;
+        for(int i = 0, len = data.size(); i < len; i++){
+            one = data.get(i);
+            update = one.get("updatedAt").toString().split("T");
+            date = update[0] + " " + (update[1].split("\\."))[0];
+            posts.add(new Post(one.get("_id").toString(), one.get("title").toString(), one.get("desc").toString(), Float.parseFloat(one.get("desire_level").toString()), Float.parseFloat(one.get("cost_level").toString()), Boolean.valueOf(one.get("isMarked").toString()), null, date));
+        }
     }
 
 

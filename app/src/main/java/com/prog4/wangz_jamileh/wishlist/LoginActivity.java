@@ -289,23 +289,5 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         int IS_PRIMARY = 1;
     }
 
-    public void exampleOfUsingFormData(){
-        //TODO remove it
-        Ajax a = new Ajax();
-        TreeMap<String, String> params = new TreeMap<>();
-        params.put("id", "123");
-
-        InputStream filePath = null;
-        try {
-            filePath = getAssets().open("dispute.JPG");
-        }catch (IOException e){}
-
-        String fileField = "image",
-                mimeType = "image/jpeg";
-        a.post("/file", params, filePath, fileField, mimeType, "none");
-//        a.post("/post", params);
-        Map<String, Object> res = a.response();
-        System.out.println(res.get("status"));
-    }
 }
 
