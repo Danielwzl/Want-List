@@ -10,9 +10,16 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.prog4.wangz_jamileh.wishlist.Model.Post;
+import com.prog4.wangz_jamileh.wishlist.Model.User;
 import com.prog4.wangz_jamileh.wishlist.databinding.ActivityGiftDetailBinding;
+import com.prog4.wangz_jamileh.wishlist.magic.Ajax;
+
+import java.util.Map;
+import java.util.TreeMap;
+import java.util.TreeSet;
 
 public class GiftDetailActivity extends AppCompatActivity {
 
@@ -20,6 +27,7 @@ public class GiftDetailActivity extends AppCompatActivity {
     private RatingBar desire, cost;
     private TextView lastUpdateView;
     private Button markView;
+    private Post post;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +45,7 @@ public class GiftDetailActivity extends AppCompatActivity {
     private void initialPage() {
         int pos = getIntent().getIntExtra("pos", 0);
         ActivityGiftDetailBinding bind = DataBindingUtil.setContentView(this, R.layout.activity_gift_detail);
-        Post post = Explore.posts.get(pos);
+        post = Explore.posts.get(pos);
         bind.setPost(post);
     }
 
@@ -51,5 +59,17 @@ public class GiftDetailActivity extends AppCompatActivity {
     public void goback(View view) {
         onBackPressed();
         finish();
+    }
+
+    public void mark(View v){
+        Ajax a = new Ajax();
+        TreeMap<String, String> params = new TreeMap<>();
+        params.put("id", User.getInstance().session);
+        params.put("view_id", post.getId());
+        a.post("markGift", params);
+        Map<String, Object> res = a.response();
+        if(res != null && res.get("status") != null  && res.get("status").equals("ok")){
+            Toast.makeText(GiftDetailActivity.this, "updated", Toast.LENGTH_SHORT).show();
+        }
     }
 }

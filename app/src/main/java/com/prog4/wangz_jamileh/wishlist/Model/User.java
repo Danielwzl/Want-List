@@ -13,6 +13,7 @@ public class User extends BaseObservable {
 
     public String username, fname, lname, dob, phone, email, session, gender, fullName;
     public Bitmap avartar;
+    public boolean updateLock = false;
 
     public User() {
 
@@ -81,10 +82,12 @@ public class User extends BaseObservable {
     }
 
     public void setFname(String fname) {
-        this.fname = fname;
-        this.fullName = lname + " "  + fname;
-        notifyPropertyChanged(BR.fname);
-        notifyPropertyChanged(BR.fullName);
+        if(updateLock){
+            this.fname = fname;
+            this.fullName = lname + " "  + fname;
+            notifyPropertyChanged(BR.fname);
+            notifyPropertyChanged(BR.fullName);
+        }
     }
 
     @Bindable
@@ -93,10 +96,12 @@ public class User extends BaseObservable {
     }
 
     public void setLname(String lname) {
-        this.lname = lname;
-        this.fullName = lname + " "  + fname;
-        notifyPropertyChanged(BR.lname);
-        notifyPropertyChanged(BR.fullName);
+        if(updateLock) {
+            this.lname = lname;
+            this.fullName = lname + " " + fname;
+            notifyPropertyChanged(BR.lname);
+            notifyPropertyChanged(BR.fullName);
+        }
     }
 
     @Bindable

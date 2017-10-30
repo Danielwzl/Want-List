@@ -3,12 +3,7 @@ package com.prog4.wangz_jamileh.wishlist.Model;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import android.graphics.Bitmap;
-import android.graphics.drawable.Drawable;
-import android.view.View;
-
 import com.prog4.wangz_jamileh.wishlist.BR;
-
-import java.io.Serializable;
 
 public class Post extends BaseObservable {
     private String name,

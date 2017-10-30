@@ -18,10 +18,7 @@ import com.prog4.wangz_jamileh.wishlist.Model.Post;
 import com.prog4.wangz_jamileh.wishlist.Model.User;
 import com.prog4.wangz_jamileh.wishlist.adpater.PostAdapter;
 import com.prog4.wangz_jamileh.wishlist.magic.Ajax;
-
-import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.TreeMap;
 
