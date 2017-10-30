@@ -49,6 +49,7 @@ public class Profile extends Fragment {
     private static final String ARG_PARAM2 = "param2";
     private static final String IMAGE_CAPTURE_FOLDER = "wishlist_android/Upload";
     private static final int RESULT_LOAD_IMAGE = 1;
+    private static final int RESULT_LOAD_PROFILE = 3;
     // TODO: Rename and change types of parameters
     private Button gallaryBut;
     private ImageView imageView;
@@ -115,7 +116,7 @@ public class Profile extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent i = new Intent(getActivity(), ChangeProfileActivity.class);
-                startActivity(i);
+                startActivityForResult(i, RESULT_LOAD_PROFILE);
             }
         });
 
@@ -171,21 +172,30 @@ public class Profile extends Fragment {
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == RESULT_LOAD_IMAGE && resultCode == getActivity().RESULT_OK && data != null) {
-            boolean done = false;
-            Uri selectedImage = data.getData();
+        if (resultCode == getActivity().RESULT_OK && data != null) {
+            if (requestCode == RESULT_LOAD_IMAGE) {
+                boolean done = false;
+                Uri selectedImage = data.getData();
 
-            InputStream image = im.uriToFile(selectedImage);
-            if (image != null) {
-                done = uploadImage(image);
-            }
-            if(done){
-                Bitmap compressedImg = im.compressImage(selectedImage);
-                imageView.setImageDrawable(null);
-                imageView.setImageBitmap(compressedImg);
-                user.setAvartar(compressedImg);
+                InputStream image = im.uriToFile(selectedImage);
+                if (image != null) {
+                    done = uploadImage(image);
+                }
+                if (done) {
+                    Bitmap compressedImg = im.compressImage(selectedImage);
+                    imageView.setImageDrawable(null);
+                    imageView.setImageBitmap(compressedImg);
+                    user.setAvartar(compressedImg);
+                }
+            } else if (requestCode == RESULT_LOAD_PROFILE) {
+                    user.setUsername(data.getStringExtra("nick_name"));
+                    user.setFname(data.getStringExtra("fName"));
+                    user.setLname(data.getStringExtra("lName"));
+                    user.setDob(data.getStringExtra("dob"));
+                    user.setGender(data.getStringExtra("gender"));
             }
         }
     }

@@ -13,7 +13,6 @@ public class User extends BaseObservable {
 
     public String username, fname, lname, dob, phone, email, session, gender, fullName;
     public Bitmap avartar;
-    public boolean updateLock = false;
 
     public User() {
 
@@ -72,8 +71,8 @@ public class User extends BaseObservable {
     }
 
     public void setUsername(String username) {
-        this.username = username;
-        notifyPropertyChanged(BR.username);
+            this.username = username;
+            notifyPropertyChanged(BR.username);
     }
 
     @Bindable
@@ -82,12 +81,10 @@ public class User extends BaseObservable {
     }
 
     public void setFname(String fname) {
-        if(updateLock){
             this.fname = fname;
             this.fullName = lname + " "  + fname;
             notifyPropertyChanged(BR.fname);
             notifyPropertyChanged(BR.fullName);
-        }
     }
 
     @Bindable
@@ -96,12 +93,10 @@ public class User extends BaseObservable {
     }
 
     public void setLname(String lname) {
-        if(updateLock) {
             this.lname = lname;
             this.fullName = lname + " " + fname;
             notifyPropertyChanged(BR.lname);
             notifyPropertyChanged(BR.fullName);
-        }
     }
 
     @Bindable
@@ -110,8 +105,8 @@ public class User extends BaseObservable {
     }
 
     public void setDob(String dob) {
-        this.dob = dob;
-        notifyPropertyChanged(BR.dob);
+            this.dob = dob;
+            notifyPropertyChanged(BR.dob);
     }
 
     public String getSession() {
@@ -124,8 +119,8 @@ public class User extends BaseObservable {
     }
 
     public void setGender(String gender) {
-        this.gender = gender;
-        notifyPropertyChanged(BR.gender);
+            this.gender = gender;
+            notifyPropertyChanged(BR.gender);
     }
 
     @Bindable
@@ -134,8 +129,7 @@ public class User extends BaseObservable {
     }
 
     public void setFullName(String fullName) {
-
-        notifyPropertyChanged(BR.fullName);
+            notifyPropertyChanged(BR.fullName);
     }
 
     public int[] getAllfieldsFromDOB() {
