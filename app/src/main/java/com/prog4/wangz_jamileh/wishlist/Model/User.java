@@ -18,6 +18,13 @@ public class User extends BaseObservable {
 
     }
 
+    public User(String fullName, String dob, String session, String gender) {
+        this.dob = dob;
+        this.gender = gender;
+        this.session = session;
+        this.fullName = fullName;
+    }
+
     public User(String username, String fname, String lname, String dob, String phone, String email, String session, String gender) {
         this.username = username;
         this.fname = fname;

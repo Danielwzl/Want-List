@@ -24,7 +24,6 @@ import java.util.Map;
 public class PostAdapter extends ArrayAdapter<Post> {
 
     private Context context;
-    private Map<String, Object> post;
     private LayoutInflater inflater;
 
     public PostAdapter(Context context, int textViewResourceId, ArrayList<Post> post){

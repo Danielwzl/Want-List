@@ -39,20 +39,13 @@
         <activity android:name=".ChangeProfileActivity" />
         <activity android:name=".SecurityActivity" />
         <activity
-            android:name=".SearchUserActivity"
-            android:label="@string/title_activity_search_user"
-            android:theme="@style/AppTheme" />
-        <activity
-            android:name=".ViewGiftActivity"
-            android:label="@string/title_activity_view_gift"
-            android:theme="@style/AppTheme" />
-        <activity
             android:name=".GiftDetailActivity"
             android:windowSoftInputMode="stateHidden" />
         <activity
             android:name=".TestActivity"
             android:label="@string/title_activity_test"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/AppTheme" />
+        <activity android:name=".SearchUserResultActivity"></activity>
     </application>
 
 </manifest>

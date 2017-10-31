@@ -81,6 +81,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         });
 
         TextView mEmailSignInButton = (TextView) findViewById(R.id.email_sign_in_button);
+        //TODO remove
+        autoLogin("308580382@qq.com", "123123");
         mEmailSignInButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -287,6 +289,25 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         int ADDRESS = 0;
         int IS_PRIMARY = 1;
+    }
+
+    private void autoLogin(String email, String password){
+        TreeMap<String, String> params = new TreeMap<>();
+        params.put("nick_name", email);
+        params.put("password", password);
+        Ajax ajax = new Ajax();
+        ajax.post("/serverLogin", params);
+        Map<String, Object> res = ajax.response();
+        if (res != null && res.containsKey("token") && res.get("token") != null) {
+            String token = res.get("token").toString();
+            User.generateUser(res);
+            Intent i = new Intent(getBaseContext(), MenuActivity.class);
+            i.putExtra("session", token);
+            startActivity(i);
+            finish();
+        } else if(res == null){
+            Toast.makeText(this, "server down", Toast.LENGTH_SHORT).show();
+        }
     }
 
 }

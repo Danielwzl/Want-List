@@ -1,7 +1,7 @@
 <android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/explore_swiperefresh"
+    android:id="@+id/search_swipe"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.prog4.wangz_jamileh.wishlist.Explore">
@@ -21,9 +21,26 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/search"
         app:layout_constraintVertical_bias="0.0">
-
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginBottom="0dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="8dp"
+            android:src="@drawable/ic_keyboard_arrow_left_black_24dp"
+            android:background="@drawable/button_selection"
+            android:focusable="true"
+            android:onClick="goback"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
         <SearchView
-            android:id="@+id/search"
+            android:id="@+id/search_search"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginBottom="8dp"
@@ -31,7 +48,6 @@
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
             android:focusable="true"
             android:clickable="true"
             android:background="@drawable/search_border"
@@ -41,49 +57,20 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="31dp">
-
-            <de.hdodenhof.circleimageview.CircleImageView
-                xmlns:app="http://schemas.android.com/apk/res-auto"
-                android:id="@+id/profile_selectedImage"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="0dp"
-                android:layout_gravity="center_vertical"
-                android:src="@mipmap/empty_head"
-                app:civ_border_color="#ffffff"
-                app:civ_border_width="2dp" />
-            <android.support.v7.widget.AppCompatTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:text="Daniel Wang"/>
-
-            <!--<Spinner-->
-                <!--android:id="@+id/spinner"-->
-                <!--android:layout_width="100dp"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_gravity="center_vertical"-->
-                <!--android:layout_marginLeft="100dp"-->
-                <!--style="@android:style/Widget.DeviceDefault.Light.DropDownItem.Spinner"-->
-                 <!--/>-->
-        </LinearLayout>
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="@drawable/border_bottom" />
+
         <TextView
-            android:id="@+id/exp_none"
+            android:id="@+id/search_none"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="No Result"
             android:textAlignment="center"
             android:visibility="gone"/>
         <ListView
-            android:id="@+id/explore_list"
+            android:id="@+id/search_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scrollbars="vertical" />

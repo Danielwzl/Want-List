@@ -3,6 +3,8 @@ package com.prog4.wangz_jamileh.wishlist.Model;
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
 import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
+
 import com.prog4.wangz_jamileh.wishlist.BR;
 
 public class Post extends BaseObservable {
@@ -14,7 +16,7 @@ public class Post extends BaseObservable {
     private boolean marked;
     private Bitmap image;
     private String id;
-//    private Drawable image;
+    private Drawable imageDrawable;
 
     public Post(String id, String name, String desc, float desire, float cost, boolean marked, Bitmap image, String updateAt) {
         this.id = id;

@@ -25,6 +25,9 @@ import com.prog4.wangz_jamileh.wishlist.magic.Ajax;
 import com.prog4.wangz_jamileh.wishlist.utility_manager.ImageManager;
 
 import java.io.InputStream;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -172,8 +175,9 @@ public class Post extends Fragment {
         costView = (RatingBar) postView.findViewById(R.id.post_cost);
         String giftName = giftNameView.getText().toString(),
                 desc = giftDescView.getText().toString();
-        String desire = String.valueOf(desierView.getRating()),
-                cost = String.valueOf(costView.getRating());
+        float desire = desierView.getRating(),
+                cost = costView.getRating();
+        String id = User.getInstance().session;
         boolean cancel = false;
         if (check.empty(desc)) {
             check.error(giftDescView, "this field is required");
@@ -190,10 +194,10 @@ public class Post extends Fragment {
         } else {
             Ajax a = new Ajax();
             TreeMap<String, String> params = new TreeMap<>();
-            params.put("id", User.getInstance().session);
+            params.put("id", id);
             params.put("desc", desc);
-            params.put("desire_level", desire);
-            params.put("cost_level", cost);
+            params.put("desire_level", String.valueOf(desire));
+            params.put("cost_level", String.valueOf(cost));
             params.put("title", giftName);
             String fileField = "image",
                     mimeType = "image/jpeg",
@@ -203,7 +207,7 @@ public class Post extends Fragment {
                 Map<String, Object> res = a.response();
             String msg = "something went wrong";
             //TODO use res
-            if(true){
+            if(res != null && res.containsKey("status") && res.get("status").equals("ok")){
                 msg = "post successfully";
                 reset();
             }
@@ -226,7 +230,7 @@ public class Post extends Fragment {
             compressedImage = im.compressImage(selectedImage);
             imageBut.setImageBitmap(compressedImage);
             remove.setVisibility(View.VISIBLE);
-            image = im.uriToFile(selectedImage);
+            image = im.Bitmap2InputStream(compressedImage);
         }
     }
 

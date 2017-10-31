@@ -6,12 +6,15 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.SearchView;
+import android.widget.TextView;
 
 import com.google.gson.internal.LinkedTreeMap;
 import com.prog4.wangz_jamileh.wishlist.Model.Post;
@@ -35,16 +38,19 @@ public class Explore extends Fragment{
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    private  static final int SEARCH_RES_CODE = 4;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
     private View exploreView;
     private OnFragmentInteractionListener mListener;
+    private SearchView search;
 
     private ListView list;
     public static ArrayList<Post> posts;
     private SwipeRefreshLayout swipeLayout;
+    private TextView noResView;
 
     public Explore() {
         // Required empty public constructor
@@ -85,19 +91,48 @@ public class Explore extends Fragment{
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         if(exploreView != null) return  exploreView;
+        if(posts == null)posts = new ArrayList<Post>();
         exploreView = inflater.inflate(R.layout.fragment_explore, container, false);
         swipeLayout = (SwipeRefreshLayout) exploreView.findViewById(R.id.explore_swiperefresh);
+        search = (SearchView) exploreView.findViewById(R.id.search);
+        noResView = (TextView) exploreView.findViewById(R.id.exp_none);
+        search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                Intent i = new Intent(getActivity(), SearchUserResultActivity.class);
+                i.putExtra("query", query);
+                startActivityForResult(i, SEARCH_RES_CODE);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                return false;
+            }
+        });
         toggleRefresh(false);
         list = (ListView) exploreView.findViewById(R.id.explore_list);
-        posts = loading();
-         createListView();
+        posts = loading(User.getInstance().session);
+        createListView();
         return exploreView;
     }
+
+
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == SEARCH_RES_CODE && resultCode == getActivity().RESULT_OK && data != null) {
+                String id = data.getStringExtra("user");
+                posts = loading(id);
+                createListView();
         }
     }
 
@@ -138,6 +173,8 @@ public class Explore extends Fragment{
     {
         //Create an adapter for the listView and add the ArrayList to the adapter.
         list.setAdapter(new PostAdapter(getContext(), android.R.layout.simple_gallery_item, posts));
+        if(posts == null || posts.size() == 0) noResView.setVisibility(View.VISIBLE);
+
         list.setOnItemClickListener(new AdapterView.OnItemClickListener()
         {
             @Override
@@ -187,11 +224,11 @@ public class Explore extends Fragment{
     }
 
     @SuppressWarnings("unchecked")
-    private ArrayList<Post> loading(){
+    private ArrayList<Post> loading(String view_id){
         String id = User.getInstance().session;
         TreeMap<String, String> params = new TreeMap<>();
         params.put("id", id);
-        params.put("view_id", id);
+        params.put("view_id", view_id);
         Ajax a = new Ajax();
         a.get("/showUserGift", params);
         Map<String, Object> res = a.response();
@@ -206,7 +243,7 @@ public class Explore extends Fragment{
     }
 
     private void convertPosts(ArrayList<LinkedTreeMap> data){
-        posts = new ArrayList<Post>();
+        if(posts.size() > 0) posts.clear();
         String[] update = null;
         String date = null;
         LinkedTreeMap<String, Object> one = null;

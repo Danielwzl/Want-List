@@ -16,6 +16,9 @@
         android:orientation="vertical"
         tools:context="com.prog4.wangz_jamileh.wishlist.GiftDetailActivity">
 
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
         <ImageView
             android:layout_width="20dp"
             android:layout_height="20dp"
@@ -24,7 +27,9 @@
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
             android:layout_marginTop="8dp"
-            android:background="@drawable/ic_keyboard_arrow_left_black_24dp"
+            android:src="@drawable/ic_keyboard_arrow_left_black_24dp"
+            android:background="@drawable/button_selection"
+            android:focusable="true"
             android:onClick="goback"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
@@ -33,6 +38,26 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0" />
 
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginBottom="8dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="8dp"
+            android:layout_marginTop="8dp"
+            android:src="@drawable/ic_delete_forever_black_24dp"
+            android:onClick="delete"
+            android:background="@drawable/button_selection"
+            android:clickable="true"
+            android:focusable="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0" />
+        </RelativeLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -61,8 +86,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="0dp"
                     android:backgroundTint="@android:color/transparent"
-                    android:focusable="true"
-                    android:text="@={post.name}"
+                    android:focusable="false"
+                    android:enabled="false"
+                    android:text="@{post.name}"
                     android:textColor="@color/border_color"
                     android:textSize="12sp" />
 
@@ -78,7 +104,6 @@
                         android:layout_gravity="center_vertical"
                         android:text="Desire: " />
 
-
                     <RatingBar
                         android:id="@+id/detail_desire"
                         style="@android:style/Widget.DeviceDefault.RatingBar.Small"
@@ -86,7 +111,8 @@
                         android:layout_height="wrap_content"
                         android:isIndicator="true"
                         android:numStars="5"
-                        android:rating="@={post.desire}" />
+                        android:stepSize="1.0"
+                        android:rating="@{post.desire}" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -106,8 +132,10 @@
                         style="@android:style/Widget.DeviceDefault.RatingBar.Small"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:isIndicator="true"
                         android:numStars="5"
-                        android:rating="@={post.cost}" />
+                        android:stepSize="1.0"
+                        android:rating="@{post.cost}" />
 
                 </LinearLayout>
 
@@ -117,7 +145,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="10dp"
                     android:layout_marginTop="10dp"
-                    android:isIndicator="true"
                     android:onClick="mark"
                     android:background="@{post.marked ? @color/colorAccent : @color/grey}"
                     android:text="@{post.marked ? @string/brought : @string/bring}"
@@ -165,8 +192,8 @@
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
                     android:backgroundTint="@android:color/transparent"
-                    android:enabled="true"
-                    android:text="@={post.desc}"
+                    android:enabled="false"
+                    android:text="@{post.desc}"
                     android:textColor="@color/cardview_dark_background" />
             </LinearLayout>
         </ScrollView>
@@ -176,7 +203,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp">
 
-            <ImageButton
+            <ImageView
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:layout_alignEnd="@+id/detail_lastUpdate"
@@ -185,9 +212,11 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
-                android:backgroundTint="@color/white"
                 android:onClick="enableEdit"
                 android:src="@drawable/ic_edit_black_24dp"
+                android:background="@drawable/button_selection"
+                android:clickable="true"
+                android:focusable="true"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/detail_lastUpdate"
                 app:layout_constraintHorizontal_bias="1.0"
