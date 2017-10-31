@@ -139,8 +139,8 @@ public class Profile extends Fragment {
     }
 
     @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
+    public void onResume() {
+        super.onResume();
         if (user.avartar == null) {
             Bitmap image = downloadImage(user, im);
             if (image != null) {
@@ -179,13 +179,13 @@ public class Profile extends Fragment {
             if (requestCode == RESULT_LOAD_IMAGE) {
                 boolean done = false;
                 Uri selectedImage = data.getData();
-
-                InputStream image = im.uriToFile(selectedImage);
+                Bitmap compressedImg = im.compressImage(selectedImage);
+                InputStream image = im.Bitmap2InputStream(compressedImg);
                 if (image != null) {
                     done = uploadImage(image);
                 }
                 if (done) {
-                    Bitmap compressedImg = im.compressImage(selectedImage);
+//                    Bitmap compressedImg = im.compressImage(selectedImage);
                     imageView.setImageDrawable(null);
                     imageView.setImageBitmap(compressedImg);
                     user.setAvartar(compressedImg);

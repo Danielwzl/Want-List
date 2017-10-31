@@ -7,8 +7,10 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.ParcelFileDescriptor;
 import android.support.annotation.NonNull;
+
 import com.prog4.wangz_jamileh.wishlist.magic.Ajax;
 
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -21,8 +23,8 @@ public class ImageManager {
 
     private Activity a;
 
-    public ImageManager(Activity a){
-        if(this.a == null) this.a = a;
+    public ImageManager(Activity a) {
+        if (this.a == null) this.a = a;
     }
 
     public Map<String, Object> uploadImage(Uri selectedImage) {
@@ -32,7 +34,7 @@ public class ImageManager {
                 mimeType = "image/jpeg",
                 fileName = "avatar";
         a.post("/file", null, image, fileField, mimeType, fileName);
-       return a.response();
+        return a.response();
     }
 
 
@@ -124,5 +126,12 @@ public class ImageManager {
         }
 
         return BitmapFactory.decodeByteArray(ary, 0, ary.length);
+    }
+
+    public InputStream Bitmap2InputStream(Bitmap bm) {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bm.compress(Bitmap.CompressFormat.JPEG, 50, baos);
+        InputStream is = new ByteArrayInputStream(baos.toByteArray());
+        return is;
     }
 }
