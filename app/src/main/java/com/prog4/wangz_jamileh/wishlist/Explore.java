@@ -1,5 +1,6 @@
 package com.prog4.wangz_jamileh.wishlist;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -10,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -136,6 +138,20 @@ public class Explore extends Fragment{
         }
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        search.clearFocus();
+    }
+
+    private void hideKeyboard(){
+        InputMethodManager inputManager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+        View focusedView = getActivity().getCurrentFocus();
+        if (focusedView != null) {
+            inputManager.hideSoftInputFromWindow(focusedView.getWindowToken(),
+                    InputMethodManager.HIDE_IMPLICIT_ONLY);
+        }
+    }
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
