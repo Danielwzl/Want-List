@@ -163,4 +163,8 @@ public class User extends BaseObservable {
         }
         return fields;
     }
+
+    public static void logout(){
+        user = null;
+    }
 }

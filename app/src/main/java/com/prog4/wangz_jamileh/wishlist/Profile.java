@@ -57,6 +57,7 @@ public class Profile extends Fragment {
     private View profileView;
     private View securityView;
     public String mParam1, mParam2;
+    private Button logout;
     private User user;
     private ImageManager im;
 
@@ -106,6 +107,26 @@ public class Profile extends Fragment {
         imageView = (ImageView) profileView.findViewById(R.id.profile_selectedImage);
         securityView = (LinearLayout) profileView.findViewById(R.id.profile_security);
         personalInfo = (LinearLayout) profileView.findViewById(R.id.profile_personalInfo);
+        logout = (Button) profileView.findViewById(R.id.profile_logout);
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Ajax a = new Ajax();
+                TreeMap<String, String> params = new TreeMap<>();
+                params.put("id", User.getInstance().session);
+                a.post("/logout", params);
+                Map<String, Object>res= a.response();
+                if(res != null){
+                    User.logout();
+                    Intent intent = new Intent(getActivity(), LoginActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    intent.putExtra("EXIT", true);
+                    startActivity(intent);
+                }
+            }
+        });
+
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
