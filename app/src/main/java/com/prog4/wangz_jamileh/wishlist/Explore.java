@@ -3,6 +3,7 @@ package com.prog4.wangz_jamileh.wishlist;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
@@ -14,6 +15,8 @@ import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.TextView;
@@ -26,6 +29,8 @@ import com.prog4.wangz_jamileh.wishlist.magic.Ajax;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.TreeMap;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -41,6 +46,7 @@ public class Explore extends Fragment{
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
     private  static final int SEARCH_RES_CODE = 4;
+    private  static final int DETAIL_RES_CODE = 5;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -53,6 +59,10 @@ public class Explore extends Fragment{
     public static ArrayList<Post> posts;
     private SwipeRefreshLayout swipeLayout;
     private TextView noResView;
+    private String view_id; //the id of user which want to go to
+    private TextView userInfoView;
+    private CircleImageView userImgView;
+    private ImageButton closeButton;
 
     public Explore() {
         // Required empty public constructor
@@ -98,6 +108,17 @@ public class Explore extends Fragment{
         swipeLayout = (SwipeRefreshLayout) exploreView.findViewById(R.id.explore_swiperefresh);
         search = (SearchView) exploreView.findViewById(R.id.search);
         noResView = (TextView) exploreView.findViewById(R.id.exp_none);
+        userInfoView = (TextView) exploreView.findViewById(R.id.exp_uname);
+        userImgView = (CircleImageView) exploreView.findViewById(R.id.exp_userImg);
+        closeButton = (ImageButton) exploreView.findViewById(R.id.exp_resume);
+        closeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                view_id = User.getInstance().session;
+                posts = loading(view_id);
+                createListView();
+            }
+        });
         search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -114,7 +135,8 @@ public class Explore extends Fragment{
         });
         toggleRefresh(false);
         list = (ListView) exploreView.findViewById(R.id.explore_list);
-        posts = loading(User.getInstance().session);
+        view_id = User.getInstance().session;
+        posts = loading(view_id);
         createListView();
         return exploreView;
     }
@@ -132,9 +154,15 @@ public class Explore extends Fragment{
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == SEARCH_RES_CODE && resultCode == getActivity().RESULT_OK && data != null) {
-                String id = data.getStringExtra("user");
-                posts = loading(id);
+                view_id = data.getStringExtra("user");
+                posts = loading(view_id);
                 createListView();
+//                view_id = null;
+        }else if(requestCode == DETAIL_RES_CODE && resultCode == getActivity().RESULT_CANCELED && data != null){
+            int pos = data.getIntExtra("pos", -1);
+            if(posts.remove(pos) != null){
+                createListView();
+            }
         }
     }
 
@@ -199,7 +227,7 @@ public class Explore extends Fragment{
                 if(posts != null){
                     Intent i = new Intent(getActivity(), GiftDetailActivity.class);
                     i.putExtra("pos",  position);
-                    startActivity(i);
+                    startActivityForResult(i, DETAIL_RES_CODE);
                 }
             }
         });
@@ -232,8 +260,6 @@ public class Explore extends Fragment{
 
     }
 
-
-
     private void toggleRefresh(boolean flag){
         swipeLayout.setRefreshing( flag );
         swipeLayout.setEnabled( flag );
@@ -243,22 +269,28 @@ public class Explore extends Fragment{
     private ArrayList<Post> loading(String view_id){
         String id = User.getInstance().session;
         TreeMap<String, String> params = new TreeMap<>();
-        params.put("id", id);
-        params.put("view_id", view_id);
+        params.put("id", id); //current login user
+        params.put("view_id", view_id); //user data want to see
         Ajax a = new Ajax();
         a.get("/showUserGift", params);
         Map<String, Object> res = a.response();
         if(res != null  && res.containsKey("status") && res.get("status").equals("ok")){
             LinkedTreeMap<String, Object> data = (LinkedTreeMap<String, Object>) res.get("data");
             if(data != null && data.containsKey("post")){
-                convertPosts((ArrayList<LinkedTreeMap>) data.get("post"));
+                LinkedTreeMap<String, Object> names = ((LinkedTreeMap<String, Object>)(data.get("full_name")));
+                String fullName = names.get("fName") + " " + names.get("lName");
+                userInfoView.setText(fullName);
+                if(view_id != id) closeButton.setVisibility(View.VISIBLE);
+                else closeButton.setVisibility(View.GONE);
+                //TODO set Image
+                convertPosts((ArrayList<LinkedTreeMap>) data.get("post"), view_id);
             }
         }
 
         return posts;
     }
 
-    private void convertPosts(ArrayList<LinkedTreeMap> data){
+    private void convertPosts(ArrayList<LinkedTreeMap> data, String view_id){
         if(posts.size() > 0) posts.clear();
         String[] update = null;
         String date = null;
@@ -267,7 +299,7 @@ public class Explore extends Fragment{
             one = data.get(i);
             update = one.get("updatedAt").toString().split("T");
             date = update[0] + " " + (update[1].split("\\."))[0];
-            posts.add(new Post(one.get("_id").toString(), one.get("title").toString(), one.get("desc").toString(), Float.parseFloat(one.get("desire_level").toString()), Float.parseFloat(one.get("cost_level").toString()), Boolean.valueOf(one.get("isMarked").toString()), null, date));
+            posts.add(new Post(one.get("_id").toString(), one.get("title").toString(), one.get("desc").toString(), Float.parseFloat(one.get("desire_level").toString()), Float.parseFloat(one.get("cost_level").toString()), !one.get("isMarked").toString().equals("none"), null, date, view_id));
         }
     }
 

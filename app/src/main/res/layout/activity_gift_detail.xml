@@ -2,10 +2,14 @@
 <layout>
 
     <data>
+        <import type="android.view.View"/>
         <import type="android.R" />
         <variable
             name="post"
             type="com.prog4.wangz_jamileh.wishlist.Model.Post" />
+        <variable
+            name="user"
+            type="com.prog4.wangz_jamileh.wishlist.Model.User" />
     </data>
 
     <android.support.v7.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
@@ -51,6 +55,7 @@
             android:background="@drawable/button_selection"
             android:clickable="true"
             android:focusable="true"
+            android:visibility="@{user.session != post.owner_id ? View.INVISIBLE : View.VISIBLE}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintLeft_toLeftOf="parent"
@@ -146,6 +151,7 @@
                     android:layout_marginBottom="10dp"
                     android:layout_marginTop="10dp"
                     android:onClick="mark"
+                    android:enabled="@{user.session != post.owner_id}"
                     android:background="@{post.marked ? @color/colorAccent : @color/grey}"
                     android:text="@{post.marked ? @string/brought : @string/bring}"
                     android:textColor="@{post.marked ? @color/white : @color/black}" />
@@ -214,6 +220,7 @@
                 android:layout_marginTop="8dp"
                 android:onClick="enableEdit"
                 android:src="@drawable/ic_edit_black_24dp"
+                android:tint="@{user.session != post.owner_id ? @color/black : @color/green}"
                 android:background="@drawable/button_selection"
                 android:clickable="true"
                 android:focusable="true"

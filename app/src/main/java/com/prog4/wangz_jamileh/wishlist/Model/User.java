@@ -7,6 +7,7 @@ import com.prog4.wangz_jamileh.wishlist.BR;
 import com.google.gson.internal.LinkedTreeMap;
 
 import java.util.Map;
+import java.util.TreeMap;
 
 public class User extends BaseObservable {
     public static User user;
@@ -45,6 +46,19 @@ public class User extends BaseObservable {
     public static void setUser(String username, String fname, String lname, String dob, String phone, String email, String session, String gender) {
         if (User.user == null)
             User.user = new User(username, fname, lname, dob, phone, email, session, gender);
+    }
+
+    @SuppressWarnings("unchecked")
+    public static void generateUser(Map<String, String> data, Map<String, Object> res) {
+        String session = res.get("token").toString();
+        String email = data.get("email");
+        String username = data.get("nick_name");
+        String dob = data.get("dob");
+        String gender = data.get("gender");
+        String phone = data.get("phone");
+        String fname = data.get("fName");
+        String lname = data.get("lName");
+        setUser(username, fname, lname, dob, phone, email, session, gender);
     }
 
     @SuppressWarnings("unchecked")

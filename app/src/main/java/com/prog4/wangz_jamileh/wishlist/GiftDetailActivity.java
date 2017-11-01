@@ -30,6 +30,7 @@ public class GiftDetailActivity extends AppCompatActivity {
     private Button markView;
     private Post post;
     private TreeMap<String, String> updatePost;
+    private int pos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,10 +46,11 @@ public class GiftDetailActivity extends AppCompatActivity {
     }
 
     private void initialPage() {
-        int pos = getIntent().getIntExtra("pos", 0);
+        pos = getIntent().getIntExtra("pos", 0);
         ActivityGiftDetailBinding bind = DataBindingUtil.setContentView(this, R.layout.activity_gift_detail);
         post = Explore.posts.get(pos);
         bind.setPost(post);
+        bind.setUser(User.getInstance());
     }
 
     public void enableEdit(View view) {
@@ -77,8 +79,8 @@ public class GiftDetailActivity extends AppCompatActivity {
         Ajax a = new Ajax();
         TreeMap<String, String> params = new TreeMap<>();
         params.put("id", User.getInstance().session);
-        params.put("view_id", post.getId());
-        params.put("marked", marked + "");
+        params.put("view_id", post.getOwner_id());
+        params.put("post_id", post.getId());
         a.post("/markGift", params);
         Map<String, Object> res = a.response();
         if(res != null && res.get("status") != null  && res.get("status").equals("ok")){
@@ -88,17 +90,34 @@ public class GiftDetailActivity extends AppCompatActivity {
             markView.setBackgroundColor(getResources().getColor(marked ? R.color.colorAccent : R.color.grey));
             Toast.makeText(GiftDetailActivity.this, "updated", Toast.LENGTH_SHORT).show();
         }
+        else{
+            Toast.makeText(GiftDetailActivity.this, "cannot update your own post or the one being brought", Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void update(View v){
         Ajax a = new Ajax();
         TreeMap<String, String> params = new TreeMap<>();
         params.put("id", User.getInstance().session);
-        params.put("view_id", post.getId());
+        params.put("view_id", post.getOwner_id());
         updatePost = params;
     }
 
     public void delete(View v){
-
+        Ajax a = new Ajax();
+        TreeMap<String, String> params = new TreeMap<>();
+        params.put("id", User.getInstance().session);
+        params.put("post_id", post.getId());
+        params.put("owner_id", post.getOwner_id());
+        a.post("/removeOneGift" , params);
+        Map<String, Object> res =a.response();
+        if(res != null && res.containsKey("status") && res.get("status").equals("ok")){
+            Toast.makeText(GiftDetailActivity.this, "deleted", Toast.LENGTH_SHORT).show();
+            Intent data = new Intent();
+            data.putExtra("pos", pos);
+            setResult(RESULT_CANCELED, data);
+            onBackPressed();
+            finish();
+        }
     }
 }

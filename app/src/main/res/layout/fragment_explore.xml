@@ -43,9 +43,13 @@
             android:layout_width="match_parent"
             android:layout_height="31dp">
 
+            <LinearLayout
+                android:id="@+id/exp_userInfo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
             <de.hdodenhof.circleimageview.CircleImageView
                 xmlns:app="http://schemas.android.com/apk/res-auto"
-                android:id="@+id/profile_selectedImage"
+                android:id="@+id/exp_userImg"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_marginLeft="10dp"
@@ -55,11 +59,22 @@
                 app:civ_border_color="#ffffff"
                 app:civ_border_width="2dp" />
             <android.support.v7.widget.AppCompatTextView
+                android:id="@+id/exp_uname"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="1dp"
                 android:layout_gravity="center_vertical"
-                android:text="Daniel Wang"/>
-
+                android:text="refresh to load"/>
+                <ImageButton
+                    android:id="@+id/exp_resume"
+                    android:layout_width="10dp"
+                    android:layout_height="10dp"
+                    android:layout_marginLeft="5dp"
+                    android:background="@drawable/upload_image_selector"
+                    android:layout_gravity="center_vertical"
+                    android:visibility="gone"
+                    app:srcCompat="@drawable/ic_close_black_24dp" />
+            </LinearLayout>
             <!--<Spinner-->
                 <!--android:id="@+id/spinner"-->
                 <!--android:layout_width="100dp"-->

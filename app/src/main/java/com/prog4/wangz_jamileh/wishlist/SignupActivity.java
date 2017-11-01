@@ -111,7 +111,7 @@ public class SignupActivity extends AppCompatActivity {
             if (res != null && res.containsKey("token")) {
 //                showProgress(true);
                 String token = res.get("token").toString();
-                User.generateUser(res);
+                User.generateUser(params, res);
                 Intent i = new Intent(SignupActivity.this, MenuActivity.class);
                 i.putExtra("session", token);
                 startActivity(i);
