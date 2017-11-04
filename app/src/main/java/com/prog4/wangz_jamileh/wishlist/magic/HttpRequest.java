@@ -271,7 +271,7 @@ public class HttpRequest {
 
         return paramString.substring(0, paramString.length() - 1);
     }
-
+    @SuppressWarnings("unchecked")
     private Map<String, Object> getResponse(HttpURLConnection con) throws IOException {
         BufferedReader in = new BufferedReader(
                 new InputStreamReader(con.getInputStream()));

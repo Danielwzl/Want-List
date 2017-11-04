@@ -1,6 +1,7 @@
 package com.prog4.wangz_jamileh.wishlist;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -14,6 +15,7 @@ import com.google.gson.internal.LinkedTreeMap;
 import com.prog4.wangz_jamileh.wishlist.Model.User;
 import com.prog4.wangz_jamileh.wishlist.adpater.UserAdapter;
 import com.prog4.wangz_jamileh.wishlist.magic.Ajax;
+import com.prog4.wangz_jamileh.wishlist.utility_manager.ImageManager;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -26,6 +28,7 @@ public class SearchUserResultActivity extends AppCompatActivity {
     private ArrayList<User> users;
     private SearchView search;
     private TextView noResView;
+    private ImageManager im;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +41,7 @@ public class SearchUserResultActivity extends AppCompatActivity {
         list = (ListView) findViewById(R.id.search_list);
         search = (SearchView) findViewById(R.id.search_search);
         noResView = (TextView) findViewById(R.id.search_none);
+        if(im == null) im = new ImageManager(SearchUserResultActivity.this);
         if (users == null) users = new ArrayList<>();
         search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -74,8 +78,10 @@ public class SearchUserResultActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 if (users != null) {
+                    noResView.setVisibility(View.GONE);
                     Intent i = new Intent();
                     i.putExtra("user", users.get(position).session);
+                    i.putExtra("avatar", users.get(position).getAvartar());
                     setResult(RESULT_OK, i);
                     onBackPressed();
                     finish();
@@ -101,29 +107,42 @@ public class SearchUserResultActivity extends AppCompatActivity {
         params.put("value", query);
         a.post("/searchUser", params);
         Map<String, Object> res = a.response();
-
         if (res != null && res.containsKey("res")) {
             ArrayList<LinkedTreeMap<String, Object>> users = (ArrayList<LinkedTreeMap<String, Object>>) res.get("res");
             if (users.size() != 0) {
-                convertUserData(users);
+                if(res.containsKey("imageData")) {
+                    convertUserData(users, (LinkedTreeMap<String, Object>) (res.get("imageData")));
+                }
             }
         }
     }
 
     @SuppressWarnings("unchecked")
-    private void convertUserData(ArrayList<LinkedTreeMap<String, Object>> users) {
+    private void convertUserData(ArrayList<LinkedTreeMap<String, Object>> users, LinkedTreeMap<String, Object> avatars) {
         if(this.users.size() > 0) this.users.clear();
         LinkedTreeMap<String, Object> one = null;
         LinkedTreeMap<String, Object> names = null;
         String name = null, dob = null, id = null, gender = null;
+        User user = null;
+        LinkedTreeMap<String, Object> imageData = null;
+        Bitmap avatar = null;
         for (int i = 0, len = users.size(); i < len; i++) {
+             avatar = null;
+             imageData = null;
             one = users.get(i);
             names = ((LinkedTreeMap<String, Object>) one.get("full_name"));
             name = names.get("fName") + " " + names.get("lName");
             dob = one.get("dob").toString();
             id = one.get("_id").toString();
             gender = "male";
-            this.users.add(new User(name, dob, id, gender));
+            user = new User(name, dob, id, gender);
+            if(avatars.containsKey(id)){
+                imageData = (LinkedTreeMap<String, Object>)(avatars.get(id));
+                avatar = im.listToBitmap((ArrayList<Double>) imageData.get("data"));
+                user.setAvartar(avatar);
+            }
+            this.users.add(user);
+
         }
     }
 

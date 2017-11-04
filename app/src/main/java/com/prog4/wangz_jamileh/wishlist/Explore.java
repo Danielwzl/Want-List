@@ -1,10 +1,8 @@
 package com.prog4.wangz_jamileh.wishlist;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
@@ -13,11 +11,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.TextView;
@@ -67,6 +63,7 @@ public class Explore extends Fragment{
     private CircleImageView userImgView;
     private ImageButton closeButton;
     private ImageManager im;
+    private Bitmap otherAva;
 
     public Explore() {
         // Required empty public constructor
@@ -160,8 +157,10 @@ public class Explore extends Fragment{
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == SEARCH_RES_CODE && resultCode == getActivity().RESULT_OK && data != null) {
                 view_id = data.getStringExtra("user");
+                otherAva = data.getParcelableExtra("avatar");
                 posts = loading(view_id);
                 createListView();
+
 //                view_id = null;
         }else if(requestCode == DETAIL_RES_CODE && resultCode == getActivity().RESULT_CANCELED && data != null){
             int pos = data.getIntExtra("pos", -1);
@@ -241,14 +240,18 @@ public class Explore extends Fragment{
                     View v = list.getChildAt(0);
                     int offset = (v == null) ? 0 : v.getTop();
                     if (offset == 0) {
-//                        toggleRefresh(true);
+                        //TODO refresh when reach top
+                        Log.i("exp", "top");
+
                         return;
                     }
                 } else if (totalItemCount - visibleItemCount == firstVisibleItem){
                     View v =  list.getChildAt(totalItemCount-1);
                     int offset = (v == null) ? 0 : v.getTop();
                     if (offset == 0) {
+                        Log.i("exp", "down");
                         //TODO load more data when reach the bottom
+
                         return;
                     }
                 }
@@ -257,6 +260,10 @@ public class Explore extends Fragment{
 
     }
 
+    /**
+     * disable drag to refresh function
+     * @param flag
+     */
     private void toggleRefresh(boolean flag){
         swipeLayout.setRefreshing( flag );
         swipeLayout.setEnabled( flag );
@@ -269,6 +276,7 @@ public class Explore extends Fragment{
         params.put("id", id); //current login user
         params.put("view_id", view_id); //user data want to see
         Ajax a = new Ajax();
+        Bitmap ava= null;
         a.get("/showUserGift", params);
         Map<String, Object> res = a.response();
         if(res != null  && res.containsKey("status") && res.get("status").equals("ok")){
@@ -277,9 +285,10 @@ public class Explore extends Fragment{
                 LinkedTreeMap<String, Object> names = ((LinkedTreeMap<String, Object>)(data.get("full_name")));
                 String fullName = names.get("fName") + " " + names.get("lName");
                 userInfoView.setText(fullName);
-                if(view_id != id) closeButton.setVisibility(View.VISIBLE);
+                if(!view_id.equals(id)) closeButton.setVisibility(View.VISIBLE);
                 else closeButton.setVisibility(View.GONE);
-                //TODO set Image
+                ava = view_id.equals(id) ? User.getInstance().avartar : otherAva;
+                getUserAvatar(ava);
                 convertPosts((ArrayList<LinkedTreeMap>) data.get("post"), (LinkedTreeMap<String, Object>) (res.get("imageData")), view_id);
             }
         }
@@ -303,7 +312,7 @@ public class Explore extends Fragment{
             date = update[0] + " " + (update[1].split("\\."))[0];
             post_id = one.get("_id").toString();
             if(one.get("image").equals("file")){
-                if(imageData != null){
+                if(imageData != null && imageData.containsKey(post_id)){
                     imgObj = (LinkedTreeMap<String, Object>)(imageData.get(post_id));
                     image = im.listToBitmap((ArrayList<Double>) (imgObj.get("data")));
                 }
@@ -312,6 +321,9 @@ public class Explore extends Fragment{
         }
     }
 
-
+    private void getUserAvatar(Bitmap avatar){
+            if(avatar != null) userImgView.setImageBitmap(avatar);
+            else userImgView.setImageDrawable(getResources().getDrawable(R.drawable.ic_face_black_24dp));
+    }
 
 }

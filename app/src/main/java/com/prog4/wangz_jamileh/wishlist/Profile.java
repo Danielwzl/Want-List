@@ -206,7 +206,6 @@ public class Profile extends Fragment {
                     done = uploadImage(image);
                 }
                 if (done) {
-//                    Bitmap compressedImg = im.compressImage(selectedImage);
                     imageView.setImageDrawable(null);
                     imageView.setImageBitmap(compressedImg);
                     user.setAvartar(compressedImg);

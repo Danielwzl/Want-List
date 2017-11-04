@@ -7,7 +7,6 @@ import com.prog4.wangz_jamileh.wishlist.BR;
 import com.google.gson.internal.LinkedTreeMap;
 
 import java.util.Map;
-import java.util.TreeMap;
 
 public class User extends BaseObservable {
     public static User user;

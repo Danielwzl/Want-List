@@ -1,10 +1,12 @@
 package com.prog4.wangz_jamileh.wishlist.adpater;
 
 import android.content.Context;
+import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.prog4.wangz_jamileh.wishlist.Model.User;
@@ -33,9 +35,11 @@ public class UserAdapter extends ArrayAdapter<User> {
         TextView fullnameView = (TextView) convertView.findViewById(R.id.search_fullname);
         TextView dobView = (TextView) convertView.findViewById(R.id.search_dob);
         TextView genderView = (TextView) convertView.findViewById(R.id.search_gender);
+        ImageView avatar = (ImageView) convertView.findViewById(R.id.search_avatar);
         fullnameView.setText(user.getFullName());
         dobView.setText(user.getDob());
         genderView.setText(user.getGender());
+        avatar.setImageBitmap(user.getAvartar());
 
         return convertView;
     }
