@@ -39,7 +39,8 @@ public class UserAdapter extends ArrayAdapter<User> {
         fullnameView.setText(user.getFullName());
         dobView.setText(user.getDob());
         genderView.setText(user.getGender());
-        avatar.setImageBitmap(user.getAvartar());
+        if(user.getAvartar() != null) avatar.setImageBitmap(user.getAvartar());
+        else avatar.setImageDrawable(getContext().getResources().getDrawable(R.drawable.ic_face_black_24dp));
 
         return convertView;
     }

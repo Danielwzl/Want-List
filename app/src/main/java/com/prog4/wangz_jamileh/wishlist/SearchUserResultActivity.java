@@ -142,7 +142,6 @@ public class SearchUserResultActivity extends AppCompatActivity {
                 user.setAvartar(avatar);
             }
             this.users.add(user);
-
         }
     }
 

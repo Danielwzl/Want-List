@@ -148,6 +148,10 @@ public class Profile extends Fragment {
                 startActivity(i);
             }
         });
+
+        if (user.avartar != null) {
+            imageView.setImageBitmap(user.avartar);
+        }
         bind.setUser(user);
         if (im == null) im = new ImageManager(getActivity());
 //        if (user.avartar == null) {

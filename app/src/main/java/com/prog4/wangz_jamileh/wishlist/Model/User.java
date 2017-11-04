@@ -5,7 +5,9 @@ import android.databinding.Bindable;
 import android.graphics.Bitmap;
 import com.prog4.wangz_jamileh.wishlist.BR;
 import com.google.gson.internal.LinkedTreeMap;
+import com.prog4.wangz_jamileh.wishlist.utility_manager.ImageManager;
 
+import java.util.ArrayList;
 import java.util.Map;
 
 public class User extends BaseObservable {
@@ -25,7 +27,7 @@ public class User extends BaseObservable {
         this.fullName = fullName;
     }
 
-    public User(String username, String fname, String lname, String dob, String phone, String email, String session, String gender) {
+    public User(String username, String fname, String lname, String dob, String phone, String email, String session, String gender, Bitmap avartar) {
         this.username = username;
         this.fname = fname;
         this.lname = lname;
@@ -35,6 +37,7 @@ public class User extends BaseObservable {
         this.gender = gender;
         this.session = session;
         this.fullName = fname + " " + lname;
+        this.avartar = avartar;
     }
 
     public static User getInstance() {
@@ -42,9 +45,9 @@ public class User extends BaseObservable {
         else return user = new User();
     }
 
-    public static void setUser(String username, String fname, String lname, String dob, String phone, String email, String session, String gender) {
+    public static void setUser(String username, String fname, String lname, String dob, String phone, String email, String session, String gender, Bitmap avartar) {
         if (User.user == null)
-            User.user = new User(username, fname, lname, dob, phone, email, session, gender);
+            User.user = new User(username, fname, lname, dob, phone, email, session, gender, avartar);
     }
 
     @SuppressWarnings("unchecked")
@@ -57,11 +60,11 @@ public class User extends BaseObservable {
         String phone = data.get("phone");
         String fname = data.get("fName");
         String lname = data.get("lName");
-        setUser(username, fname, lname, dob, phone, email, session, gender);
+        setUser(username, fname, lname, dob, phone, email, session, gender, null);
     }
 
     @SuppressWarnings("unchecked")
-    public static void generateUser(Map<String, Object> data) {
+    public static void generateUser(Map<String, Object> data, ImageManager im) {
         String session = data.get("token").toString();
         LinkedTreeMap<String, Object> user = (LinkedTreeMap<String, Object>) data.get("user");
         String email = user.get("email").toString();
@@ -72,7 +75,13 @@ public class User extends BaseObservable {
         LinkedTreeMap<String, Object> realname = (LinkedTreeMap<String, Object>) user.get("full_name");
         String fname = realname.get("fName").toString();
         String lname = realname.get("lName").toString();
-        setUser(username, fname, lname, dob, phone, email, session, gender);
+        Bitmap avatar = null;
+        if(data.containsKey("avatar")){
+            LinkedTreeMap<String, Object> imageData = (LinkedTreeMap<String, Object>)data.get("avatar");
+            avatar = im.listToBitmap((ArrayList<Double>) imageData.get("data"));
+        }
+
+        setUser(username, fname, lname, dob, phone, email, session, gender, avatar);
     }
 
     @Bindable

@@ -32,6 +32,7 @@ import com.google.gson.internal.LinkedTreeMap;
 import com.prog4.wangz_jamileh.wishlist.Model.User;
 import com.prog4.wangz_jamileh.wishlist.magic.Ajax;
 import com.prog4.wangz_jamileh.wishlist.error.InputCheck;
+import com.prog4.wangz_jamileh.wishlist.utility_manager.ImageManager;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -187,7 +188,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             Map<String, Object> res = ajax.response();
             if (res != null && res.containsKey("token") && res.get("token") != null) {
                 String token = res.get("token").toString();
-                User.generateUser(res);
+                User.generateUser(res, new ImageManager(LoginActivity.this));
                 Intent i = new Intent(getBaseContext(), MenuActivity.class);
                 i.putExtra("session", token);
                 startActivity(i);
@@ -300,7 +301,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         Map<String, Object> res = ajax.response();
         if (res != null && res.containsKey("token") && res.get("token") != null) {
             String token = res.get("token").toString();
-            User.generateUser(res);
+            User.generateUser(res, new ImageManager(LoginActivity.this));
             Intent i = new Intent(getBaseContext(), MenuActivity.class);
             i.putExtra("session", token);
             startActivity(i);
