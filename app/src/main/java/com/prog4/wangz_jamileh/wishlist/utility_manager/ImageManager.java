@@ -2,8 +2,11 @@ package com.prog4.wangz_jamileh.wishlist.utility_manager;
 
 
 import android.app.Activity;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.ParcelFileDescriptor;
 import android.support.annotation.NonNull;
@@ -69,9 +72,9 @@ public class ImageManager {
     }
 
 
-    public Bitmap compressImage(Bitmap image, int h, int w) {
+    public Bitmap compressImage(Bitmap image, int h, int w, int q) {
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        image.compress(Bitmap.CompressFormat.JPEG, 0, stream);
+        image.compress(Bitmap.CompressFormat.JPEG, q, stream);
         Bitmap resized = Bitmap.createScaledBitmap(image, h, w, false);
 //        byte[] byteArray = stream.toByteArray();
 //        System.out.println("a: " + byteArray.length);
@@ -133,5 +136,9 @@ public class ImageManager {
         bm.compress(Bitmap.CompressFormat.JPEG, 50, baos);
         InputStream is = new ByteArrayInputStream(baos.toByteArray());
         return is;
+    }
+
+    public Drawable bitmapToDrawable(Resources res, Bitmap img){
+        return new BitmapDrawable(res, img);
     }
 }

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
+import android.graphics.Bitmap;
 import android.media.Image;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -49,6 +50,12 @@ public class PostAdapter extends ArrayAdapter<Post> {
 
 
         convertView = bind.getRoot();
+
+        ImageView img = (ImageView) convertView.findViewById(R.id.exp_img);
+        Bitmap imageToSet = post.getImage();
+        if(imageToSet != null)
+                img.setImageBitmap(imageToSet);
+
         return convertView;
     }
 }

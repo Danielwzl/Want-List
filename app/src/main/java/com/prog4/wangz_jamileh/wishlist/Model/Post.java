@@ -2,8 +2,10 @@ package com.prog4.wangz_jamileh.wishlist.Model;
 
 import android.databinding.BaseObservable;
 import android.databinding.Bindable;
+import android.databinding.BindingAdapter;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
+import android.widget.ImageView;
 
 import com.prog4.wangz_jamileh.wishlist.BR;
 
@@ -118,6 +120,11 @@ public class Post extends BaseObservable {
     public void setImage(Bitmap image) {
         this.image = image;
         notifyPropertyChanged(BR.image);
+    }
+
+    @BindingAdapter("postImage")
+    public static void loadImage(ImageView iv, Bitmap image){
+       if(image != null) iv.setImageBitmap(image);
     }
 
 }

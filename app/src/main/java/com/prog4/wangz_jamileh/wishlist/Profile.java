@@ -165,7 +165,7 @@ public class Profile extends Fragment {
         if (user.avartar == null) {
             Bitmap image = downloadImage(user, im);
             if (image != null) {
-                imageView.setImageBitmap(im.compressImage(image));
+                imageView.setImageBitmap(image);
             }
         }
     }

@@ -2,6 +2,8 @@ package com.prog4.wangz_jamileh.wishlist;
 
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
+import android.graphics.Bitmap;
+import android.media.Image;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -31,6 +33,7 @@ public class GiftDetailActivity extends AppCompatActivity {
     private Post post;
     private TreeMap<String, String> updatePost;
     private int pos;
+    private ImageView image;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +45,17 @@ public class GiftDetailActivity extends AppCompatActivity {
         cost = (RatingBar) findViewById(R.id.detail_cost);
         lastUpdateView = (TextView) findViewById(R.id.detail_lastUpdate);
         markView = (Button) findViewById(R.id.detail_mark);
+        image = (ImageView) findViewById(R.id.detail_image);
         initialPage();
+        Bitmap imageToSet = post.getImage();
+        if(imageToSet != null)
+            image.setImageBitmap(imageToSet);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
     }
 
     private void initialPage() {

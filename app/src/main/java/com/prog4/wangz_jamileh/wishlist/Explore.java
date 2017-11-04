@@ -3,6 +3,7 @@ package com.prog4.wangz_jamileh.wishlist;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
@@ -26,6 +27,8 @@ import com.prog4.wangz_jamileh.wishlist.Model.Post;
 import com.prog4.wangz_jamileh.wishlist.Model.User;
 import com.prog4.wangz_jamileh.wishlist.adpater.PostAdapter;
 import com.prog4.wangz_jamileh.wishlist.magic.Ajax;
+import com.prog4.wangz_jamileh.wishlist.utility_manager.ImageManager;
+
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.TreeMap;
@@ -63,6 +66,7 @@ public class Explore extends Fragment{
     private TextView userInfoView;
     private CircleImageView userImgView;
     private ImageButton closeButton;
+    private ImageManager im;
 
     public Explore() {
         // Required empty public constructor
@@ -104,6 +108,7 @@ public class Explore extends Fragment{
         // Inflate the layout for this fragment
         if(exploreView != null) return  exploreView;
         if(posts == null)posts = new ArrayList<Post>();
+        if(im == null) im = new ImageManager(getActivity());
         exploreView = inflater.inflate(R.layout.fragment_explore, container, false);
         swipeLayout = (SwipeRefreshLayout) exploreView.findViewById(R.id.explore_swiperefresh);
         search = (SearchView) exploreView.findViewById(R.id.search);
@@ -172,14 +177,6 @@ public class Explore extends Fragment{
         search.clearFocus();
     }
 
-    private void hideKeyboard(){
-        InputMethodManager inputManager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-        View focusedView = getActivity().getCurrentFocus();
-        if (focusedView != null) {
-            inputManager.hideSoftInputFromWindow(focusedView.getWindowToken(),
-                    InputMethodManager.HIDE_IMPLICIT_ONLY);
-        }
-    }
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -283,23 +280,35 @@ public class Explore extends Fragment{
                 if(view_id != id) closeButton.setVisibility(View.VISIBLE);
                 else closeButton.setVisibility(View.GONE);
                 //TODO set Image
-                convertPosts((ArrayList<LinkedTreeMap>) data.get("post"), view_id);
+                convertPosts((ArrayList<LinkedTreeMap>) data.get("post"), (LinkedTreeMap<String, Object>) (res.get("imageData")), view_id);
             }
         }
 
         return posts;
     }
 
-    private void convertPosts(ArrayList<LinkedTreeMap> data, String view_id){
+    @SuppressWarnings("unchecked")
+    private void convertPosts(ArrayList<LinkedTreeMap> data, LinkedTreeMap<String, Object> imageData, String view_id){
         if(posts.size() > 0) posts.clear();
         String[] update = null;
         String date = null;
         LinkedTreeMap<String, Object> one = null;
+        LinkedTreeMap<String, Object> imgObj = null;
+        Bitmap image = null;
+        String post_id=null;
         for(int i = 0, len = data.size(); i < len; i++){
+            image = null;
             one = data.get(i);
             update = one.get("updatedAt").toString().split("T");
             date = update[0] + " " + (update[1].split("\\."))[0];
-            posts.add(new Post(one.get("_id").toString(), one.get("title").toString(), one.get("desc").toString(), Float.parseFloat(one.get("desire_level").toString()), Float.parseFloat(one.get("cost_level").toString()), !one.get("isMarked").toString().equals("none"), null, date, view_id));
+            post_id = one.get("_id").toString();
+            if(one.get("image").equals("file")){
+                if(imageData != null){
+                    imgObj = (LinkedTreeMap<String, Object>)(imageData.get(post_id));
+                    image = im.listToBitmap((ArrayList<Double>) (imgObj.get("data")));
+                }
+            }
+            posts.add(new Post(post_id, one.get("title").toString(), one.get("desc").toString(), Float.parseFloat(one.get("desire_level").toString()), Float.parseFloat(one.get("cost_level").toString()), !one.get("isMarked").toString().equals("none"), image, date, view_id));
         }
     }
 
