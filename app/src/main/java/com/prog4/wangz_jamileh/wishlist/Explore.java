@@ -277,11 +277,16 @@ public class Explore extends Fragment{
         params.put("view_id", view_id); //user data want to see
         Ajax a = new Ajax();
         Bitmap ava= null;
+        ArrayList<LinkedTreeMap> posts_data = null;
         a.get("/showUserGift", params);
         Map<String, Object> res = a.response();
         if(res != null  && res.containsKey("status") && res.get("status").equals("ok")){
             LinkedTreeMap<String, Object> data = (LinkedTreeMap<String, Object>) res.get("data");
             if(data != null && data.containsKey("post")){
+                posts_data = (ArrayList<LinkedTreeMap>)  data.get("post");
+                if(posts_data.size() > 0){
+                    noResView.setVisibility(View.GONE);
+                }
                 LinkedTreeMap<String, Object> names = ((LinkedTreeMap<String, Object>)(data.get("full_name")));
                 String fullName = names.get("fName") + " " + names.get("lName");
                 userInfoView.setText(fullName);
@@ -289,7 +294,7 @@ public class Explore extends Fragment{
                 else closeButton.setVisibility(View.GONE);
                 ava = view_id.equals(id) ? User.getInstance().avartar : otherAva;
                 getUserAvatar(ava);
-                convertPosts((ArrayList<LinkedTreeMap>) data.get("post"), (LinkedTreeMap<String, Object>) (res.get("imageData")), view_id);
+                convertPosts(posts_data, (LinkedTreeMap<String, Object>) (res.get("imageData")), view_id);
             }
         }
 

@@ -78,7 +78,7 @@ public class User extends BaseObservable {
         Bitmap avatar = null;
         if(data.containsKey("avatar")){
             LinkedTreeMap<String, Object> imageData = (LinkedTreeMap<String, Object>)data.get("avatar");
-            avatar = im.listToBitmap((ArrayList<Double>) imageData.get("data"));
+            if(imageData != null)avatar = im.listToBitmap((ArrayList<Double>) imageData.get("data"));
         }
 
         setUser(username, fname, lname, dob, phone, email, session, gender, avatar);
