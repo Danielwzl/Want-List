@@ -64,6 +64,7 @@ public class Explore extends Fragment{
     private ImageButton closeButton;
     private ImageManager im;
     private Bitmap otherAva;
+    private int page;
 
     public Explore() {
         // Required empty public constructor
@@ -108,6 +109,7 @@ public class Explore extends Fragment{
         if(im == null) im = new ImageManager(getActivity());
         exploreView = inflater.inflate(R.layout.fragment_explore, container, false);
         swipeLayout = (SwipeRefreshLayout) exploreView.findViewById(R.id.explore_swiperefresh);
+//        swipeLayout.setDistanceToTriggerSync(20000);
         search = (SearchView) exploreView.findViewById(R.id.search);
         noResView = (TextView) exploreView.findViewById(R.id.exp_none);
         userInfoView = (TextView) exploreView.findViewById(R.id.exp_uname);
@@ -135,7 +137,6 @@ public class Explore extends Fragment{
                 return false;
             }
         });
-        toggleRefresh(false);
         list = (ListView) exploreView.findViewById(R.id.explore_list);
         view_id = User.getInstance().session;
         posts = loading(view_id);
@@ -228,36 +229,52 @@ public class Explore extends Fragment{
             }
         });
 
-        list.setOnScrollListener(new AbsListView.OnScrollListener() {
+        swipeLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
-            public void onScrollStateChanged(AbsListView view, int scrollState) {
-            }
+            public void onRefresh() {
+//                toggleRefresh(true);
+                posts = loading(view_id);
+                        createListView();
 
-            @Override
-            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-                if (firstVisibleItem == 0) {
-                    // check if we reached the top or bottom of the list
-                    View v = list.getChildAt(0);
-                    int offset = (v == null) ? 0 : v.getTop();
-                    if (offset == 0) {
-                        //TODO refresh when reach top
-                        Log.i("exp", "top");
-
-                        return;
-                    }
-                } else if (totalItemCount - visibleItemCount == firstVisibleItem){
-                    View v =  list.getChildAt(totalItemCount-1);
-                    int offset = (v == null) ? 0 : v.getTop();
-                    if (offset == 0) {
-                        Log.i("exp", "down");
-                        //TODO load more data when reach the bottom
-
-                        return;
-                    }
-                }
+                swipeLayout.setRefreshing(false);
             }
         });
 
+//        list.setOnScrollListener(new AbsListView.OnScrollListener() {
+//            @Override
+//            public void onScrollStateChanged(AbsListView view, int scrollState) {
+//            }
+//
+//            @Override
+//            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+//
+//                if (firstVisibleItem == 0) {
+//                    // check if we reached the top or bottom of the list
+//                    View v = list.getChildAt(0);
+//                    int offset = (v == null) ? 0 : v.getTop();
+//                    Log.i("exp", offset + "");
+//                    if (offset == 0) {
+//                        toggleRefresh(true);
+//                        //TODO refresh when reach top
+//                        Log.i("exp", "top");
+////                        posts = loading(view_id);
+////                        createListView();
+//                        return;
+//                    }
+//                } else if (totalItemCount - visibleItemCount == firstVisibleItem){
+//                    View v =  list.getChildAt(totalItemCount-1);
+//                    int offset = (v == null) ? 0 : v.getTop();
+//                    if (offset == 0) {
+//                        Log.i("exp", "down");
+//                        //TODO load more data when reach the bottom
+//
+//                        return;
+//                    }
+//                }
+//                toggleRefresh(false);
+//            }
+//        });
+//
     }
 
     /**
@@ -267,6 +284,16 @@ public class Explore extends Fragment{
     private void toggleRefresh(boolean flag){
         swipeLayout.setRefreshing( flag );
         swipeLayout.setEnabled( flag );
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        if (swipeLayout!=null) {
+            swipeLayout.setRefreshing(false);
+            swipeLayout.destroyDrawingCache();
+            swipeLayout.clearAnimation();
+        }
     }
 
     @SuppressWarnings("unchecked")
