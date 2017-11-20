@@ -1,0 +1,25 @@
+<android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/buy_swiperefresh"
+    tools:context="com.prog4.wangz_jamileh.wishlist.Buy">
+<LinearLayout
+    android:orientation="vertical"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent">
+    <TextView
+        android:id="@+id/buy_none"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="No Result"
+        android:textAlignment="center"
+        android:visibility="gone"/>
+
+    <ListView
+        android:id="@+id/buy_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="vertical" />
+</LinearLayout>
+</android.support.v4.widget.SwipeRefreshLayout>
