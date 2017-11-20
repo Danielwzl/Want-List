@@ -11,6 +11,8 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.prog4.wangz_jamileh.wishlist.helper.BottomNavigationViewHelper;
+
 public class MenuActivity extends AppCompatActivity
         implements Profile.OnFragmentInteractionListener, Post.OnFragmentInteractionListener, Explore.OnFragmentInteractionListener{
 
@@ -18,6 +20,7 @@ public class MenuActivity extends AppCompatActivity
     private final Profile profile = new Profile();
     private final Post post = new Post();
     private final Explore explore = new Explore();
+    private final Buy buy = new Buy();
     public void onFragmentInteraction(Uri uri) {
         //TODO code the action here
             Log.i("run", "run");
@@ -40,6 +43,9 @@ public class MenuActivity extends AppCompatActivity
                 case R.id.navigation_notifications:
                     startFragment(profile);
                     return true;
+                case R.id.navigation_marked:
+                    startFragment(buy);
+                    return true;
             }
             return false;
         }
@@ -51,6 +57,7 @@ public class MenuActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
+        BottomNavigationViewHelper.disableShiftMode(navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         startFragment(explore);
     }

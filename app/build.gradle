@@ -54,6 +54,10 @@ android {
     lintOptions {
         abortOnError false
     }
+
+    lintOptions {
+        disable 'RestrictedApi'
+    }
 }
 android {
     defaultConfig {

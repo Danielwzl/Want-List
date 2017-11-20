@@ -47,10 +47,14 @@ public class PostAdapter extends ArrayAdapter<Post> {
         }
         bind.setPost(post);
         bind.executePendingBindings();
-
-
         convertView = bind.getRoot();
 
+        String ownerName = post.getOwnerName();
+        if(ownerName != null){
+            TextView name = (TextView)convertView.findViewById(R.id.buy_owner_name);
+            name.setText(ownerName);
+            name.setVisibility(View.VISIBLE);
+        }
         ImageView img = (ImageView) convertView.findViewById(R.id.exp_img);
         Bitmap imageToSet = post.getImage();
         if(imageToSet != null)
