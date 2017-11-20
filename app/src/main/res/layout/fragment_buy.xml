@@ -12,6 +12,8 @@
         android:id="@+id/buy_none"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:paddingTop="2dp"
+        android:paddingBottom="2dp"
         android:text="No Result"
         android:textAlignment="center"
         android:visibility="gone"/>

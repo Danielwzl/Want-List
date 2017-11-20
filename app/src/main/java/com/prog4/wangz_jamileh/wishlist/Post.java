@@ -13,21 +13,15 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.RatingBar;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.prog4.wangz_jamileh.wishlist.Model.User;
-import com.prog4.wangz_jamileh.wishlist.R;
 import com.prog4.wangz_jamileh.wishlist.error.InputCheck;
 import com.prog4.wangz_jamileh.wishlist.magic.Ajax;
 import com.prog4.wangz_jamileh.wishlist.utility_manager.ImageManager;
 
 import java.io.InputStream;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.Map;
 import java.util.TreeMap;
 

@@ -32,12 +32,11 @@ import java.util.TreeMap;
 public class Buy extends Fragment {
 
     private View buyView;
-    private ArrayList<Post> posts;
+    public static ArrayList<Post> posts;
     private ImageManager im;
     private SwipeRefreshLayout swipeLayout;
     private TextView noResView;
     private ListView list;
-    private String view_id;
     private  static final int Buy_DETAIL_RES_CODE = 6;
 
     public Buy() {
@@ -56,8 +55,7 @@ public class Buy extends Fragment {
         swipeLayout = (SwipeRefreshLayout) buyView.findViewById(R.id.buy_swiperefresh);
         noResView = (TextView) buyView.findViewById(R.id.buy_none);
         list = (ListView) buyView.findViewById(R.id.buy_list);
-        view_id = User.getInstance().session;
-        posts = loading(view_id);
+        posts = loading();
         createListView();
         return buyView;
     }
@@ -76,6 +74,7 @@ public class Buy extends Fragment {
                 if(posts != null){
                     Intent i = new Intent(getActivity(), GiftDetailActivity.class);
                     i.putExtra("pos",  position);
+                    i.putExtra("type", "buy");
                     startActivityForResult(i, Buy_DETAIL_RES_CODE);
                 }
             }
@@ -84,7 +83,7 @@ public class Buy extends Fragment {
         swipeLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                posts = loading(view_id);
+                posts = loading();
                 createListView();
 
                 swipeLayout.setRefreshing(false);
@@ -93,25 +92,22 @@ public class Buy extends Fragment {
     }
 
     @SuppressWarnings("unchecked")
-    private ArrayList<Post> loading(String view_id){
+    private ArrayList<Post> loading(){
         String id = User.getInstance().session;
         TreeMap<String, String> params = new TreeMap<>();
         params.put("id", id); //current login user
-        params.put("view_id", view_id); //user data want to see
         Ajax a = new Ajax();
         Bitmap ava= null;
         ArrayList<LinkedTreeMap> posts_data = null;
-        a.get("/showUserGift", params);
+        a.get("/showAllMarked", params);
         Map<String, Object> res = a.response();
         if(res != null  && res.containsKey("status") && res.get("status").equals("ok")){
-            LinkedTreeMap<String, Object> data = (LinkedTreeMap<String, Object>) res.get("data");
-            if(data != null && data.containsKey("post")){
-                posts_data = (ArrayList<LinkedTreeMap>)  data.get("post");
+            if(res.containsKey("data")){
+                posts_data = (ArrayList<LinkedTreeMap>)  res.get("data");
                 if(posts_data.size() > 0){
                     noResView.setVisibility(View.GONE);
                 }
-                LinkedTreeMap<String, Object> names = ((LinkedTreeMap<String, Object>)(data.get("full_name")));
-                convertPosts(posts_data, (LinkedTreeMap<String, Object>) (res.get("imageData")), view_id);
+                convertPosts(posts_data, (LinkedTreeMap<String, Object>) (res.get("imageData")));
             }
         }
 
@@ -119,7 +115,7 @@ public class Buy extends Fragment {
     }
 
     @SuppressWarnings("unchecked")
-    private void convertPosts(ArrayList<LinkedTreeMap> data, LinkedTreeMap<String, Object> imageData, String view_id){
+    private void convertPosts(ArrayList<LinkedTreeMap> data, LinkedTreeMap<String, Object> imageData){
         if(posts.size() > 0) posts.clear();
         String[] update = null;
         String date = null;
@@ -129,17 +125,17 @@ public class Buy extends Fragment {
         String post_id=null;
         for(int i = 0, len = data.size(); i < len; i++){
             image = null;
-            one = data.get(i);
+            one = (LinkedTreeMap<String, Object>) data.get(i).get("post");
             update = one.get("updatedAt").toString().split("T");
             date = update[0] + " " + (update[1].split("\\."))[0];
             post_id = one.get("_id").toString();
-            if(one.get("image").equals("file")){
-                if(imageData != null && imageData.containsKey(post_id)){
-                    imgObj = (LinkedTreeMap<String, Object>)(imageData.get(post_id));
-                    image = im.listToBitmap((ArrayList<Double>) (imgObj.get("data")));
-                }
-            }
-            posts.add(new Post(post_id, one.get("title").toString(), one.get("desc").toString(), Float.parseFloat(one.get("desire_level").toString()), Float.parseFloat(one.get("cost_level").toString()), !one.get("isMarked").toString().equals("none"), image, date, view_id));
+//            if(one.get("image").equals("file")){
+//                if(imageData != null && imageData.containsKey(post_id)){
+//                    imgObj = (LinkedTreeMap<String, Object>)(imageData.get(post_id)); //TODO
+//                    image = im.listToBitmap((ArrayList<Double>) (imgObj.get("data")));
+//                }
+//            }
+            posts.add(new Post(post_id, one.get("title").toString(), one.get("desc").toString(), Float.parseFloat(one.get("desire_level").toString()), Float.parseFloat(one.get("cost_level").toString()), !one.get("isMarked").toString().equals("none"), image, date, one.get("user_id").toString(), one.get("full_name").toString()));
         }
     }
 

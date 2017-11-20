@@ -20,6 +20,7 @@ public class Post extends BaseObservable {
     private String id;
     private Drawable imageDrawable;
     private String owner_id;
+    private String ownerName;
 
     public Post(String id, String name, String desc, float desire, float cost, boolean marked, Bitmap image, String updateAt, String owner_id) {
         this.id = id;
@@ -31,6 +32,11 @@ public class Post extends BaseObservable {
         this.image = image;
         this.updateAt = updateAt;
         this.owner_id = owner_id;
+    }
+
+    public Post(String id, String name, String desc, float desire, float cost, boolean marked, Bitmap image, String updateAt, String owner_id, String ownerName) {
+        this(id, name, desc, desire, cost, marked, image,updateAt, owner_id);
+        this.ownerName = ownerName;
     }
 
     public java.lang.String getId() {
@@ -49,6 +55,16 @@ public class Post extends BaseObservable {
     public void setOwner_id(String owner_id) {
         this.owner_id = owner_id;
         notifyPropertyChanged(BR.owner_id);
+    }
+
+    @Bindable
+    public java.lang.String getOwnerName() {
+        return ownerName;
+    }
+
+    public void setOwnerName(java.lang.String ownerName) {
+        this.ownerName = ownerName;
+        notifyPropertyChanged(BR.ownerName);
     }
 
     @Bindable

@@ -224,6 +224,7 @@ public class Explore extends Fragment{
                 if(posts != null){
                     Intent i = new Intent(getActivity(), GiftDetailActivity.class);
                     i.putExtra("pos",  position);
+                    i.putExtra("type", "exp");
                     startActivityForResult(i, DETAIL_RES_CODE);
                 }
             }

@@ -61,7 +61,8 @@ public class GiftDetailActivity extends AppCompatActivity {
     private void initialPage() {
         pos = getIntent().getIntExtra("pos", 0);
         ActivityGiftDetailBinding bind = DataBindingUtil.setContentView(this, R.layout.activity_gift_detail);
-        post = Explore.posts.get(pos);
+        if(!getIntent().getStringExtra("type").equals("buy")) post = Explore.posts.get(pos);
+        else post = Buy.posts.get(pos);
         bind.setPost(post);
         bind.setUser(User.getInstance());
     }
