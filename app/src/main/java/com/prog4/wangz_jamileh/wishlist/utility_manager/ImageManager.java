@@ -53,11 +53,11 @@ public class ImageManager {
     }
 
 
-    public Bitmap compressImage(Uri selectedImage, int h, int w) {
+    public Bitmap compressImage(Uri selectedImage, int h, int w, int q) {
         InputStream imageStream = uriToFile(selectedImage);
         Bitmap bmp = BitmapFactory.decodeStream(imageStream);
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        bmp.compress(Bitmap.CompressFormat.JPEG, 0, stream);
+        bmp.compress(Bitmap.CompressFormat.JPEG, q, stream);
         Bitmap resized = Bitmap.createScaledBitmap(bmp, h, w, false);
 //        byte[] byteArray = stream.toByteArray();
 //        System.out.println("a: " + byteArray.length);

@@ -17,7 +17,7 @@ import android.widget.TextView;
 import com.google.gson.internal.LinkedTreeMap;
 import com.prog4.wangz_jamileh.wishlist.Model.*;
 import com.prog4.wangz_jamileh.wishlist.Model.Post;
-import com.prog4.wangz_jamileh.wishlist.adpater.PostAdapter;
+import com.prog4.wangz_jamileh.wishlist.adpater.BuyAdapter;
 import com.prog4.wangz_jamileh.wishlist.magic.Ajax;
 import com.prog4.wangz_jamileh.wishlist.utility_manager.ImageManager;
 
@@ -63,7 +63,7 @@ public class Buy extends Fragment {
     private void createListView()
     {
         //Create an adapter for the listView and add the ArrayList to the adapter.
-        list.setAdapter(new PostAdapter(getContext(), android.R.layout.simple_gallery_item, posts));
+        list.setAdapter(new BuyAdapter(getContext(), android.R.layout.simple_gallery_item, posts));
         if(posts == null || posts.size() == 0) noResView.setVisibility(View.VISIBLE);
 
         list.setOnItemClickListener(new AdapterView.OnItemClickListener()
