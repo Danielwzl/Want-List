@@ -31,7 +31,7 @@ import java.util.TreeMap;
  * {@link Post.OnFragmentInteractionListener} interface
  * to handle interaction events.
  * Use the {@link Post#newInstance} factory method to
- * create an instance of this fragment.
+ * create an instance of this fragment. okay.
  */
 public class Post extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
