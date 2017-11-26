@@ -121,20 +121,25 @@ public class Buy extends Fragment {
         String date = null;
         LinkedTreeMap<String, Object> one = null;
         LinkedTreeMap<String, Object> imgObj = null;
+        LinkedTreeMap<String, Object> postObj = null;
         Bitmap image = null;
-        String post_id=null;
+        String post_id=null, user_id = null;
         for(int i = 0, len = data.size(); i < len; i++){
             image = null;
             one = (LinkedTreeMap<String, Object>) data.get(i).get("post");
             update = one.get("updatedAt").toString().split("T");
             date = update[0] + " " + (update[1].split("\\."))[0];
             post_id = one.get("_id").toString();
-//            if(one.get("image").equals("file")){
-//                if(imageData != null && imageData.containsKey(post_id)){
-//                    imgObj = (LinkedTreeMap<String, Object>)(imageData.get(post_id)); //TODO
-//                    image = im.listToBitmap((ArrayList<Double>) (imgObj.get("data")));
-//                }
-//            }
+            user_id = one.get("user_id").toString();
+            if(one.get("image").equals("file")){
+                if(imageData != null && imageData.containsKey(user_id)){
+                    postObj = (LinkedTreeMap<String, Object>)(imageData.get(user_id));
+                    if(postObj != null && postObj.containsKey(post_id)){
+                        imgObj = (LinkedTreeMap<String, Object>)(postObj.get(post_id));
+                        image = im.listToBitmap((ArrayList<Double>) (imgObj.get("data")));
+                    }
+                }
+            }
             posts.add(new Post(post_id, one.get("title").toString(), one.get("desc").toString(), Float.parseFloat(one.get("desire_level").toString()), Float.parseFloat(one.get("cost_level").toString()), !one.get("isMarked").toString().equals("none"), image, date, one.get("user_id").toString(), one.get("full_name").toString()));
         }
     }
