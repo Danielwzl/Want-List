@@ -1,5 +1,6 @@
 package com.prog4.wangz_jamileh.wishlist;
 
+import android.app.SearchManager;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.graphics.Bitmap;
@@ -133,5 +134,11 @@ public class GiftDetailActivity extends AppCompatActivity {
             onBackPressed();
             finish();
         }
+    }
+
+    public void searchGift(View v){
+        Intent intent = new Intent(Intent.ACTION_WEB_SEARCH);
+        intent.putExtra(SearchManager.QUERY, post.getName());
+        startActivity(intent);
     }
 }
