@@ -185,7 +185,7 @@
 
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="255dp"
+            android:layout_height="280dp"
             android:layout_marginBottom="0dp">
 
             <LinearLayout
@@ -207,23 +207,26 @@
             </LinearLayout>
         </ScrollView>
 
-        <android.support.constraint.ConstraintLayout
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp">
-            <Button
+            android:layout_height="wrap_content">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_alignParentTop="true"
+                android:clickable="true"
+                android:focusable="true"
+                android:onClick="searchGift"
+                android:src="@drawable/search"/>
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginTop="8dp"
-                android:text="search"
-                android:onClick="searchGift"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.0" />
+                android:orientation="horizontal"
+                android:layout_marginRight="2dp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:id="@+id/linearLayout4">
             <ImageView
                 android:layout_width="20dp"
                 android:layout_height="20dp"
@@ -238,14 +241,7 @@
                 android:tint="@{user.session != post.owner_id ? @color/black : @color/green}"
                 android:background="@drawable/button_selection"
                 android:clickable="true"
-                android:focusable="true"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/detail_lastUpdate"
-                app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.0" />
-
+                android:focusable="true" />
             <TextView
                 android:id="@+id/detail_lastUpdate"
                 android:layout_width="wrap_content"
@@ -255,12 +251,8 @@
                 android:layout_marginBottom="8dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginTop="8dp"
-                android:text="@={post.updateAt}"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-        </android.support.constraint.ConstraintLayout>
-
-
+                android:text="@={post.updateAt}"/>
+            </LinearLayout>
+        </RelativeLayout>
     </android.support.v7.widget.LinearLayoutCompat>
 </layout>
