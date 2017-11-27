@@ -17,88 +17,96 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@drawable/background"
         android:orientation="vertical"
         tools:context="com.prog4.wangz_jamileh.wishlist.GiftDetailActivity">
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-        <ImageView
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_alignParentTop="true"
-            android:layout_marginBottom="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
-            android:layout_marginTop="8dp"
-            android:src="@drawable/ic_keyboard_arrow_left_black_24dp"
-            android:background="@drawable/button_selection"
-            android:focusable="true"
-            android:onClick="goback"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0" />
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_alignParentTop="true"
+                android:layout_marginBottom="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginTop="8dp"
+                android:src="@drawable/ic_keyboard_arrow_left_black_24dp"
+                android:focusable="true"
+                android:onClick="goback"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0" />
 
-        <ImageView
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_alignParentTop="true"
-            android:layout_marginBottom="8dp"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="8dp"
-            android:layout_marginTop="8dp"
-            android:src="@drawable/ic_delete_forever_black_24dp"
-            android:onClick="delete"
-            android:background="@drawable/button_selection"
-            android:clickable="true"
-            android:focusable="true"
-            android:visibility="@{user.session != post.owner_id ? View.INVISIBLE : View.VISIBLE}"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0" />
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_alignParentTop="true"
+                android:layout_marginBottom="8dp"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="8dp"
+                android:layout_marginTop="8dp"
+                android:src="@drawable/ic_delete_forever_black_24dp"
+                android:onClick="delete"
+
+                android:clickable="true"
+                android:focusable="true"
+                android:visibility="@{user.session != post.owner_id ? View.INVISIBLE : View.VISIBLE}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0" />
         </RelativeLayout>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+            <ImageView
+                android:id="@+id/detail_image"
+                postImage="@{post.image}"
+                android:layout_width="180dp"
+                android:layout_height="180dp"
+                android:layout_marginLeft="110dp"
+                android:src="@drawable/ic_card_giftcard_black_24dp" />
+        </LinearLayout>
 
-                <ImageView
-                    android:id="@+id/detail_image"
-                    android:layout_width="180dp"
-                    android:layout_height="180dp"
-                    postImage="@{post.image}"
-                    android:src="@drawable/ic_card_giftcard_black_24dp" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-
-            </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="25dp"
-                android:layout_marginLeft="20dp"
-                android:orientation="vertical">
+                android:layout_marginBottom="20dp"
+                android:layout_marginLeft="40dp"
+                android:layout_marginRight="40dp"
+                android:orientation="vertical"
+                android:elevation="20dp"
+                android:background="@drawable/sign_in_button">
 
                 <EditText
                     android:id="@+id/detail_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="0dp"
+                    android:layout_marginLeft="10dp"
                     android:backgroundTint="@android:color/transparent"
-                    android:focusable="false"
                     android:enabled="false"
+                    android:focusable="false"
                     android:text="@={post.name}"
-                    android:textColor="@color/border_color"
-                    android:textSize="12sp" />
+                    android:textColor="#FFADB0"
+                    android:textSize="30sp"
+                    android:textStyle="bold"/>
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -109,8 +117,13 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
                         android:layout_gravity="center_vertical"
-                        android:text="Desire: " />
+                        android:text="Desire: "
+                        android:textColor="#FFADB0"
+                        android:textColorHint="#FFADB0"
+                        android:textSize="16dp"
+                        android:textStyle="bold" />
 
                     <RatingBar
                         android:id="@+id/detail_desire"
@@ -119,8 +132,8 @@
                         android:layout_height="wrap_content"
                         android:isIndicator="true"
                         android:numStars="5"
-                        android:stepSize="1.0"
-                        android:rating="@{post.desire}" />
+                        android:rating="@{post.desire}"
+                        android:stepSize="1.0" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -133,17 +146,23 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:text="Cost:    " />
+                        android:text="Cost:    "
+                        android:textColor="#FFADB0"
+                        android:textColorHint="#FFADB0"
+                        android:textSize="16dp"
+                        android:textStyle="bold"
+                        android:layout_marginLeft="10dp"/>
 
                     <RatingBar
                         android:id="@+id/detail_cost"
                         style="@android:style/Widget.DeviceDefault.RatingBar.Small"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:paddingTop="5dp"
                         android:isIndicator="true"
                         android:numStars="5"
-                        android:stepSize="1.0"
-                        android:rating="@{post.cost}" />
+                        android:rating="@{post.cost}"
+                        android:stepSize="1.0" />
 
                 </LinearLayout>
 
@@ -151,61 +170,66 @@
                     android:id="@+id/detail_mark"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginTop="10dp"
-                    android:onClick="mark"
-                    android:enabled="@{user.session != post.owner_id}"
+                    android:layout_marginBottom="30dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="20dp"
                     android:background="@{post.marked ? @color/colorAccent : @color/grey}"
+                    android:enabled="@{user.session != post.owner_id}"
+                    android:onClick="mark"
                     android:text="@{post.marked ? @string/brought : @string/bring}"
                     android:textColor="@{post.marked ? @color/white : @color/black}" />
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="0.4dp"
-                    android:background="#99A1AC" />
+                    android:background="@color/white" />
             </LinearLayout>
         </LinearLayout>
+        </RelativeLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
+            android:orientation="vertical"
+            android:elevation="0dp"
+            android:background="@drawable/sign_in_button">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="2dp"
                 android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
+                android:layout_marginRight="40dp"
+                android:layout_marginTop="10dp"
                 android:text="Description"
+                android:textColor="#FFADB0"
+                android:textColorHint="#FFADB0"
                 android:textAlignment="viewStart"
                 android:textAllCaps="false"
-                android:textSize="16sp"
+                android:textSize="20sp"
                 android:textStyle="bold" />
-        </LinearLayout>
 
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="255dp"
-            android:layout_marginBottom="0dp">
 
-            <LinearLayout
+            <ScrollView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:layout_height="80dp"
+                android:layout_marginBottom="0dp">
 
                 <EditText
                     android:id="@+id/detail_desc"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginBottom="50dp"
+                    android:layout_marginBottom="30dp"
                     android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
                     android:backgroundTint="@android:color/transparent"
                     android:enabled="false"
                     android:text="@{post.desc}"
-                    android:textColor="@color/cardview_dark_background" />
-            </LinearLayout>
-        </ScrollView>
+                    android:textColor="#B76C7C" />
+            </ScrollView>
+        </LinearLayout>
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
@@ -221,15 +245,13 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
-                android:onClick="enableEdit"
-                android:src="@drawable/ic_edit_black_24dp"
-                android:tint="@{user.session != post.owner_id ? @color/black : @color/green}"
-                android:background="@drawable/button_selection"
                 android:clickable="true"
                 android:focusable="true"
+                android:onClick="enableEdit"
+                android:src="@drawable/ic_edit_black_24dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/detail_lastUpdate"
-                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintHorizontal_bias="0.846"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.0" />
@@ -241,14 +263,17 @@
                 android:layout_centerVertical="true"
                 android:layout_gravity="center_vertical"
                 android:layout_marginBottom="8dp"
-                android:layout_marginEnd="8dp"
+                android:layout_marginEnd="68dp"
                 android:layout_marginTop="8dp"
+                android:layout_marginRight="3dp"
                 android:text="@={post.updateAt}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="1.0" />
         </android.support.constraint.ConstraintLayout>
 
 
     </android.support.v7.widget.LinearLayoutCompat>
 </layout>
+

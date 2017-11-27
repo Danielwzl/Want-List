@@ -7,22 +7,9 @@
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@drawable/background">
 
-        <EditText
-            android:id="@+id/sec_pw2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="275dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
-            android:ems="10"
-            android:hint="confirm password"
-            android:inputType="textPassword"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintHorizontal_bias="0.503"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent" />
 
         <EditText
             android:id="@+id/sec_pw1"
@@ -32,15 +19,41 @@
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
             android:layout_marginTop="8dp"
+            android:backgroundTint="@color/white"
             android:ems="10"
             android:hint="new password"
             android:inputType="textPassword"
+            android:letterSpacing="0.025"
+            android:textColor="#fff"
+            android:textColorHint="#fff"
+            android:textSize="20dp"
+            android:textStyle="bold"
             app:layout_constraintBottom_toTopOf="@+id/sec_pw2"
-            app:layout_constraintHorizontal_bias="0.503"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.8" />
+            app:layout_constraintVertical_bias="0.868" />
+
+        <EditText
+            android:id="@+id/sec_pw2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="288dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:backgroundTint="@color/white"
+            android:ems="10"
+            android:hint="confirm password"
+            android:inputType="textPassword"
+            android:letterSpacing="0.025"
+            android:textColor="#fff"
+            android:textColorHint="#fff"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent" />
+
 
         <Button
             android:id="@+id/sec_update"
@@ -49,20 +62,24 @@
             android:layout_marginBottom="8dp"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
-            android:layout_marginTop="36dp"
-            android:text="update"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/sign_in_button"
+            android:elevation="10dp"
             android:onClick="update"
+            android:text="update"
+            android:textColor="#D2818D"
+            android:textColorHint="#D2818D"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/sec_pw2"
-            app:layout_constraintVertical_bias="0.126" />
+            app:layout_constraintVertical_bias="0.0" />
+
         <ImageView
             android:layout_alignParentTop="true"
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:src="@drawable/ic_keyboard_arrow_left_black_24dp"
-            android:background="@drawable/button_selection"
             android:clickable="true"
             android:focusable="true"
             android:layout_marginLeft="8dp"

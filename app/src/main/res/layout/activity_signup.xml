@@ -7,7 +7,120 @@
     tools:context="com.prog4.wangz_jamileh.wishlist.SignupActivity"
     tools:layout_editor_absoluteY="81dp"
     tools:layout_editor_absoluteX="0dp"
-    android:background="@drawable/theme">
+    android:background="@drawable/background">
+
+    <EditText
+        android:id="@+id/sign_email"
+        android:layout_width="311dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="36dp"
+        android:backgroundTint="@color/white"
+        android:hint="Email"
+        android:letterSpacing="0.025"
+        android:textColor="#fff"
+        android:textColorHint="#fff"
+        android:textSize="16dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.508"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+    <EditText
+        android:id="@+id/sign_pw"
+        android:layout_width="311dp"
+        android:layout_height="43dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="20dp"
+        android:backgroundTint="@color/white"
+        android:ems="10"
+        android:hint="Password"
+        android:inputType="textPassword"
+        android:letterSpacing="0.025"
+        android:textColor="#fff"
+        android:textColorHint="#fff"
+        android:textStyle="bold"
+        android:textSize="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.508"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sign_email" />
+
+    <EditText
+        android:id="@+id/confirm_pw"
+        android:layout_width="311dp"
+        android:layout_height="43dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="20dp"
+        android:backgroundTint="@color/white"
+        android:ems="10"
+        android:hint="Re-enter password"
+        android:inputType="textPassword"
+        android:letterSpacing="0.025"
+        android:textColor="#fff"
+        android:textColorHint="#fff"
+        android:textStyle="bold"
+        android:textSize="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.508"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sign_pw" />
+
+    <EditText
+        android:id="@+id/sign_uname"
+        android:layout_width="311dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="20dp"
+        android:backgroundTint="@color/white"
+        android:hint="Username"
+        android:letterSpacing="0.025"
+        android:textColor="#fff"
+        android:textColorHint="#fff"
+        android:textStyle="bold"
+        android:textSize="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.508"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/confirm_pw" />
+
+    <EditText
+        android:id="@+id/sign_fname"
+        android:layout_width="144dp"
+        android:layout_height="43dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="20dp"
+        android:backgroundTint="@color/white"
+        android:hint="First name"
+        android:letterSpacing="0.025"
+        android:textColor="#fff"
+        android:textColorHint="#fff"
+        android:textStyle="bold"
+        android:textSize="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sign_uname" />
+
+    <EditText
+        android:id="@+id/sign_lname"
+        android:layout_width="160dp"
+        android:layout_height="43dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginTop="20dp"
+        android:backgroundTint="@color/white"
+        android:hint="Last name"
+        android:letterSpacing="0.025"
+        android:textColor="#fff"
+        android:textColorHint="#fff"
+        android:textStyle="bold"
+        android:textSize="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/sign_fname"
+        app:layout_constraintTop_toBottomOf="@+id/sign_uname" />
 
 
     <EditText
@@ -16,167 +129,35 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="20dp"
+        android:backgroundTint="@color/white"
         android:editable="false"
         android:hint="Birthday"
         android:letterSpacing="0.025"
         android:textColor="#fff"
         android:textColorHint="#fff"
+        android:textStyle="bold"
         android:textSize="16dp"
-        android:backgroundTint="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.515"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/sign_lname" />
 
-    <EditText
-        android:id="@+id/confirm_pw"
-        android:layout_width="311dp"
-        android:layout_height="43dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:ems="10"
-        android:hint="Re-enter password"
-        android:inputType="textPassword"
-        android:letterSpacing="0.025"
-        android:textColor="#fff"
-        android:textColorHint="#fff"
-        android:textSize="16dp"
-        android:backgroundTint="@color/white"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/sign_pw" />
-
-    <EditText
-        android:id="@+id/sign_fname"
-        android:layout_width="144dp"
-        android:layout_height="43dp"
-        android:layout_marginStart="24dp"
-        android:hint="First name"
-        android:letterSpacing="0.025"
-        android:textColor="#fff"
-        android:textColorHint="#fff"
-        android:textSize="16dp"
-        android:backgroundTint="@color/white"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/sign_uname" />
-
-    <Button
-        android:id="@+id/signup"
-        android:layout_width="150dp"
-        android:layout_height="36dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="26dp"
-        android:textColor="#fff"
-        android:textColorHint="#fff"
-        android:background="@drawable/border"
-        android:text="SIGN UP"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/gender" />
-
-    <Button
-        android:layout_width="150dp"
-        android:layout_height="36dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/border"
-        android:onClick="goback"
-        android:text="back"
-        android:textColor="#fff"
-        android:textColorHint="#fff"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/signup"
-        app:layout_constraintVertical_bias="0.123" />
-
-    <EditText
-        android:id="@+id/sign_lname"
-        android:layout_width="160dp"
-        android:layout_height="43dp"
-        android:layout_marginEnd="24dp"
-        android:layout_marginLeft="4dp"
-        android:hint="Last name"
-        android:letterSpacing="0.025"
-        android:textColor="#fff"
-        android:textColorHint="#fff"
-        android:textSize="16dp"
-        android:backgroundTint="@color/white"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintLeft_toRightOf="@+id/sign_fname"
-        app:layout_constraintTop_toBottomOf="@+id/sign_uname" />
 
     <EditText
         android:id="@+id/sign_phone"
         android:layout_width="311dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
+        android:layout_marginTop="8dp"
+        android:backgroundTint="@color/white"
         android:hint="Phone"
         android:letterSpacing="0.025"
         android:textColor="#fff"
         android:textColorHint="#fff"
+        android:textStyle="bold"
         android:textSize="16dp"
-        android:backgroundTint="@color/white"
         app:layout_constraintTop_toBottomOf="@+id/signup_dob"
         tools:layout_editor_absoluteX="25dp" />
-
-    <EditText
-        android:id="@+id/sign_pw"
-        android:layout_width="311dp"
-        android:layout_height="43dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:ems="10"
-        android:hint="Password"
-        android:inputType="textPassword"
-        android:letterSpacing="0.025"
-        android:textColor="#fff"
-        android:textColorHint="#fff"
-        android:textSize="16dp"
-        android:backgroundTint="@color/white"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/sign_email" />
-
-    <EditText
-        android:id="@+id/sign_email"
-        android:layout_width="311dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:hint="Email"
-        android:letterSpacing="0.025"
-        android:textColor="#fff"
-        android:textColorHint="#fff"
-        android:textSize="16dp"
-        android:backgroundTint="@color/white"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="2dp" />
-
-    <EditText
-        android:id="@+id/sign_uname"
-        android:layout_width="311dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:hint="Username"
-        android:letterSpacing="0.025"
-        android:textColor="#fff"
-        android:textColorHint="#fff"
-        android:textSize="16dp"
-        android:backgroundTint="@color/white"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/confirm_pw" />
 
     <RadioGroup
         android:id="@+id/gender"
@@ -184,8 +165,10 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/sign_phone">
 
@@ -194,31 +177,67 @@
             android:layout_width="91dp"
             android:layout_height="31dp"
             android:layout_marginLeft="61dp"
+            android:backgroundTint="@color/white"
             android:letterSpacing="0.025"
             android:onClick="onRadioButtonClicked"
             android:text="male"
             android:textColor="#fff"
             android:textColorHint="#fff"
+            android:textStyle="bold"
             android:textSize="16dp"
-            android:backgroundTint="@color/white"
             app:layout_constraintLeft_toLeftOf="parent"
-            tools:layout_editor_absoluteY="369dp" />
+            tools:layout_editor_absoluteY="369dp"
+            android:buttonTint="@color/white"/>
 
         <RadioButton
             android:id="@+id/female"
             android:layout_width="97dp"
             android:layout_height="31dp"
             android:layout_marginLeft="42dp"
+            android:backgroundTint="@color/white"
             android:letterSpacing="0.025"
             android:onClick="onRadioButtonClicked"
             android:text="female"
             android:textColor="#fff"
             android:textColorHint="#fff"
+            android:textStyle="bold"
             android:textSize="16dp"
-            android:backgroundTint="@color/white"
             app:layout_constraintLeft_toRightOf="@+id/male"
-            tools:layout_editor_absoluteY="369dp" />
+            tools:layout_editor_absoluteY="369dp"
+            android:buttonTint="@color/white"/>
     </RadioGroup>
+
+    <Button
+        android:id="@+id/signup"
+        android:layout_width="100dp"
+        android:layout_height="36dp"
+        android:layout_marginBottom="24dp"
+        android:layout_marginLeft="40dp"
+        android:background="@drawable/sign_in_button"
+        android:elevation="10dp"
+        android:text="SIGN UP"
+        android:textColor="#D2818D"
+        android:textColorHint="#D2818D"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/button"
+        app:layout_constraintLeft_toLeftOf="parent" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="100dp"
+        android:layout_height="36dp"
+        android:layout_marginBottom="24dp"
+        android:layout_marginRight="60dp"
+        android:onClick="goback"
+        android:text="back"
+        android:textColor="#B56576"
+        android:textColorHint="#B56576"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:elevation="7dp"
+        android:background="@drawable/sign_in_button"/>
+
+
 
 
 </android.support.constraint.ConstraintLayout>

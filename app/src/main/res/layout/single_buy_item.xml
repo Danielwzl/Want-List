@@ -14,8 +14,7 @@
             android:id="@+id/buy_img"
             android:layout_width="120dp"
             android:layout_height="120dp"
-            android:src="@drawable/ic_card_giftcard_black_24dp"
-            />
+            android:src="@drawable/ic_card_giftcard_black_24dp" />
 
         <LinearLayout
             android:layout_width="wrap_content"
