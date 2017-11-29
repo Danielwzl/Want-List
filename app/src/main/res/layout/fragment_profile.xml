@@ -129,9 +129,9 @@
                 android:id="@+id/imageView2"
                 android:layout_width="25dp"
                 android:layout_height="25dp"
-                android:layout_gravity="center"
+                android:layout_gravity="right"
                 android:layout_alignParentRight="true"
-                android:layout_marginRight="30dp"
+                android:layout_marginLeft="40dp"
                 android:background="@drawable/ic_chevron_right_black_24dp" />
 
 
@@ -185,12 +185,13 @@
                 android:textSize="12sp" />
 
         </LinearLayout>
+
             <ImageView
                 android:layout_width="25dp"
                 android:layout_height="25dp"
-                android:layout_gravity="center"
                 android:layout_alignParentRight="true"
-                android:layout_marginRight="30dp"
+                android:layout_gravity="right"
+                android:layout_marginLeft="40dp"
                 android:background="@drawable/ic_chevron_right_black_24dp" />
 
         </LinearLayout>
@@ -214,7 +215,7 @@
                 android:id="@+id/profile_logout"
                 android:layout_width="298dp"
                 android:layout_marginLeft="45dp"
-                android:layout_height="match_parent"
+                android:layout_height="50dp"
                 android:layout_gravity="center"
                 android:background="#E27989"
                 android:text="Log out"
