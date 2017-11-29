@@ -58,7 +58,7 @@ public class ImageManager {
         Bitmap bmp = BitmapFactory.decodeStream(imageStream);
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         bmp.compress(Bitmap.CompressFormat.JPEG, q, stream);
-        Bitmap resized = Bitmap.createScaledBitmap(bmp, h, w, false);
+        Bitmap resized = resize(w, h, bmp);
 //        byte[] byteArray = stream.toByteArray();
 //        System.out.println("a: " + byteArray.length);
         try {
@@ -75,7 +75,7 @@ public class ImageManager {
     public Bitmap compressImage(Bitmap image, int h, int w, int q) {
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         image.compress(Bitmap.CompressFormat.JPEG, q, stream);
-        Bitmap resized = Bitmap.createScaledBitmap(image, h, w, false);
+        Bitmap resized = resize(w, h, image);
 //        byte[] byteArray = stream.toByteArray();
 //        System.out.println("a: " + byteArray.length);
         try {
@@ -91,7 +91,7 @@ public class ImageManager {
     public Bitmap compressImage(Bitmap image) {
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         image.compress(Bitmap.CompressFormat.JPEG, 0, stream);
-        Bitmap resized = Bitmap.createScaledBitmap(image, 125, 125, false);
+        Bitmap resized = resize(768, 1024, image);
 //        byte[] byteArray = stream.toByteArray();
 //        System.out.println("a: " + byteArray.length);
         try {
@@ -109,7 +109,7 @@ public class ImageManager {
         Bitmap bmp = BitmapFactory.decodeStream(imageStream);
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         bmp.compress(Bitmap.CompressFormat.JPEG, 0, stream);
-        Bitmap resized = Bitmap.createScaledBitmap(bmp, 125, 125, false);
+        Bitmap resized = resize(768, 1024, bmp);
 //        byte[] byteArray = stream.toByteArray();
 //        System.out.println("a: " + byteArray.length);
         try {
@@ -140,5 +140,18 @@ public class ImageManager {
 
     public Drawable bitmapToDrawable(Resources res, Bitmap img){
         return new BitmapDrawable(res, img);
+    }
+
+    private Bitmap resize(int tw, int th, Bitmap img){
+        int w = img.getWidth(), h = img.getHeight();
+        float r = (float) w / (float) h;
+        int finalWidth = tw;
+        int finalHeight = th;
+        if (r < 1) {
+            finalWidth = (int) ((float) tw * r);
+        } else {
+            finalHeight = (int) ((float) th / r);
+        }
+        return Bitmap.createScaledBitmap(img, finalWidth, finalHeight, true);
     }
 }
