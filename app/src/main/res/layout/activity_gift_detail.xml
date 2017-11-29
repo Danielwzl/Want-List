@@ -2,11 +2,15 @@
 <layout>
 
     <data>
-        <import type="android.view.View"/>
+
+        <import type="android.view.View" />
+
         <import type="android.R" />
+
         <variable
             name="post"
             type="com.prog4.wangz_jamileh.wishlist.Model.Post" />
+
         <variable
             name="user"
             type="com.prog4.wangz_jamileh.wishlist.Model.User" />
@@ -17,242 +21,273 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@drawable/background"
         android:orientation="vertical"
         tools:context="com.prog4.wangz_jamileh.wishlist.GiftDetailActivity">
-
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-        <ImageView
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_alignParentTop="true"
-            android:layout_marginBottom="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginRight="8dp"
-            android:layout_marginTop="8dp"
-            android:src="@drawable/ic_keyboard_arrow_left_black_24dp"
-            android:background="@drawable/button_selection"
-            android:focusable="true"
-            android:onClick="goback"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0" />
 
-        <ImageView
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_alignParentTop="true"
-            android:layout_marginBottom="8dp"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="8dp"
-            android:layout_marginTop="8dp"
-            android:src="@drawable/ic_delete_forever_black_24dp"
-            android:onClick="delete"
-            android:background="@drawable/button_selection"
-            android:clickable="true"
-            android:focusable="true"
-            android:visibility="@{user.session != post.owner_id ? View.INVISIBLE : View.VISIBLE}"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0" />
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_alignParentTop="true"
+                android:layout_marginBottom="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginTop="8dp"
+                android:focusable="true"
+                android:onClick="goback"
+                android:src="@drawable/ic_keyboard_arrow_left_black_24dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0" />
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginBottom="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginTop="8dp"
+                android:clickable="true"
+                android:focusable="true"
+
+                android:onClick="delete"
+                android:src="@drawable/ic_delete_forever_black_24dp"
+                android:visibility="@{user.session != post.owner_id ? View.INVISIBLE : View.VISIBLE}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0" />
         </RelativeLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginBottom="15dp">
+
+            <EditText
+                android:id="@+id/detail_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:backgroundTint="@android:color/transparent"
+                android:enabled="false"
+                android:focusable="false"
+                android:text="@={post.name}"
+                android:textColor="@color/white"
+                android:textSize="15sp"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/detail_image"
+                postImage="@{post.image}"
+                android:layout_width="180dp"
+                android:layout_height="180dp"
+                android:layout_gravity="center_horizontal"
+                android:src="@drawable/ic_card_giftcard_black_24dp" />
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginBottom="20dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
+            android:background="@drawable/sign_in_button"
+            android:elevation="20dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="10dp"
+                android:text="Desire: "
+                android:textColor="#FFADB0"
+                android:textColorHint="#FFADB0"
+                android:textSize="16dp"
+                android:textStyle="bold" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-
-                <ImageView
-                    android:id="@+id/detail_image"
-                    android:layout_width="180dp"
-                    android:layout_height="180dp"
-                    postImage="@{post.image}"
-                    android:src="@drawable/ic_card_giftcard_black_24dp" />
-
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="25dp"
-                android:layout_marginLeft="20dp"
-                android:orientation="vertical">
-
-                <EditText
-                    android:id="@+id/detail_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="0dp"
-                    android:backgroundTint="@android:color/transparent"
-                    android:focusable="false"
-                    android:enabled="false"
-                    android:text="@={post.name}"
-                    android:textColor="@color/border_color"
-                    android:textSize="12sp" />
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:text="Desire: " />
-
-                    <RatingBar
-                        android:id="@+id/detail_desire"
-                        style="@android:style/Widget.DeviceDefault.RatingBar.Small"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:isIndicator="true"
-                        android:numStars="5"
-                        android:stepSize="1.0"
-                        android:rating="@{post.desire}" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <TextView
-
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical"
-                        android:text="Cost:    " />
-
-                    <RatingBar
-                        android:id="@+id/detail_cost"
-                        style="@android:style/Widget.DeviceDefault.RatingBar.Small"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:isIndicator="true"
-                        android:numStars="5"
-                        android:stepSize="1.0"
-                        android:rating="@{post.cost}" />
-
-                </LinearLayout>
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:layout_marginEnd="5dp">
 
                 <Button
                     android:id="@+id/detail_mark"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginTop="10dp"
-                    android:onClick="mark"
-                    android:enabled="@{user.session != post.owner_id}"
+                    android:layout_height="40dp"
+                    android:layout_alignBottom="@+id/detail_cost"
+                    android:layout_alignParentEnd="true"
+                    android:layout_gravity="center_vertical"
                     android:background="@{post.marked ? @color/colorAccent : @color/grey}"
+                    android:enabled="@{user.session != post.owner_id}"
+                    android:onClick="mark"
                     android:text="@{post.marked ? @string/brought : @string/bring}"
                     android:textColor="@{post.marked ? @color/white : @color/black}" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="0.4dp"
-                    android:background="#99A1AC" />
             </LinearLayout>
-        </LinearLayout>
+
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/detail_cost"
+                android:layout_alignEnd="@+id/textView"
+                android:layout_gravity="center_vertical"
+                android:text="Cost:    "
+                android:textColor="#FFADB0"
+                android:textColorHint="#FFADB0"
+                android:textSize="16dp"
+                android:textStyle="bold" />
+
+            <RatingBar
+                android:id="@+id/detail_cost"
+                style="@android:style/Widget.DeviceDefault.RatingBar.Small"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignStart="@+id/detail_desire"
+                android:layout_below="@+id/textView"
+                android:isIndicator="true"
+                android:numStars="5"
+                android:paddingTop="5dp"
+                android:rating="@{post.cost}"
+                android:stepSize="1.0" />
+
+            <RatingBar
+                android:id="@+id/detail_desire"
+                style="@android:style/Widget.DeviceDefault.RatingBar.Small"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/detail_cost"
+                android:layout_marginStart="14dp"
+                android:layout_toEndOf="@+id/textView"
+                android:isIndicator="true"
+                android:numStars="5"
+                android:rating="@{post.desire}"
+                android:stepSize="1.0" />
+        </RelativeLayout>
+
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
+            android:background="@drawable/sign_in_button"
+            android:elevation="50dp"
+            android:orientation="vertical">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="2dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="1dp"
                 android:text="Description"
                 android:textAlignment="viewStart"
                 android:textAllCaps="false"
-                android:textSize="16sp"
+                android:textColor="#FFADB0"
+                android:textColorHint="#FFADB0"
+                android:textSize="15sp"
                 android:textStyle="bold" />
-        </LinearLayout>
 
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="280dp"
-            android:layout_marginBottom="0dp">
-
-            <LinearLayout
+            <ScrollView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:layout_height="228dp"
+                android:layout_marginBottom="0dp">
 
                 <EditText
                     android:id="@+id/detail_desc"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginBottom="50dp"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="40dp"
+                    android:layout_marginEnd="2dp"
+                    android:layout_marginStart="2dp"
                     android:backgroundTint="@android:color/transparent"
                     android:enabled="false"
                     android:text="@{post.desc}"
-                    android:textColor="@color/cardview_dark_background" />
-            </LinearLayout>
-        </ScrollView>
+                    android:textColor="#F37C8F"
+                    android:textSize="15dp" />
+            </ScrollView>
+        </LinearLayout>
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_alignParentTop="true"
-                android:clickable="true"
-                android:focusable="true"
-                android:onClick="searchGift"
-                android:src="@drawable/search"/>
             <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_gravity="center_horizontal"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:onClick="searchGift"
+                    android:src="@drawable/search" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linearLayout4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginRight="2dp"
-                android:layout_centerVertical="true"
                 android:layout_alignParentRight="true"
-                android:id="@+id/linearLayout4">
-            <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_alignEnd="@+id/detail_lastUpdate"
-                android:layout_alignParentTop="true"
-                android:layout_marginBottom="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:onClick="enableEdit"
-                android:src="@drawable/ic_edit_black_24dp"
-                android:tint="@{user.session != post.owner_id ? @color/black : @color/green}"
-                android:background="@drawable/button_selection"
-                android:clickable="true"
-                android:focusable="true" />
-            <TextView
-                android:id="@+id/detail_lastUpdate"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_gravity="center_vertical"
-                android:layout_marginBottom="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginTop="8dp"
-                android:text="@={post.updateAt}"/>
+                android:layout_marginRight="2dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="8dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:onClick="enableEdit"
+                    android:src="@drawable/ic_edit_black_24dp"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/detail_lastUpdate"
+                    app:layout_constraintHorizontal_bias="0.846"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.0" />
+
+                <TextView
+                    android:id="@+id/detail_lastUpdate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginBottom="8dp"
+                    android:layout_marginEnd="35dp"
+                    android:layout_marginRight="3dp"
+                    android:layout_marginTop="8dp"
+                    android:text="@={post.updateAt}"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="1.0" />
             </LinearLayout>
         </RelativeLayout>
     </android.support.v7.widget.LinearLayoutCompat>
 </layout>
+
