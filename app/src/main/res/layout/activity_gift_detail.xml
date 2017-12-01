@@ -46,7 +46,20 @@
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.0" />
-
+            <EditText
+                android:id="@+id/detail_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center_horizontal"
+                android:backgroundTint="@android:color/transparent"
+                android:enabled="false"
+                android:focusable="false"
+                android:text="@={post.name}"
+                android:textColor="@color/white"
+                android:textSize="15sp"
+                android:textStyle="bold" />
             <ImageView
                 android:layout_width="20dp"
                 android:layout_height="20dp"
@@ -75,19 +88,6 @@
             android:orientation="vertical"
             android:layout_marginBottom="15dp">
 
-            <EditText
-                android:id="@+id/detail_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:backgroundTint="@android:color/transparent"
-                android:enabled="false"
-                android:focusable="false"
-                android:text="@={post.name}"
-                android:textColor="@color/white"
-                android:textSize="15sp"
-                android:textStyle="bold" />
-
             <ImageView
                 android:id="@+id/detail_image"
                 postImage="@{post.image}"
@@ -112,6 +112,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
+                android:layout_marginTop="2dp"
                 android:layout_marginLeft="10dp"
                 android:text="Desire: "
                 android:textColor="#FFADB0"
@@ -171,7 +172,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_above="@+id/detail_cost"
-                android:layout_marginStart="14dp"
+                android:layout_marginStart="16dp"
                 android:layout_toEndOf="@+id/textView"
                 android:isIndicator="true"
                 android:numStars="5"
