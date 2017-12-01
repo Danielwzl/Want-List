@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
+import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.SearchView;
@@ -54,7 +55,7 @@ public class Explore extends Fragment{
     private OnFragmentInteractionListener mListener;
     private SearchView search;
 
-    private ListView list;
+    private GridView list;
     public static ArrayList<Post> posts;
     private SwipeRefreshLayout swipeLayout;
     private TextView noResView;
@@ -137,7 +138,7 @@ public class Explore extends Fragment{
                 return false;
             }
         });
-        list = (ListView) exploreView.findViewById(R.id.explore_list);
+        list = (GridView) exploreView.findViewById(R.id.explore_list);
         view_id = User.getInstance().session;
         posts = loading(view_id);
         createListView();

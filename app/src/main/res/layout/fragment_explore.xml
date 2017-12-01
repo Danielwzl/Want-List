@@ -98,11 +98,12 @@
             android:text="No Result"
             android:textAlignment="center"
             android:visibility="gone"/>
-        <ListView
+        <GridView
             android:id="@+id/explore_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:scrollbars="vertical" />
+            android:scrollbars="vertical"
+            android:numColumns="2"/>
 
 
     </LinearLayout>
