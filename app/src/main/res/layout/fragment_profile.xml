@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical">
 
     <data>
 
@@ -74,7 +75,6 @@
                 android:text="@={user.dob}"
                 android:textSize="14sp" />
 
-
             <LinearLayout
                 android:id="@+id/linearLayout4"
                 android:layout_width="match_parent"
@@ -91,14 +91,14 @@
                 <LinearLayout
                     android:id="@+id/profile_personalInfo"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_weight="0.25"
                     android:background="@drawable/button_selection"
                     android:clickable="true"
                     android:focusable="true"
                     android:orientation="horizontal"
-                    android:paddingBottom="20dp"
-                    android:paddingTop="20dp">
+                    android:paddingBottom="10dp"
+                    android:paddingTop="10dp">
 
                     <ImageView
                         android:id="@+id/imageView3"
@@ -109,7 +109,7 @@
                         android:background="@drawable/ic_person_outline_black_24dp" />
 
                     <LinearLayout
-                        android:layout_width="wrap_content"
+                        android:layout_width="230dp"
                         android:layout_height="wrap_content"
                         android:orientation="vertical">
 
@@ -144,25 +144,18 @@
                     </RelativeLayout>
 
                 </LinearLayout>
-
             </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0.3dp"
-                android:background="#99A1AC" />
-
             <LinearLayout
                 android:id="@+id/profile_security"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="220dp"
+                android:layout_marginTop="215dp"
                 android:background="@drawable/button_selection"
                 android:clickable="true"
                 android:focusable="true"
                 android:orientation="horizontal"
-                android:paddingBottom="20dp"
-                android:paddingTop="20dp">
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp">
 
                 <ImageView
                     android:layout_width="25dp"
@@ -210,23 +203,91 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="0.3dp"
-                android:background="#99A1AC" />
+                android:background="#7f7e7d" />
+            <LinearLayout
+                android:id="@+id/profile_friend"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="280dp"
+                android:background="@drawable/button_selection"
+                android:clickable="true"
+                android:focusable="true"
+                android:orientation="horizontal"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp">
 
+                <ImageView
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="20dp"
+                    android:background="@drawable/ic_group_black_24dp" />
+
+                <LinearLayout
+                    android:layout_width="230dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="30dp"
+                        android:text="Friends"
+                        android:textColor="@color/border_color"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginTop="5dp"
+                        android:text="friends list"
+                        android:textSize="12sp" />
+
+                </LinearLayout>
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginEnd="20dp"
+                        android:background="@drawable/ic_chevron_right_black_24dp" />
+
+                    <ImageView
+                        android:id="@+id/profile_dot"
+                        android:layout_width="10dp"
+                        android:layout_height="10dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginEnd="10dp"
+                        android:layout_alignParentTop="true"
+                        android:src="@drawable/red_dot"
+                        android:visibility="gone"/>
+                </RelativeLayout>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.3dp"
+                android:background="#99A1AC" />
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="80dp"
-                android:layout_marginTop="320dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
                 android:layout_weight="0.56"
                 android:clickable="true"
                 android:focusable="true"
                 android:orientation="vertical"
-                android:paddingBottom="20dp"
+                android:paddingBottom="15dp"
                 android:weightSum="1">
 
                 <Button
                     android:id="@+id/profile_logout"
-                    android:layout_width="298dp"
-                    android:layout_height="50dp"
+                    android:layout_width="120dp"
+                    android:layout_height="40dp"
                     android:layout_gravity="center_horizontal"
                     android:background="#E27989"
                     android:text="Log out"
