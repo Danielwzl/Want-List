@@ -55,11 +55,13 @@ public class Profile extends Fragment {
     private ImageView imageView;
     private LinearLayout personalInfo;
     private View profileView;
-    private View securityView;
+    private LinearLayout securityView;
+    private LinearLayout friendView;
     public String mParam1, mParam2;
     private Button logout;
     private User user;
     private ImageManager im;
+    private ImageView dot;
 
     private OnFragmentInteractionListener mListener;
 
@@ -107,7 +109,9 @@ public class Profile extends Fragment {
         imageView = (ImageView) profileView.findViewById(R.id.profile_selectedImage);
         securityView = (LinearLayout) profileView.findViewById(R.id.profile_security);
         personalInfo = (LinearLayout) profileView.findViewById(R.id.profile_personalInfo);
+        friendView = (LinearLayout) profileView.findViewById(R.id.profile_friend);
         logout = (Button) profileView.findViewById(R.id.profile_logout);
+        dot = (ImageView) profileView.findViewById(R.id.profile_dot);
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -148,18 +152,19 @@ public class Profile extends Fragment {
                 startActivity(i);
             }
         });
-
+        friendView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getActivity(), FriendActivity.class);
+                startActivity(i);
+            }
+        });
         if (user.avartar != null) {
             imageView.setImageBitmap(user.avartar);
         }
         bind.setUser(user);
         if (im == null) im = new ImageManager(getActivity());
-//        if (user.avartar == null) {
-//            Bitmap image = downloadImage(user, im);
-//            if (image != null) {
-//                imageView.setImageBitmap(im.compressImage(image));
-//            }
-//        }
+
         return profileView;
     }
 
@@ -298,4 +303,25 @@ public class Profile extends Fragment {
 //
 //        return new File(file + File.separator + imageFileName + ".jpg");
 //    }
+
+
+    /*
+    to get number of friend request and display red dot
+     */
+    private void getNewFirendRequest(){
+        int num = 0;
+        Ajax a = new Ajax();
+        TreeMap<String, String> params = new TreeMap<>();
+        params.put("id", user.session);
+        a.get("/getNewFriend", params);
+        Map<String, Object> res = a.response();
+        if(res.containsKey("status") && res.get("status").equals("ok")){
+            num = Integer.parseInt(res.get("newReq").toString());
+        }
+        showDot(num);
+    }
+
+    private void showDot(int friendReq){
+        dot.setVisibility(friendReq == 0 ? View.GONE : View.VISIBLE);
+    }
 }
