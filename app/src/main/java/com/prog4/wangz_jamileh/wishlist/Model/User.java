@@ -15,16 +15,23 @@ public class User extends BaseObservable {
 
     public String username, fname, lname, dob, phone, email, session, gender, fullName;
     public Bitmap avartar;
-
+    public boolean isFriend;
     public User() {
 
     }
 
-    public User(String fullName, String dob, String session, String gender) {
+    public User(String session, String fullName, Bitmap avatar){
+        this.fullName = fullName;
+        this.avartar = avatar;
+        this.session = session;
+    }
+
+    public User(String fullName, String dob, String session, String gender, boolean isFriend) {
         this.dob = dob;
         this.gender = gender;
         this.session = session;
         this.fullName = fullName;
+        this.isFriend = isFriend;
     }
 
     public User(String username, String fname, String lname, String dob, String phone, String email, String session, String gender, Bitmap avartar) {

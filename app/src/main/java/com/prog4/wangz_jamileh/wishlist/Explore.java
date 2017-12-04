@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
+import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.SearchView;
@@ -39,13 +40,13 @@ import de.hdodenhof.circleimageview.CircleImageView;
  * Use the {@link Explore#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class Explore extends Fragment{
+public class Explore extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-    private  static final int SEARCH_RES_CODE = 4;
-    private  static final int DETAIL_RES_CODE = 5;
+    private static final int SEARCH_RES_CODE = 4;
+    private static final int DETAIL_RES_CODE = 5;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -54,7 +55,7 @@ public class Explore extends Fragment{
     private OnFragmentInteractionListener mListener;
     private SearchView search;
 
-    private ListView list;
+    private GridView list;
     public static ArrayList<Post> posts;
     private SwipeRefreshLayout swipeLayout;
     private TextView noResView;
@@ -73,6 +74,7 @@ public class Explore extends Fragment{
 //    public void setFragmentInteractionListener(OnFragmentInteractionListener mListener){
 //        this.mListener = mListener;
 //    }
+
     /**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
@@ -104,9 +106,9 @@ public class Explore extends Fragment{
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        if(exploreView != null) return  exploreView;
-        if(posts == null)posts = new ArrayList<Post>();
-        if(im == null) im = new ImageManager(getActivity());
+        if (exploreView != null) return exploreView;
+        if (posts == null) posts = new ArrayList<Post>();
+        if (im == null) im = new ImageManager(getActivity());
         exploreView = inflater.inflate(R.layout.fragment_explore, container, false);
         swipeLayout = (SwipeRefreshLayout) exploreView.findViewById(R.id.explore_swiperefresh);
 //        swipeLayout.setDistanceToTriggerSync(20000);
@@ -137,13 +139,15 @@ public class Explore extends Fragment{
                 return false;
             }
         });
-        list = (ListView) exploreView.findViewById(R.id.explore_list);
+        list = (GridView) exploreView.findViewById(R.id.explore_list);
         view_id = User.getInstance().session;
+//        if(getArguments().containsKey("from") && getArguments().getString("from").equals("friend")){
+//            view_id = getArguments().getString("user");
+//        }
         posts = loading(view_id);
         createListView();
         return exploreView;
     }
-
 
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -157,15 +161,15 @@ public class Explore extends Fragment{
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == SEARCH_RES_CODE && resultCode == getActivity().RESULT_OK && data != null) {
-                view_id = data.getStringExtra("user");
-                otherAva = data.getParcelableExtra("avatar");
-                posts = loading(view_id);
-                createListView();
+            view_id = data.getStringExtra("user");
+            otherAva = data.getParcelableExtra("avatar");
+            posts = loading(view_id);
+            createListView();
 
 //                view_id = null;
-        }else if(requestCode == DETAIL_RES_CODE && resultCode == getActivity().RESULT_CANCELED && data != null){
+        } else if (requestCode == DETAIL_RES_CODE && resultCode == getActivity().RESULT_CANCELED && data != null) {
             int pos = data.getIntExtra("pos", -1);
-            if(posts.remove(pos) != null){
+            if (posts.remove(pos) != null) {
                 createListView();
             }
         }
@@ -210,20 +214,17 @@ public class Explore extends Fragment{
     }
 
 
-    private void createListView()
-    {
+    private void createListView() {
         //Create an adapter for the listView and add the ArrayList to the adapter.
         list.setAdapter(new PostAdapter(getContext(), android.R.layout.simple_gallery_item, posts));
-        if(posts == null || posts.size() == 0) noResView.setVisibility(View.VISIBLE);
+        if (posts == null || posts.size() == 0) noResView.setVisibility(View.VISIBLE);
 
-        list.setOnItemClickListener(new AdapterView.OnItemClickListener()
-        {
+        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position ,long id)
-            {
-                if(posts != null){
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if (posts != null) {
                     Intent i = new Intent(getActivity(), GiftDetailActivity.class);
-                    i.putExtra("pos",  position);
+                    i.putExtra("pos", position);
                     i.putExtra("type", "exp");
                     startActivityForResult(i, DETAIL_RES_CODE);
                 }
@@ -235,7 +236,7 @@ public class Explore extends Fragment{
             public void onRefresh() {
 //                toggleRefresh(true);
                 posts = loading(view_id);
-                        createListView();
+                createListView();
 
                 swipeLayout.setRefreshing(false);
             }
@@ -280,17 +281,18 @@ public class Explore extends Fragment{
 
     /**
      * disable drag to refresh function
+     *
      * @param flag
      */
-    private void toggleRefresh(boolean flag){
-        swipeLayout.setRefreshing( flag );
-        swipeLayout.setEnabled( flag );
+    private void toggleRefresh(boolean flag) {
+        swipeLayout.setRefreshing(flag);
+        swipeLayout.setEnabled(flag);
     }
 
     @Override
     public void onPause() {
         super.onPause();
-        if (swipeLayout!=null) {
+        if (swipeLayout != null) {
             swipeLayout.setRefreshing(false);
             swipeLayout.destroyDrawingCache();
             swipeLayout.clearAnimation();
@@ -298,27 +300,27 @@ public class Explore extends Fragment{
     }
 
     @SuppressWarnings("unchecked")
-    private ArrayList<Post> loading(String view_id){
+    private ArrayList<Post> loading(String view_id) {
         String id = User.getInstance().session;
         TreeMap<String, String> params = new TreeMap<>();
         params.put("id", id); //current login user
         params.put("view_id", view_id); //user data want to see
         Ajax a = new Ajax();
-        Bitmap ava= null;
+        Bitmap ava = null;
         ArrayList<LinkedTreeMap> posts_data = null;
         a.get("/showUserGift", params);
         Map<String, Object> res = a.response();
-        if(res != null  && res.containsKey("status") && res.get("status").equals("ok")){
+        if (res != null && res.containsKey("status") && res.get("status").equals("ok")) {
             LinkedTreeMap<String, Object> data = (LinkedTreeMap<String, Object>) res.get("data");
-            if(data != null && data.containsKey("post")){
-                posts_data = (ArrayList<LinkedTreeMap>)  data.get("post");
-                if(posts_data.size() > 0){
+            if (data != null && data.containsKey("post")) {
+                posts_data = (ArrayList<LinkedTreeMap>) data.get("post");
+                if (posts_data.size() > 0) {
                     noResView.setVisibility(View.GONE);
                 }
-                LinkedTreeMap<String, Object> names = ((LinkedTreeMap<String, Object>)(data.get("full_name")));
+                LinkedTreeMap<String, Object> names = ((LinkedTreeMap<String, Object>) (data.get("full_name")));
                 String fullName = names.get("fName") + " " + names.get("lName");
                 userInfoView.setText(fullName);
-                if(!view_id.equals(id)) closeButton.setVisibility(View.VISIBLE);
+                if (!view_id.equals(id)) closeButton.setVisibility(View.VISIBLE);
                 else closeButton.setVisibility(View.GONE);
                 ava = view_id.equals(id) ? User.getInstance().avartar : otherAva;
                 getUserAvatar(ava);
@@ -330,23 +332,23 @@ public class Explore extends Fragment{
     }
 
     @SuppressWarnings("unchecked")
-    private void convertPosts(ArrayList<LinkedTreeMap> data, LinkedTreeMap<String, Object> imageData, String view_id){
-        if(posts.size() > 0) posts.clear();
+    private void convertPosts(ArrayList<LinkedTreeMap> data, LinkedTreeMap<String, Object> imageData, String view_id) {
+        if (posts.size() > 0) posts.clear();
         String[] update = null;
         String date = null;
         LinkedTreeMap<String, Object> one = null;
         LinkedTreeMap<String, Object> imgObj = null;
         Bitmap image = null;
-        String post_id=null;
-        for(int i = 0, len = data.size(); i < len; i++){
+        String post_id = null;
+        for (int i = 0, len = data.size(); i < len; i++) {
             image = null;
             one = data.get(i);
             update = one.get("updatedAt").toString().split("T");
             date = update[0] + " " + (update[1].split("\\."))[0];
             post_id = one.get("_id").toString();
-            if(one.get("image").equals("file")){
-                if(imageData != null && imageData.containsKey(post_id)){
-                    imgObj = (LinkedTreeMap<String, Object>)(imageData.get(post_id));
+            if (one.get("image").equals("file")) {
+                if (imageData != null && imageData.containsKey(post_id)) {
+                    imgObj = (LinkedTreeMap<String, Object>) (imageData.get(post_id));
                     image = im.listToBitmap((ArrayList<Double>) (imgObj.get("data")));
                 }
             }
@@ -354,9 +356,10 @@ public class Explore extends Fragment{
         }
     }
 
-    private void getUserAvatar(Bitmap avatar){
-            if(avatar != null) userImgView.setImageBitmap(avatar);
-            else userImgView.setImageDrawable(getResources().getDrawable(R.drawable.ic_face_black_24dp));
+    private void getUserAvatar(Bitmap avatar) {
+        if (avatar != null) userImgView.setImageBitmap(avatar);
+        else
+            userImgView.setImageDrawable(getResources().getDrawable(R.drawable.ic_face_black_24dp));
     }
 
 }

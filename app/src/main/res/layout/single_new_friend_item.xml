@@ -1,0 +1,54 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="60dp"
+    android:orientation="horizontal">
+
+    <ImageView
+        android:id="@+id/new_friend_avatar"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_gravity="center_vertical"
+        android:layout_marginStart="10dp"
+        android:src="@drawable/ic_face_black_24dp" />
+
+    <TextView
+        android:id="@+id/new_friend_fullname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginStart="5dp"
+        android:text="Daniel Wang"
+        android:textColor="@color/black" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/new_friend_item_check"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginRight="2dp"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/button_selection"
+            android:clickable="true"
+            android:focusable="true"
+            android:src="@drawable/ic_check_black_24dp"
+            android:tint="@color/green" />
+
+        <ImageView
+            android:id="@+id/new_friend_item_reject"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginBottom="2dp"
+            android:layout_marginRight="2dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/button_selection"
+            android:clickable="true"
+            android:focusable="true"
+            android:src="@drawable/ic_close_black_24dp"
+            android:tint="@color/colorAccent" />
+    </RelativeLayout>
+</LinearLayout>
