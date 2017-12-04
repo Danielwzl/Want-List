@@ -1,7 +1,6 @@
 package com.prog4.wangz_jamileh.wishlist;
 
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
+
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -9,16 +8,12 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.TextView;
 
@@ -127,13 +122,12 @@ public class Explore extends Fragment {
         closeButton = (ImageButton) exploreView.findViewById(R.id.exp_resume);
         if (getArguments() != null && getArguments().containsKey("from") && getArguments().getString("from").equals("friend")) {
 
-//            tempPosts = (ArrayList<Post>) posts.clone();
+//            tempPosts = new ArrayList<>(posts);
             view_id = getArguments().getString("user");
             search.setVisibility(View.GONE);
             closeButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-//                    posts = (ArrayList<Post>) tempPosts.clone();
                     getActivity().onBackPressed();
                 }
 
@@ -143,7 +137,7 @@ public class Explore extends Fragment {
                 @Override
                 public void onClick(View v) {
                     view_id = User.getInstance().session;
-                    posts = loading(view_id);
+                    loading(view_id);
                     createListView();
                 }
             });
@@ -199,8 +193,9 @@ public class Explore extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+
 //        if(tempPosts != null){
-//            Log.i("temp", "yeas");
+            posts = loading(view_id);
             createListView();
 //            tempPosts = null;
 //        }
