@@ -107,6 +107,7 @@ public class Explore extends Fragment {
         }
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -125,18 +126,14 @@ public class Explore extends Fragment {
         userImgView = (CircleImageView) exploreView.findViewById(R.id.exp_userImg);
         closeButton = (ImageButton) exploreView.findViewById(R.id.exp_resume);
         if (getArguments() != null && getArguments().containsKey("from") && getArguments().getString("from").equals("friend")) {
-            hasFrom = true;
-            final Explore _this = this;
-            tempPosts = new ArrayList<>();
+
+//            tempPosts = (ArrayList<Post>) posts.clone();
             view_id = getArguments().getString("user");
             search.setVisibility(View.GONE);
             closeButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-//                    FragmentManager manager = _this.getFragmentManager();
-//                    FragmentTransaction trans = manager.beginTransaction();
-//                    trans.remove(_this);
-//                    trans.commit();
+//                    posts = (ArrayList<Post>) tempPosts.clone();
                     getActivity().onBackPressed();
                 }
 
@@ -146,8 +143,8 @@ public class Explore extends Fragment {
                 @Override
                 public void onClick(View v) {
                     view_id = User.getInstance().session;
-                    posts = loading(view_id, posts);
-                    createListView(posts);
+                    posts = loading(view_id);
+                    createListView();
                 }
             });
             search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -166,13 +163,10 @@ public class Explore extends Fragment {
             });
         }
         list = (GridView) exploreView.findViewById(R.id.explore_list);
-        if (!hasFrom) {
-            posts = loading(view_id, posts);
-            createListView(posts);
-        } else {
-            tempPosts = loading(view_id, tempPosts);
-            createListView(tempPosts);
-        }
+
+        posts = loading(view_id);
+        createListView();
+
         return exploreView;
     }
 
@@ -190,14 +184,14 @@ public class Explore extends Fragment {
         if (requestCode == SEARCH_RES_CODE && resultCode == getActivity().RESULT_OK && data != null) {
             view_id = data.getStringExtra("user");
             otherAva = data.getParcelableExtra("avatar");
-            posts = loading(view_id, posts);
-            createListView(posts);
+            posts = loading(view_id);
+            createListView();
 
 //                view_id = null;
         } else if (requestCode == DETAIL_RES_CODE && resultCode == getActivity().RESULT_CANCELED && data != null) {
             int pos = data.getIntExtra("pos", -1);
             if (posts.remove(pos) != null) {
-                createListView(posts);
+                createListView();
             }
         }
     }
@@ -205,6 +199,11 @@ public class Explore extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+//        if(tempPosts != null){
+//            Log.i("temp", "yeas");
+            createListView();
+//            tempPosts = null;
+//        }
         search.clearFocus();
     }
 
@@ -240,15 +239,14 @@ public class Explore extends Fragment {
         void onFragmentInteraction(Uri uri);
     }
 
-    private void createListView(ArrayList<Post> posts) {
+    private void createListView() {
         //Create an adapter for the listView and add the ArrayList to the adapter.
         list.setAdapter(new PostAdapter(getContext(), android.R.layout.simple_gallery_item, posts));
         if (posts == null || posts.size() == 0) noResView.setVisibility(View.VISIBLE);
-        final ArrayList<Post> locPosts = posts;
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if (locPosts != null) {
+                if (posts != null) {
                     Intent i = new Intent(getActivity(), GiftDetailActivity.class);
                     i.putExtra("pos", position);
                     i.putExtra("type", "exp");
@@ -261,8 +259,8 @@ public class Explore extends Fragment {
             @Override
             public void onRefresh() {
 //                toggleRefresh(true);
-                loading(view_id, locPosts);
-                createListView(locPosts);
+                posts = loading(view_id);
+                createListView();
 
                 swipeLayout.setRefreshing(false);
             }
@@ -326,7 +324,7 @@ public class Explore extends Fragment {
     }
 
     @SuppressWarnings("unchecked")
-    private ArrayList<Post> loading(String view_id, ArrayList<Post> posts) {
+    private ArrayList<Post> loading(String view_id) {
         ArrayList<Post> postsLoc = new ArrayList<>();
         String id = User.getInstance().session;
         TreeMap<String, String> params = new TreeMap<>();
@@ -351,7 +349,7 @@ public class Explore extends Fragment {
                 else closeButton.setVisibility(View.GONE);
                 ava = view_id.equals(id) ? User.getInstance().avartar : otherAva;
                 getUserAvatar(ava);
-                convertPosts(posts_data, (LinkedTreeMap<String, Object>) (res.get("imageData")), view_id, posts);
+                convertPosts(posts_data, (LinkedTreeMap<String, Object>) (res.get("imageData")), view_id);
             }
         }
 
@@ -359,7 +357,7 @@ public class Explore extends Fragment {
     }
 
     @SuppressWarnings("unchecked")
-    private void convertPosts(ArrayList<LinkedTreeMap> data, LinkedTreeMap<String, Object> imageData, String view_id, ArrayList<Post> posts) {
+    private void convertPosts(ArrayList<LinkedTreeMap> data, LinkedTreeMap<String, Object> imageData, String view_id) {
         if (posts.size() > 0) posts.clear();
         String[] update = null;
         String date = null;
