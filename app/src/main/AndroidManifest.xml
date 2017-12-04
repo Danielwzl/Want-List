@@ -28,9 +28,9 @@
         </activity>
         <activity android:name=".SignupActivity" />
         <activity
-            android:windowSoftInputMode="adjustPan|adjustResize"
             android:name=".MenuActivity"
-            android:label="@string/title_activity_menu">
+            android:label="@string/title_activity_menu"
+            android:windowSoftInputMode="adjustPan|adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -46,7 +46,10 @@
             android:name=".TestActivity"
             android:label="@string/title_activity_test"
             android:theme="@style/AppTheme" />
-        <activity android:name=".SearchUserResultActivity"></activity>
+        <activity android:name=".SearchUserResultActivity" />
+        <activity android:name=".FriendActivity" />
+        <activity android:name=".NewFriendActivity" />
+        <activity android:name=".FriendGiftActivity"></activity>
     </application>
 
 </manifest>

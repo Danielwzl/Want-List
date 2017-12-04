@@ -63,18 +63,29 @@
         android:layout_height="match_parent"
         android:background="#d9dc3d12">
         <ImageView
+            android:id="@+id/search_male"
             android:layout_width="20dp"
             android:layout_height="20dp"
+            android:layout_marginTop="2dp"
             android:layout_marginRight="2dp"
             android:layout_alignParentTop="true"
             android:layout_alignParentRight="true"
             android:src="@drawable/ic_male"
             android:visibility="gone"/>
-
-
+        <ImageView
+            android:id="@+id/search_female"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginTop="2dp"
+            android:layout_marginRight="2dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/ic_female"
+            android:visibility="gone"/>
     <ImageView
-        android:layout_width="20dp"
-        android:layout_height="20dp"
+        android:id="@+id/search_add"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
         android:layout_marginRight="2dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
