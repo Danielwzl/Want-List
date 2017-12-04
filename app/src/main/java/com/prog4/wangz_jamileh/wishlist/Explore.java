@@ -1,5 +1,7 @@
 package com.prog4.wangz_jamileh.wishlist;
 
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -15,6 +17,7 @@ import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.TextView;
@@ -57,6 +60,7 @@ public class Explore extends Fragment {
 
     private GridView list;
     public static ArrayList<Post> posts;
+    private ArrayList<Post> tempPosts;
     private SwipeRefreshLayout swipeLayout;
     private TextView noResView;
     private String view_id; //the id of user which want to go to
@@ -69,6 +73,7 @@ public class Explore extends Fragment {
 
     public Explore() {
         // Required empty public constructor
+
     }
 
 //    public void setFragmentInteractionListener(OnFragmentInteractionListener mListener){
@@ -107,8 +112,10 @@ public class Explore extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         if (exploreView != null) return exploreView;
-        if (posts == null) posts = new ArrayList<Post>();
+        if (posts == null) posts = new ArrayList<>();
         if (im == null) im = new ImageManager(getActivity());
+        view_id = User.getInstance().session;
+        Boolean hasFrom = false;
         exploreView = inflater.inflate(R.layout.fragment_explore, container, false);
         swipeLayout = (SwipeRefreshLayout) exploreView.findViewById(R.id.explore_swiperefresh);
 //        swipeLayout.setDistanceToTriggerSync(20000);
@@ -117,35 +124,55 @@ public class Explore extends Fragment {
         userInfoView = (TextView) exploreView.findViewById(R.id.exp_uname);
         userImgView = (CircleImageView) exploreView.findViewById(R.id.exp_userImg);
         closeButton = (ImageButton) exploreView.findViewById(R.id.exp_resume);
-        closeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                view_id = User.getInstance().session;
-                posts = loading(view_id);
-                createListView();
-            }
-        });
-        search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                Intent i = new Intent(getActivity(), SearchUserResultActivity.class);
-                i.putExtra("query", query);
-                startActivityForResult(i, SEARCH_RES_CODE);
-                return false;
-            }
+        if (getArguments() != null && getArguments().containsKey("from") && getArguments().getString("from").equals("friend")) {
+            hasFrom = true;
+            final Explore _this = this;
+            tempPosts = new ArrayList<>();
+            view_id = getArguments().getString("user");
+            search.setVisibility(View.GONE);
+            closeButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+//                    FragmentManager manager = _this.getFragmentManager();
+//                    FragmentTransaction trans = manager.beginTransaction();
+//                    trans.remove(_this);
+//                    trans.commit();
+                    getActivity().onBackPressed();
+                }
 
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                return false;
-            }
-        });
+            });
+        } else {
+            closeButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    view_id = User.getInstance().session;
+                    posts = loading(view_id, posts);
+                    createListView(posts);
+                }
+            });
+            search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+                @Override
+                public boolean onQueryTextSubmit(String query) {
+                    Intent i = new Intent(getActivity(), SearchUserResultActivity.class);
+                    i.putExtra("query", query);
+                    startActivityForResult(i, SEARCH_RES_CODE);
+                    return false;
+                }
+
+                @Override
+                public boolean onQueryTextChange(String newText) {
+                    return false;
+                }
+            });
+        }
         list = (GridView) exploreView.findViewById(R.id.explore_list);
-        view_id = User.getInstance().session;
-//        if(getArguments().containsKey("from") && getArguments().getString("from").equals("friend")){
-//            view_id = getArguments().getString("user");
-//        }
-        posts = loading(view_id);
-        createListView();
+        if (!hasFrom) {
+            posts = loading(view_id, posts);
+            createListView(posts);
+        } else {
+            tempPosts = loading(view_id, tempPosts);
+            createListView(tempPosts);
+        }
         return exploreView;
     }
 
@@ -163,14 +190,14 @@ public class Explore extends Fragment {
         if (requestCode == SEARCH_RES_CODE && resultCode == getActivity().RESULT_OK && data != null) {
             view_id = data.getStringExtra("user");
             otherAva = data.getParcelableExtra("avatar");
-            posts = loading(view_id);
-            createListView();
+            posts = loading(view_id, posts);
+            createListView(posts);
 
 //                view_id = null;
         } else if (requestCode == DETAIL_RES_CODE && resultCode == getActivity().RESULT_CANCELED && data != null) {
             int pos = data.getIntExtra("pos", -1);
             if (posts.remove(pos) != null) {
-                createListView();
+                createListView(posts);
             }
         }
     }
@@ -213,16 +240,15 @@ public class Explore extends Fragment {
         void onFragmentInteraction(Uri uri);
     }
 
-
-    private void createListView() {
+    private void createListView(ArrayList<Post> posts) {
         //Create an adapter for the listView and add the ArrayList to the adapter.
         list.setAdapter(new PostAdapter(getContext(), android.R.layout.simple_gallery_item, posts));
         if (posts == null || posts.size() == 0) noResView.setVisibility(View.VISIBLE);
-
+        final ArrayList<Post> locPosts = posts;
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if (posts != null) {
+                if (locPosts != null) {
                     Intent i = new Intent(getActivity(), GiftDetailActivity.class);
                     i.putExtra("pos", position);
                     i.putExtra("type", "exp");
@@ -235,8 +261,8 @@ public class Explore extends Fragment {
             @Override
             public void onRefresh() {
 //                toggleRefresh(true);
-                posts = loading(view_id);
-                createListView();
+                loading(view_id, locPosts);
+                createListView(locPosts);
 
                 swipeLayout.setRefreshing(false);
             }
@@ -300,7 +326,8 @@ public class Explore extends Fragment {
     }
 
     @SuppressWarnings("unchecked")
-    private ArrayList<Post> loading(String view_id) {
+    private ArrayList<Post> loading(String view_id, ArrayList<Post> posts) {
+        ArrayList<Post> postsLoc = new ArrayList<>();
         String id = User.getInstance().session;
         TreeMap<String, String> params = new TreeMap<>();
         params.put("id", id); //current login user
@@ -324,7 +351,7 @@ public class Explore extends Fragment {
                 else closeButton.setVisibility(View.GONE);
                 ava = view_id.equals(id) ? User.getInstance().avartar : otherAva;
                 getUserAvatar(ava);
-                convertPosts(posts_data, (LinkedTreeMap<String, Object>) (res.get("imageData")), view_id);
+                convertPosts(posts_data, (LinkedTreeMap<String, Object>) (res.get("imageData")), view_id, posts);
             }
         }
 
@@ -332,7 +359,7 @@ public class Explore extends Fragment {
     }
 
     @SuppressWarnings("unchecked")
-    private void convertPosts(ArrayList<LinkedTreeMap> data, LinkedTreeMap<String, Object> imageData, String view_id) {
+    private void convertPosts(ArrayList<LinkedTreeMap> data, LinkedTreeMap<String, Object> imageData, String view_id, ArrayList<Post> posts) {
         if (posts.size() > 0) posts.clear();
         String[] update = null;
         String date = null;
