@@ -50,6 +50,7 @@ public class Profile extends Fragment {
     private static final String IMAGE_CAPTURE_FOLDER = "wishlist_android/Upload";
     private static final int RESULT_LOAD_IMAGE = 1;
     private static final int RESULT_LOAD_PROFILE = 3;
+    public static boolean newFriend;
     // TODO: Rename and change types of parameters
     private Button gallaryBut;
     private ImageView imageView;
@@ -58,7 +59,7 @@ public class Profile extends Fragment {
     private LinearLayout securityView;
     private LinearLayout friendView;
     public String mParam1, mParam2;
-    private Button logout;
+    private ImageView logout;
     private User user;
     private ImageManager im;
     private ImageView dot;
@@ -110,8 +111,9 @@ public class Profile extends Fragment {
         securityView = (LinearLayout) profileView.findViewById(R.id.profile_security);
         personalInfo = (LinearLayout) profileView.findViewById(R.id.profile_personalInfo);
         friendView = (LinearLayout) profileView.findViewById(R.id.profile_friend);
-        logout = (Button) profileView.findViewById(R.id.profile_logout);
+        logout = (ImageView) profileView.findViewById(R.id.profile_logout);
         dot = (ImageView) profileView.findViewById(R.id.profile_dot);
+        getNewFirendRequest();
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -177,6 +179,7 @@ public class Profile extends Fragment {
                 imageView.setImageBitmap(image);
             }
         }
+        getNewFirendRequest();
     }
 
     private void pickImage() {
@@ -315,13 +318,14 @@ public class Profile extends Fragment {
         params.put("id", user.session);
         a.get("/getNewFriend", params);
         Map<String, Object> res = a.response();
-        if(res.containsKey("status") && res.get("status").equals("ok")){
-            num = Integer.parseInt(res.get("newReq").toString());
+        if(res!=null&&res.containsKey("status") && res.get("status").equals("ok")){
+            num = (int)Float.parseFloat(res.get("friends").toString());
         }
         showDot(num);
     }
 
     private void showDot(int friendReq){
-        dot.setVisibility(friendReq == 0 ? View.GONE : View.VISIBLE);
+        newFriend = friendReq != 0;
+        dot.setVisibility(newFriend ? View.VISIBLE : View.GONE);
     }
 }

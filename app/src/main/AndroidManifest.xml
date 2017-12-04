@@ -47,7 +47,9 @@
             android:label="@string/title_activity_test"
             android:theme="@style/AppTheme" />
         <activity android:name=".SearchUserResultActivity" />
-        <activity android:name=".FriendActivity"></activity>
+        <activity android:name=".FriendActivity" />
+        <activity android:name=".NewFriendActivity" />
+        <activity android:name=".FriendGiftActivity"></activity>
     </application>
 
 </manifest>

@@ -2,14 +2,17 @@ package com.prog4.wangz_jamileh.wishlist;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.media.Image;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.internal.LinkedTreeMap;
 import com.prog4.wangz_jamileh.wishlist.Model.User;
@@ -28,6 +31,7 @@ public class SearchUserResultActivity extends AppCompatActivity {
     private ArrayList<User> users;
     private SearchView search;
     private TextView noResView;
+    private ImageView add;
     private ImageManager im;
 
     @Override
@@ -79,12 +83,16 @@ public class SearchUserResultActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 if (users != null) {
                     noResView.setVisibility(View.GONE);
-                    Intent i = new Intent();
-                    i.putExtra("user", users.get(position).session);
-                    i.putExtra("avatar", users.get(position).getAvartar());
-                    setResult(RESULT_OK, i);
-                    onBackPressed();
-                    finish();
+                    User user = users.get(position);
+                    if(user.isFriend || user.session.equals(User.getInstance().session)) {
+                        Intent i = new Intent();
+                        i.putExtra("user", user.session);
+                        i.putExtra("avatar", user.getAvartar());
+                        setResult(RESULT_OK, i);
+                        onBackPressed();
+                        finish();
+                    }
+                    else Toast.makeText(view.getContext(), "add to friend to view", Toast.LENGTH_SHORT).show();
                 } else {
                     noResView.setVisibility(View.VISIBLE);
                 }
@@ -125,6 +133,7 @@ public class SearchUserResultActivity extends AppCompatActivity {
         String name = null, dob = null, id = null, gender = null;
         User user = null;
         LinkedTreeMap<String, Object> imageData = null;
+        boolean isFriend = false;
         Bitmap avatar = null;
         for (int i = 0, len = users.size(); i < len; i++) {
              avatar = null;
@@ -134,8 +143,9 @@ public class SearchUserResultActivity extends AppCompatActivity {
             name = names.get("fName") + " " + names.get("lName");
             dob = one.get("dob").toString();
             id = one.get("_id").toString();
+            isFriend = one.containsKey("friend") && one.get("friend") == null;
             gender = "male";
-            user = new User(name, dob, id, gender);
+            user = new User(name, dob, id, gender, isFriend);
             if(avatars.containsKey(id)){
                 imageData = (LinkedTreeMap<String, Object>)(avatars.get(id));
                 avatar = im.listToBitmap((ArrayList<Double>) imageData.get("data"));
