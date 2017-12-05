@@ -7,7 +7,9 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -55,7 +57,8 @@ public class Explore extends Fragment {
 
     private GridView list;
     public static ArrayList<Post> posts;
-    private ArrayList<Post> tempPosts;
+    private static ArrayList<Post> tempPosts;
+    private boolean hasFrom = false;
     private SwipeRefreshLayout swipeLayout;
     private TextView noResView;
     private String view_id; //the id of user which want to go to
@@ -111,7 +114,6 @@ public class Explore extends Fragment {
         if (posts == null) posts = new ArrayList<>();
         if (im == null) im = new ImageManager(getActivity());
         view_id = User.getInstance().session;
-        Boolean hasFrom = false;
         exploreView = inflater.inflate(R.layout.fragment_explore, container, false);
         swipeLayout = (SwipeRefreshLayout) exploreView.findViewById(R.id.explore_swiperefresh);
 //        swipeLayout.setDistanceToTriggerSync(20000);
@@ -121,8 +123,8 @@ public class Explore extends Fragment {
         userImgView = (CircleImageView) exploreView.findViewById(R.id.exp_userImg);
         closeButton = (ImageButton) exploreView.findViewById(R.id.exp_resume);
         if (getArguments() != null && getArguments().containsKey("from") && getArguments().getString("from").equals("friend")) {
-
-//            tempPosts = new ArrayList<>(posts);
+            hasFrom = true;
+            tempPosts = new ArrayList<>(posts);
             view_id = getArguments().getString("user");
             search.setVisibility(View.GONE);
             closeButton.setOnClickListener(new View.OnClickListener() {
@@ -193,12 +195,11 @@ public class Explore extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-
-//        if(tempPosts != null){
+        if(!hasFrom && tempPosts != null){
             posts = loading(view_id);
             createListView();
-//            tempPosts = null;
-//        }
+            tempPosts = null;
+        }
         search.clearFocus();
     }
 

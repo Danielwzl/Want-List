@@ -76,13 +76,15 @@ public class SearchUserResultActivity extends AppCompatActivity {
     private void createListView() {
         final SearchUserResultActivity _this = this;
         if (users == null || users.size() == 0) noResView.setVisibility(View.VISIBLE);
-        else list.setAdapter(new UserAdapter(this, android.R.layout.simple_gallery_item, users));
+        else {
+            list.setAdapter(new UserAdapter(this, android.R.layout.simple_gallery_item, users));
+            noResView.setVisibility(View.GONE);
+        }
 
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 if (users != null) {
-                    noResView.setVisibility(View.GONE);
                     User user = users.get(position);
                     if(user.isFriend || user.session.equals(User.getInstance().session)) {
                         Intent i = new Intent();
@@ -144,7 +146,7 @@ public class SearchUserResultActivity extends AppCompatActivity {
             dob = one.get("dob").toString();
             id = one.get("_id").toString();
             isFriend = one.containsKey("friend") && one.get("friend") == null;
-            gender = "male";
+            gender = one.get("gender").toString();
             user = new User(name, dob, id, gender, isFriend);
             if(avatars.containsKey(id)){
                 imageData = (LinkedTreeMap<String, Object>)(avatars.get(id));

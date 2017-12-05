@@ -88,7 +88,7 @@ public class FriendActivity extends AppCompatActivity implements Explore.OnFragm
                     bundle.putString("from", "friend");
                     FragmentManager fragmentManager = getFragmentManager();
                     exp.setArguments(bundle);
-                    fragmentManager.beginTransaction().replace(R.id.friend_container, exp).addToBackStack(null).commit();
+                    fragmentManager.beginTransaction().setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE).replace(R.id.friend_container, exp).addToBackStack(null).commit();
 
                 }
             }

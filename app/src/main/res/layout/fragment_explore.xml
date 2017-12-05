@@ -7,6 +7,7 @@
     android:background="@drawable/background"
     android:scrollbars="none"
     tools:context="com.prog4.wangz_jamileh.wishlist.Explore">
+
     <LinearLayout
         android:layout_width="344dp"
         android:layout_height="486dp"
@@ -49,69 +50,79 @@
                 android:id="@+id/exp_userInfo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
-            <de.hdodenhof.circleimageview.CircleImageView
-                xmlns:app="http://schemas.android.com/apk/res-auto"
-                android:id="@+id/exp_userImg"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="0dp"
-                android:layout_gravity="center_vertical"
-                android:src="@mipmap/empty_head"
-                app:civ_border_color="#ffffff"
-                app:civ_border_width="2dp" />
+
+                <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/exp_userImg"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="0dp"
+                    android:src="@mipmap/empty_head"
+                    app:civ_border_color="#ffffff"
+                    app:civ_border_width="2dp" />
 
                 <android.support.v7.widget.AppCompatTextView
                     android:id="@+id/exp_uname"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:layout_marginLeft="1dp"
+                    android:layout_marginLeft="5dp"
                     android:text="refresh to load"
                     android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
                 <ImageButton
                     android:id="@+id/exp_resume"
                     android:layout_width="10dp"
                     android:layout_height="10dp"
-                    android:layout_marginTop="2dp"
-                    android:layout_marginLeft="5dp"
-                    android:background="@drawable/upload_image_selector"
                     android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="4dp"
+                    android:background="@drawable/upload_image_selector"
                     android:visibility="gone"
                     app:srcCompat="@drawable/ic_close_black_24dp" />
-            </LinearLayout>
+            </RelativeLayout>
             <!--<Spinner-->
-                <!--android:id="@+id/spinner"-->
-                <!--android:layout_width="100dp"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_gravity="center_vertical"-->
-                <!--android:layout_marginLeft="100dp"-->
-                <!--style="@android:style/Widget.DeviceDefault.Light.DropDownItem.Spinner"-->
-                 <!--/>-->
+            <!--android:id="@+id/spinner"-->
+            <!--android:layout_width="100dp"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_gravity="center_vertical"-->
+            <!--android:layout_marginLeft="100dp"-->
+            <!--style="@android:style/Widget.DeviceDefault.Light.DropDownItem.Spinner"-->
+            <!--/>-->
         </LinearLayout>
+
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="@drawable/border_bottom" />
+
         <TextView
             android:id="@+id/exp_none"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="No Result"
             android:textAlignment="center"
-            android:visibility="gone"/>
+            android:visibility="gone" />
+
         <GridView
             android:id="@+id/explore_list"
             android:layout_width="320dp"
             android:layout_height="match_parent"
-            android:scrollbars="none"
             android:layout_gravity="center_horizontal"
-            android:paddingTop="5dp"
-            android:paddingBottom="5dp"
             android:clipToPadding="false"
-            android:verticalSpacing="20dp"
             android:horizontalSpacing="20dp"
-            android:numColumns="2"/>
+            android:numColumns="2"
+            android:paddingBottom="5dp"
+            android:paddingTop="5dp"
+            android:scrollbars="none"
+            android:verticalSpacing="20dp" />
 
 
     </LinearLayout>
