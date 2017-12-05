@@ -23,6 +23,8 @@ import java.util.concurrent.CountDownLatch;
 public class HttpRequest {
 
     private final String USER_AGENT = "Mozilla/5.0";
+//    https://auth0202-labile-psoriasis.cfapps.io/
+//    http://10.0.2.2:3002
     private final String DEFAULT_URL = "https://auth0202-labile-psoriasis.cfapps.io";
     private CountDownLatch latch;
     public Map<String, Object> response;
