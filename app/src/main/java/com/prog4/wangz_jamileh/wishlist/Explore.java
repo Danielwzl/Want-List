@@ -1,21 +1,21 @@
 package com.prog4.wangz_jamileh.wishlist;
 
+
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ImageButton;
-import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.TextView;
 
@@ -57,6 +57,8 @@ public class Explore extends Fragment {
 
     private GridView list;
     public static ArrayList<Post> posts;
+    private static ArrayList<Post> tempPosts;
+    private boolean hasFrom = false;
     private SwipeRefreshLayout swipeLayout;
     private TextView noResView;
     private String view_id; //the id of user which want to go to
@@ -69,6 +71,7 @@ public class Explore extends Fragment {
 
     public Explore() {
         // Required empty public constructor
+
     }
 
 //    public void setFragmentInteractionListener(OnFragmentInteractionListener mListener){
@@ -102,13 +105,15 @@ public class Explore extends Fragment {
         }
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         if (exploreView != null) return exploreView;
-        if (posts == null) posts = new ArrayList<Post>();
+        if (posts == null) posts = new ArrayList<>();
         if (im == null) im = new ImageManager(getActivity());
+        view_id = User.getInstance().session;
         exploreView = inflater.inflate(R.layout.fragment_explore, container, false);
         swipeLayout = (SwipeRefreshLayout) exploreView.findViewById(R.id.explore_swiperefresh);
 //        swipeLayout.setDistanceToTriggerSync(20000);
@@ -117,35 +122,47 @@ public class Explore extends Fragment {
         userInfoView = (TextView) exploreView.findViewById(R.id.exp_uname);
         userImgView = (CircleImageView) exploreView.findViewById(R.id.exp_userImg);
         closeButton = (ImageButton) exploreView.findViewById(R.id.exp_resume);
-        closeButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                view_id = User.getInstance().session;
-                posts = loading(view_id);
-                createListView();
-            }
-        });
-        search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                Intent i = new Intent(getActivity(), SearchUserResultActivity.class);
-                i.putExtra("query", query);
-                startActivityForResult(i, SEARCH_RES_CODE);
-                return false;
-            }
+        if (getArguments() != null && getArguments().containsKey("from") && getArguments().getString("from").equals("friend")) {
+            hasFrom = true;
+            tempPosts = new ArrayList<>(posts);
+            view_id = getArguments().getString("user");
+            search.setVisibility(View.GONE);
+            closeButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    getActivity().onBackPressed();
+                }
 
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                return false;
-            }
-        });
+            });
+        } else {
+            closeButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    view_id = User.getInstance().session;
+                    loading(view_id);
+                    createListView();
+                }
+            });
+            search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+                @Override
+                public boolean onQueryTextSubmit(String query) {
+                    Intent i = new Intent(getActivity(), SearchUserResultActivity.class);
+                    i.putExtra("query", query);
+                    startActivityForResult(i, SEARCH_RES_CODE);
+                    return false;
+                }
+
+                @Override
+                public boolean onQueryTextChange(String newText) {
+                    return false;
+                }
+            });
+        }
         list = (GridView) exploreView.findViewById(R.id.explore_list);
-        view_id = User.getInstance().session;
-//        if(getArguments().containsKey("from") && getArguments().getString("from").equals("friend")){
-//            view_id = getArguments().getString("user");
-//        }
+
         posts = loading(view_id);
         createListView();
+
         return exploreView;
     }
 
@@ -178,6 +195,11 @@ public class Explore extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
+        if(!hasFrom && tempPosts != null){
+            posts = loading(view_id);
+            createListView();
+            tempPosts = null;
+        }
         search.clearFocus();
     }
 
@@ -213,12 +235,10 @@ public class Explore extends Fragment {
         void onFragmentInteraction(Uri uri);
     }
 
-
     private void createListView() {
         //Create an adapter for the listView and add the ArrayList to the adapter.
         list.setAdapter(new PostAdapter(getContext(), android.R.layout.simple_gallery_item, posts));
         if (posts == null || posts.size() == 0) noResView.setVisibility(View.VISIBLE);
-
         list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -301,6 +321,7 @@ public class Explore extends Fragment {
 
     @SuppressWarnings("unchecked")
     private ArrayList<Post> loading(String view_id) {
+        ArrayList<Post> postsLoc = new ArrayList<>();
         String id = User.getInstance().session;
         TreeMap<String, String> params = new TreeMap<>();
         params.put("id", id); //current login user

@@ -9,8 +9,10 @@ import android.net.Uri;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -33,6 +35,7 @@ public class FriendActivity extends AppCompatActivity implements Explore.OnFragm
     private ImageManager im;
     private LinearLayout newFriend;
     private ImageView dot;
+    private FrameLayout frag;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,6 +44,7 @@ public class FriendActivity extends AppCompatActivity implements Explore.OnFragm
         list = (ListView) findViewById(R.id.friend_list);
         friendLayout = (SwipeRefreshLayout) findViewById(R.id.friend_swipe);
         newFriend = (LinearLayout) findViewById(R.id.friend_new);
+        frag = (FrameLayout) findViewById(R.id.friend_container);
         newFriend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -77,13 +81,14 @@ public class FriendActivity extends AppCompatActivity implements Explore.OnFragm
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 if (users != null) {
-//                    Explore exp = new Explore();
-//                    Bundle bundle = new Bundle();
-//                    bundle.putString("user", users.get(position).session);
-//                    bundle.putString("from", "friend");
-//                    FragmentManager fragmentManager = getFragmentManager();
-//                    exp.setArguments(bundle);
-//                    fragmentManager.beginTransaction().replace(R.id.container, exp).addToBackStack(null).commit();
+                    frag.setVisibility(View.VISIBLE);
+                    Explore exp = new Explore();
+                    Bundle bundle = new Bundle();
+                    bundle.putString("user", users.get(position).session);
+                    bundle.putString("from", "friend");
+                    FragmentManager fragmentManager = getFragmentManager();
+                    exp.setArguments(bundle);
+                    fragmentManager.beginTransaction().setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE).replace(R.id.friend_container, exp).addToBackStack(null).commit();
 
                 }
             }
@@ -91,9 +96,22 @@ public class FriendActivity extends AppCompatActivity implements Explore.OnFragm
 
     }
 
+
     public void goback(View v) {
-        onBackPressed();
+        super.onBackPressed();
         finish();
+    }
+
+    @Override
+    public void onBackPressed() {
+//        if (getFragmentManager().getBackStackEntryCount() == 0) {
+//            frag.setVisibility(View.GONE);
+//            this.finish();
+//        } else {
+//            getFragmentManager().popBackStack();
+//        }
+        frag.setVisibility(View.GONE);
+        getFragmentManager().popBackStack();
     }
 
     @SuppressWarnings("unchecked")
