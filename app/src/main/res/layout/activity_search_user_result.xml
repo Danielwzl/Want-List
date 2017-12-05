@@ -15,6 +15,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="13dp"
         android:orientation="vertical"
+        android:background="@drawable/background"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -60,11 +61,15 @@
             android:visibility="gone"/>
         <ListView
             android:id="@+id/search_list"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scrollbars="vertical"
-            android:divider="@color/white"
-            android:dividerHeight="3dp"/>
+            android:divider="@android:color/transparent"
+            android:dividerHeight="10dp"
+            />
 
 
     </LinearLayout>

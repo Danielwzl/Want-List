@@ -1,6 +1,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@drawable/sign_in_button"
+    android:elevation="5dp"
     android:orientation="horizontal">
 
     <ImageView
@@ -12,8 +14,8 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:background="#d9dc3d12">
+        android:background="#d0235e"
+        android:orientation="vertical">
 
         <TextView
             android:id="@+id/search_fullname"
@@ -36,9 +38,9 @@
                 android:id="@+id/search_gender"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/white"
                 android:layout_gravity="center_vertical"
-                android:text="male" />
+                android:text="male"
+                android:textColor="@color/white" />
 
         </LinearLayout>
 
@@ -50,47 +52,51 @@
 
             <TextView
                 android:id="@+id/search_dob"
-                android:textColor="@color/white"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:text="1988/12/02" />
+                android:text="1988/12/02"
+                android:textColor="@color/white" />
         </LinearLayout>
     </LinearLayout>
 
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:background="#d9dc3d12">
+        android:background="#d0235e">
+
         <ImageView
             android:id="@+id/search_male"
             android:layout_width="20dp"
             android:layout_height="20dp"
-            android:layout_marginTop="2dp"
-            android:layout_marginRight="2dp"
-            android:layout_alignParentTop="true"
             android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginRight="2dp"
+            android:layout_marginTop="2dp"
             android:src="@drawable/ic_male"
-            android:visibility="gone"/>
+            android:visibility="gone" />
+
         <ImageView
             android:id="@+id/search_female"
             android:layout_width="20dp"
             android:layout_height="20dp"
-            android:layout_marginTop="2dp"
-            android:layout_marginRight="2dp"
-            android:layout_alignParentTop="true"
             android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginRight="2dp"
+            android:layout_marginTop="2dp"
             android:src="@drawable/ic_female"
-            android:visibility="gone"/>
-    <ImageView
-        android:id="@+id/search_add"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_marginRight="2dp"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:src="@drawable/ic_add_black_24dp"
-        android:tint="#e961dc0f"
-        android:visibility="invisible"/>
+            android:tint="#c6f296b8"
+            android:visibility="gone" />
+
+        <ImageView
+            android:id="@+id/search_add"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="2dp"
+            android:src="@drawable/ic_add_black_24dp"
+            android:tint="#e961dc0f"
+            android:visibility="invisible" />
     </RelativeLayout>
 </LinearLayout>
