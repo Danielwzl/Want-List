@@ -1,13 +1,21 @@
 <layout>
+
     <data>
-        <import type="android.view.View"/>
+
+        <import type="android.view.View" />
+
         <variable
             name="post"
             type="com.prog4.wangz_jamileh.wishlist.Model.Post" />
     </data>
+
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/sign_in_button"
+        android:clickable="true"
+        android:elevation="5dp"
+        android:focusable="true"
         android:orientation="horizontal">
 
         <ImageView
@@ -19,16 +27,16 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_marginLeft="30dp"
+            android:layout_marginLeft="10dp"
             android:layout_marginTop="10dp"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/buy_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="0dp"
-                android:text="@={post.name}" />
+                <TextView
+                    android:id="@+id/buy_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="0dp"
+                    android:text="@={post.name}" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -40,8 +48,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:text="Desire: "
-                    />
+                    android:text="Desire: " />
 
 
                 <RatingBar
@@ -78,16 +85,17 @@
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent">
+
             <TextView
                 android:id="@+id/buy_owner_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
                 android:layout_alignParentEnd="true"
-                android:layout_marginRight="2dp"
-                android:text="@={post.ownerName}"
+                android:layout_alignParentTop="true"
                 android:layout_gravity="center_vertical"
-                />
+                android:layout_marginRight="2dp"
+                android:text="@={post.ownerName}" />
+
             <ImageView
                 android:id="@+id/buy_star"
                 android:layout_width="20dp"
