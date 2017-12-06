@@ -73,7 +73,6 @@ public class Buy extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position ,long id)
             {
-                Log.i("dianji", "yes");
                 if(posts != null){
                     Intent i = new Intent(getActivity(), GiftDetailActivity.class);
                     i.putExtra("pos",  position);

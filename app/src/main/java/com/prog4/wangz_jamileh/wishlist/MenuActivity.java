@@ -23,7 +23,6 @@ public class MenuActivity extends AppCompatActivity
     private final Buy buy = new Buy();
     public void onFragmentInteraction(Uri uri) {
         //TODO code the action here
-            Log.i("run", "run");
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener

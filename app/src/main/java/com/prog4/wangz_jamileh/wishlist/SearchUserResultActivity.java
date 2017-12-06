@@ -33,6 +33,7 @@ public class SearchUserResultActivity extends AppCompatActivity {
     private TextView noResView;
     private ImageView add;
     private ImageManager im;
+    private ImageView back;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +46,7 @@ public class SearchUserResultActivity extends AppCompatActivity {
         list = (ListView) findViewById(R.id.search_list);
         search = (SearchView) findViewById(R.id.search_search);
         noResView = (TextView) findViewById(R.id.search_none);
+        back = (ImageView) findViewById(R.id.search_goback);
         if(im == null) im = new ImageManager(SearchUserResultActivity.this);
         if (users == null) users = new ArrayList<>();
         search.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -59,6 +61,13 @@ public class SearchUserResultActivity extends AppCompatActivity {
             @Override
             public boolean onQueryTextChange(String newText) {
                 return false;
+            }
+        });
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goback(v);
             }
         });
         toggleRefresh(false);
