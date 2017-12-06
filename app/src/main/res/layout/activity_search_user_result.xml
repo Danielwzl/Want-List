@@ -23,17 +23,17 @@
         app:layout_constraintTop_toBottomOf="@+id/search"
         app:layout_constraintVertical_bias="0.0">
         <ImageView
+            android:id="@+id/search_goback"
             android:layout_width="20dp"
             android:layout_height="20dp"
-            android:layout_marginBottom="0dp"
+            android:layout_marginBottom="5dp"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
             android:layout_marginTop="8dp"
             android:src="@drawable/ic_keyboard_arrow_left_black_24dp"
             android:background="@drawable/button_selection"
             android:focusable="true"
-            android:clickable="true"
-            android:onClick="goback"/>
+            android:clickable="true" />
         <SearchView
             android:id="@+id/search_search"
             android:layout_width="match_parent"
