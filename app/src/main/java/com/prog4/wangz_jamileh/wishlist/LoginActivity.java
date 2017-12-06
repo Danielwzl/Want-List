@@ -84,7 +84,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         TextView mEmailSignInButton = (TextView) findViewById(R.id.email_sign_in_button);
         //TODO remove
-//        autoLogin("308580382@qq.com", "123123");
+        autoLogin("308580382@qq.com", "123123");
         mEmailSignInButton.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
