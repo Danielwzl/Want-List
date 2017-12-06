@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -60,6 +61,21 @@ public class FriendActivity extends AppCompatActivity implements Explore.OnFragm
                 friendLayout.setRefreshing(false);
             }
         });
+
+        list.setOnScrollListener(new AbsListView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+            }
+
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+
+                int topRowVerticalPosition = (list == null || list.getChildCount() == 0) ? 0 : list.getChildAt(0).getTop();
+                friendLayout.setEnabled(firstVisibleItem == 0 && topRowVerticalPosition >= 0);
+
+            }
+        });
+
         dot = (ImageView) findViewById(R.id.friend_dot);
         dot.setVisibility(Profile.newFriend ? View.VISIBLE: View.GONE);
         if(users == null) users = new ArrayList<>();

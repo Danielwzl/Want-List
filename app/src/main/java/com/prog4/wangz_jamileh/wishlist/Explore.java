@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ImageButton;
@@ -255,30 +256,39 @@ public class Explore extends Fragment {
             @Override
             public void onRefresh() {
 //                toggleRefresh(true);
-                posts = loading(view_id);
-                createListView();
+                    posts = loading(view_id);
+                    createListView();
 
-                swipeLayout.setRefreshing(false);
+                    swipeLayout.setRefreshing(false);
             }
         });
 
-//        list.setOnScrollListener(new AbsListView.OnScrollListener() {
-//            @Override
-//            public void onScrollStateChanged(AbsListView view, int scrollState) {
-//            }
-//
-//            @Override
-//            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-//
-//                if (firstVisibleItem == 0) {
+        list.setOnScrollListener(new AbsListView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+            }
+
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+
+                int topRowVerticalPosition = (list == null || list.getChildCount() == 0) ? 0 : list.getChildAt(0).getTop();
+                swipeLayout.setEnabled(firstVisibleItem == 0 && topRowVerticalPosition >= 0);
+
+            }
+        });
+    }
+
+    //                if (firstVisibleItem == 0) {
 //                    // check if we reached the top or bottom of the list
 //                    View v = list.getChildAt(0);
 //                    int offset = (v == null) ? 0 : v.getTop();
 //                    Log.i("exp", offset + "");
 //                    if (offset == 0) {
-//                        toggleRefresh(true);
+////                        toggleRefresh(true);
+//                        isTop = true;
 //                        //TODO refresh when reach top
 //                        Log.i("exp", "top");
+//
 ////                        posts = loading(view_id);
 ////                        createListView();
 //                        return;
@@ -293,11 +303,8 @@ public class Explore extends Fragment {
 //                        return;
 //                    }
 //                }
-//                toggleRefresh(false);
-//            }
-//        });
-//
-    }
+//                else isTop = false;
+////                toggleRefresh(false);
 
     /**
      * disable drag to refresh function

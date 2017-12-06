@@ -7,9 +7,11 @@ import android.media.Image;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -71,6 +73,7 @@ public class Buy extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position ,long id)
             {
+                Log.i("dianji", "yes");
                 if(posts != null){
                     Intent i = new Intent(getActivity(), GiftDetailActivity.class);
                     i.putExtra("pos",  position);
@@ -87,6 +90,20 @@ public class Buy extends Fragment {
                 createListView();
 
                 swipeLayout.setRefreshing(false);
+            }
+        });
+
+        list.setOnScrollListener(new AbsListView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+            }
+
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+
+                int topRowVerticalPosition = (list == null || list.getChildCount() == 0) ? 0 : list.getChildAt(0).getTop();
+                swipeLayout.setEnabled(firstVisibleItem == 0 && topRowVerticalPosition >= 0);
+
             }
         });
     }
