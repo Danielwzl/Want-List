@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">prog4</string>
+    <string name="app_name">Wantlist</string>
 
     <!-- Strings related to login -->
     <item name="visible" type="id" />
