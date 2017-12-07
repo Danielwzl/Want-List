@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/buy_swiperefresh"
+
     tools:context="com.prog4.wangz_jamileh.wishlist.Buy">
 <LinearLayout
     android:orientation="vertical"
@@ -21,12 +22,13 @@
 
     <ListView
         android:layout_marginTop="10dp"
+        android:paddingBottom="-10dp"
         android:id="@+id/buy_list"
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scrollbars="vertical"
+        android:scrollbars="none"
         android:divider="@android:color/transparent"
         android:dividerHeight="10dp"/>
 </LinearLayout>

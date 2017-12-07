@@ -221,7 +221,7 @@ public class Post extends Fragment {
         if (requestCode == RESULT_LOAD_IMAGE && resultCode == getActivity().RESULT_OK && data != null) {
             Uri selectedImage = data.getData();
             ImageManager im = new ImageManager(getActivity());
-            compressedImage = im.compressImage(selectedImage, 640, 480, 90);
+            compressedImage = im.compressImage(selectedImage, 640, 480, 70);
             imageBut.setImageBitmap(compressedImage);
             remove.setVisibility(View.VISIBLE);
             image = im.Bitmap2InputStream(compressedImage);
