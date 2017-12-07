@@ -106,7 +106,6 @@ public class Explore extends Fragment {
         }
     }
 
-    @SuppressWarnings("unchecked")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -124,10 +123,11 @@ public class Explore extends Fragment {
         userImgView = (CircleImageView) exploreView.findViewById(R.id.exp_userImg);
         closeButton = (ImageButton) exploreView.findViewById(R.id.exp_resume);
         if (getArguments() != null && getArguments().containsKey("from") && getArguments().getString("from").equals("friend")) {
+            toggleRefresh(false);
+            search.setVisibility(View.GONE);
             hasFrom = true;
             tempPosts = new ArrayList<>(posts);
             view_id = getArguments().getString("user");
-            search.setVisibility(View.GONE);
             closeButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -270,10 +270,8 @@ public class Explore extends Fragment {
 
             @Override
             public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-
                 int topRowVerticalPosition = (list == null || list.getChildCount() == 0) ? 0 : list.getChildAt(0).getTop();
                 swipeLayout.setEnabled(firstVisibleItem == 0 && topRowVerticalPosition >= 0);
-
             }
         });
     }

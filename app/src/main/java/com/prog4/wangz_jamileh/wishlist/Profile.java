@@ -212,7 +212,7 @@ public class Profile extends Fragment {
             if (requestCode == RESULT_LOAD_IMAGE) {
                 boolean done = false;
                 Uri selectedImage = data.getData();
-                Bitmap compressedImg = im.compressImage(selectedImage);
+                Bitmap compressedImg = im.compressImage(selectedImage, 320, 320, 70);
                 InputStream image = im.Bitmap2InputStream(compressedImg);
                 if (image != null) {
                     done = uploadImage(image);
